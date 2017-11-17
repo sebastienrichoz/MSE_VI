@@ -18,33 +18,42 @@
   <body>
     <div id="map"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
-    <script src="loadgpx.js"></script>	
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&callback=initMap&sensor=false" async defer></script>
     <script>
-		function loadGPXFileIntoGoogleMap(map, filename) {
-                $.ajax({url: filename,
-                    dataType: "xml",
-                    success: function(data) {
-                      var parser = new GPXParser(data, map);
-                      parser.setTrackColour("#ff0000");    		// Set the track line colour
-                      parser.setTrackWidth(5);         			// Set the track line width
-                      parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
-                      parser.centerAndZoom(data);
-                      parser.addTrackpointsToMap();         // Add the trackpoints
-                      parser.addRoutepointsToMap();         // Add the routepoints
-                      parser.addWaypointsToMap();           // Add the waypoints
-                    }
-                });
-           }
-			var map;
-			function initMap() {
-				var map = new google.maps.Map(document.getElementById('map'), {
-				zoom: 8,
-				center: {lat: 63.333, lng: -150.5},  // Denali.
-				mapTypeId: 'terrain'
-				});
-				loadGPXFileIntoGoogleMap(map, "test.gpx");
-			}
+		  function initMap() {
+			var map = new google.maps.Map(document.getElementById("map"), {
+			  mapTypeId: google.maps.MapTypeId.TERRAIN
+			});
+			
+			$.ajax({
+			 url: "test.gpx",
+			 dataType: "xml",
+			 success: function(xml) {
+			   var points = [];
+			   var bounds = new google.maps.LatLngBounds ();
+			   $(xml).find("trkpt").each(function() {
+				 var lat = $(this).attr("lat");
+				 var lon = $(this).attr("lon");
+				 var p = new google.maps.LatLng(lat, lon);
+				 points.push(p);
+				 bounds.extend(p);
+			   });
+
+			   var poly = new google.maps.Polyline({
+				 // use your own style here
+				 path: points,
+				 strokeColor: "#FF00AA",
+				 strokeOpacity: .7,
+				 strokeWeight: 4
+			   });
+			   
+			   poly.setMap(map);
+			   
+			   // fit bounds to track
+			   map.fitBounds(bounds);
+			 }
+			});
+		  }
     </script>
   </body>
 </html>
