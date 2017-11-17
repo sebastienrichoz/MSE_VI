@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      #map {
+        height: 100%;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+    <script src="loadgpx.js"></script>	
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&callback=initMap&sensor=false" async defer></script>
+    <script>
+		function loadGPXFileIntoGoogleMap(map, filename) {
+                $.ajax({url: filename,
+                    dataType: "xml",
+                    success: function(data) {
+                      var parser = new GPXParser(data, map);
+                      parser.setTrackColour("#ff0000");    		// Set the track line colour
+                      parser.setTrackWidth(5);         			// Set the track line width
+                      parser.setMinTrackPointDelta(0.001);      // Set the minimum distance between track points
+                      parser.centerAndZoom(data);
+                      parser.addTrackpointsToMap();         // Add the trackpoints
+                      parser.addRoutepointsToMap();         // Add the routepoints
+                      parser.addWaypointsToMap();           // Add the waypoints
+                    }
+                });
+           }
+			var map;
+			function initMap() {
+				var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 8,
+				center: {lat: 63.333, lng: -150.5},  // Denali.
+				mapTypeId: 'terrain'
+				});
+				loadGPXFileIntoGoogleMap(map, "test.gpx");
+			}
+    </script>
+  </body>
+</html>
