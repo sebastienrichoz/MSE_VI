@@ -109,8 +109,6 @@ function initMap() {
                 google.maps.event.trigger(map, 'resize');
                 map.setCenter(marker.position);
 
-                $("#distance").text(track.distance_m + "m");
-
                 // Show trail
                 let trailDetailsMap = new google.maps.Map(
                     document.getElementById("trail-details"), {
@@ -131,6 +129,7 @@ function initMap() {
 
                 // Show data
                 $('#title').text(track.name);
+                $("#distance").text(round(track.distance_m / 1000, 1) + " km");
 
             }
         })(marker, i));
