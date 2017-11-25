@@ -77,11 +77,11 @@ function getTrack(fileUrl) {
             var name;
             var activityType;
             var points = [];
-            var distance_m = 0;
-            var elevations = [];
-            var elevationGain_m = 0;
-            var elevationLoss_m = 0;
-            var estimatedTime_s;
+            var distance_m = 0.0;
+            let elevations = [];
+            let elevationGain_m = 0.0;
+            let elevationLoss_m = 0.0;
+            var estimatedTime_s = 0.0;
             var times = [];
 
             // Get name
@@ -114,15 +114,26 @@ function getTrack(fileUrl) {
                     });
             });
 
-            // Compute distance, elevation gain and elevation loss
+            // Compute distance
             var delta;
             for(var j = 0; j < points.length - 1; j++){
                 // distance
                 distance_m += GCDistance(points[j].lat, points[j].lng,
                     points[j+1].lat, points[j+1].lng);
+            }
 
+            // We can't compute elevation at each point because it becomes
+            // irrelevant (usually to high) as the GPS hasn't a trustable
+            // precision.
+            // So we decided to take elevation at every 60 points which
+            // represent one minute
+            var len = elevations.length;
+            var jump = 60;
+            for(var j = 0; j < elevations.length - 1; j+=jump){
                 // elevations
-                delta = elevations[j+1] - elevations[j];
+                if (j+jump > len)
+                    break;
+                delta = elevations[j+jump] - elevations[j];
                 if (delta > 0)
                     elevationGain_m += delta;
                 else
