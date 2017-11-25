@@ -1,360 +1,139 @@
 function initMap() {
-    var customStyled =
-    [
-        {
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#ebe3cd"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#523735"
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#f5f1e6"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#c9b2a6"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.land_parcel",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#dcd2be"
-                }
-            ]
-        },
-        {
-            "featureType": "administrative.land_parcel",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#ae9e90"
-                }
-            ]
-        },
-        {
-            "featureType": "landscape.natural",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dfd2ae"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dfd2ae"
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#93817c"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.business",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.government",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#a5b076"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#447530"
-                }
-            ]
-        },
-        {
-            "featureType": "poi.school",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f5f1e6"
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#fdfcf8"
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "elementType": "labels",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f8c967"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#e9bc62"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "labels",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway.controlled_access",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#e98d58"
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway.controlled_access",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#db8555"
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#806b63"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.line",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dfd2ae"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.line",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#8f7d77"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.line",
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "color": "#ebe3cd"
-                }
-            ]
-        },
-        {
-            "featureType": "transit.station",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dfd2ae"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#b9d3c2"
-                }
-            ]
-        },
-        {
-            "featureType": "water",
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "color": "#92998d"
-                }
-            ]
-        }
-    ]
+    var customStyled = customStyleForMap;
+
     var myLatLng = {lat: -25.363, lng: 131.044};
     var bounds = new google.maps.LatLngBounds();
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: 3,
         center: myLatLng,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
-        streetViewControl: false,
+        streetViewControl: false
     });
     map.set('styles',customStyled);
 
-
-
-
-    var files = ['VTT_2017-05-25_10-00-01.gpx',
+    var files = ['Morning_Hike.gpx',
+    'VTT_2017-05-25_10-00-01.gpx',
     'VTT_2017-09-10_17-12-49.gpx',
     'VTT_2017-09-13_16-22-44.gpx',
     'VTT_2017-09-15_10-17-33.gpx',
     'VTT_2017-09-22_09-11-32.gpx'];
-    var gpxs = [];
-    for(var i = 0; i < files.length; i++){
-        $.ajax({
-            url: "gpx/" + files[i],
-            dataType: "xml",
-            async: false,
-            success: function(xml) {
-                var points = [];
-                $(xml).find("trkpt").each(function() {
-                    var lat = $(this).attr("lat");
-                    var lon = $(this).attr("lon");
-                    points.push({lat: parseFloat(lat), lng: parseFloat(lon)});
-                });
-                gpxs.push(points);
-                var marker = new google.maps.Marker({
-                    position: computeCentroid(points),
-                    map: map,
-                    title: files[i]
-                });
-                bounds.extend(marker.position);
 
-                google.maps.event.addListener(marker, 'click', (function(marker, i) {
-                    return function() {
-                        $("#map").width("50%");
-                        $("#data").show();
-                        $("#trail-details").show();
-                        console.log(marker);
-                        google.maps.event.trigger(map, 'resize');
-                        map.setCenter(marker.position);
+    var tracks = getTracks(files);
 
-                        var totalDistance = 0;
-                        for(var j = 0; j < points.length - 1; j++){
-                            totalDistance += GCDistance(points[j].lat, points[j].lng, points[j+1].lat, points[j+1].lng);
-                        }
-                        $("#distance").text(Math.floor(totalDistance) + "m");
+    for (var i in tracks) {
+        let track = tracks[i];
 
-
-                        // Show trail
-                        var trailDetails = new google.maps.Map(document.getElementById("trail-details"), {
-                            mapTypeId: google.maps.MapTypeId.TERRAIN,
-                            streetViewControl: false,
-                        });
-                        trailDetails.set('styles',customStyled);
-                        console.log(files[i]);
-
-
-                        var p = [];
-                        var bounds = new google.maps.LatLngBounds ();
-                        for(var j in gpxs[i]){
-                            p.push(gpxs[i][j]);
-                            bounds.extend(gpxs[i][j]);
-                        }
-                        var poly = new google.maps.Polyline({
-                            // use your own style here
-                            path: p,
-                            strokeColor: "#FF00AA",
-                            strokeOpacity: .7,
-                            strokeWeight: 4
-                        });
-
-                        poly.setMap(trailDetails);
-
-                        // fit bounds to track
-                        trailDetails.fitBounds(bounds);
-
-                        // Show data
-                        $('#title').text(files[i]);
-
-                    }
-                })(marker, i));
-            }
+        let image = {
+            url: ActivityType.properties[track.activityType].marker_url,
+            // This marker is 20 pixels wide by 32 pixels high.
+            scaledSize: new google.maps.Size(70, 70),
+        };
+        let marker = new google.maps.Marker({
+            position: computeCentroid(track.points),
+            map: map,
+            icon: image
         });
+
+        bounds.extend(marker.position);
+
+        // Box displayed when marker is hovered
+        let contentString =
+            '<div id="content">'+
+            '<table>'+
+            '<tbody>'+
+                '<tr>'+
+                    '<td style="width:40px;"><img width="35px" src="' + ActivityType.properties[track.activityType].icon_url + '"/></td>'+
+                    '<td colspan="3"><b>' + track.name + '</b></td>'+
+                '</tr>'+
+            '<tr>'+
+            '<td style="width:40px"><img width="30px" style="margin-top:2px" src="img/distance_icon.png"/></td>'+
+            '<td style="width:90px">' + round(track.distance_m / 1000, 1) + ' km</td>'+
+            '<td style="width:40px"><img width="20px" style="margin-top:8px" src="img/time_icon.png"/></td>'+
+            '<td style="width:90px">' + track.estimatedTime_s.toString().toHHhMM() + '</td>'+
+            '</tr>'+
+            '<tr>'+
+            '<td style="width:40px"><img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/></td>'+
+            '<td style="width:90px">' + round(track.elevationGain_m,0) + ' m</td>'+
+            '<td style="width:40px"><img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/></td>'+
+            '<td style="width:90px">' + round(track.elevationLoss_m,0) + ' m</td>'+
+            '</tr>'+
+            '</tbody>'+
+            '</table>';
+        let infoTrack = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        // Build track as a polyline
+        let poly = new google.maps.Polyline({
+            // use your own style here
+            path: track.points,
+            strokeColor: "#FF00AA",
+            strokeOpacity: .7,
+            strokeWeight: 4
+        });
+
+        /**
+         * On marker hover, display global track's data
+         */
+        marker.addListener('mouseover', function() {
+            infoTrack.open(map, marker);
+            poly.setMap(map);
+        });
+
+        /**
+         * On marker mouseout, hide global track's data
+         */
+        marker.addListener('mouseout', function() {
+            infoTrack.close(map, marker);
+            poly.setMap(null);
+        });
+
+        /**
+         * On marker click, display detailed track's data
+         */
+        google.maps.event.addListener(marker, 'click', (function() {
+            return function() {
+
+                let polyCpy = new google.maps.Polyline({
+                    // use your own style here
+                    path: track.points,
+                    strokeColor: "#FF00AA",
+                    strokeOpacity: .7,
+                    strokeWeight: 4
+                });
+
+                console.log(event);
+                $("#map").width("50%");
+                $("#data").show();
+                $("#trail-details").show();
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(marker.position);
+
+                $("#distance").text(track.distance_m + "m");
+
+                // Show trail
+                let trailDetailsMap = new google.maps.Map(
+                    document.getElementById("trail-details"), {
+                    mapTypeId: google.maps.MapTypeId.TERRAIN,
+                    streetViewControl: false,
+                });
+                trailDetailsMap.set('styles',customStyled);
+
+                var boundsDetail = new google.maps.LatLngBounds ();
+                for(var j in track.points) {
+                    boundsDetail.extend(track.points[j]);
+                }
+
+                polyCpy.setMap(trailDetailsMap);
+
+                // fit bounds to track
+                trailDetailsMap.fitBounds(boundsDetail);
+
+                // Show data
+                $('#title').text(track.name);
+
+            }
+        })(marker, i));
     }
     map.fitBounds(bounds);
 }

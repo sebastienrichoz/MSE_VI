@@ -1,4 +1,6 @@
 
+
+
 // Return the centroid of gps points in a keyvalue store containing lat and lng
 function computeCentroid(points) {
     var latitude = 0;
@@ -21,5 +23,128 @@ function GCDistance(lat1, lon1, lat2, lon2) {
     lat2 *= DE2RA;
     lon2 *= DE2RA;
     var d = Math.sin(lat1) * Math.sin(lat2) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2);
+    if (d >= 1)
+        return 0;
     return (radius * Math.acos(d));
 };
+
+// https://stackoverflow.com/questions/7342957/how-do-you-round-to-1-decimal-place-in-javascript
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+
+String.prototype.toHHhMM = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    return hours+'h'+minutes;
+}
+
+// Return the estimated time in seconds for a specifix activity,
+// distance, and elevations parameters.
+// source: http://www.gr5.fr/temps_marche/index.html
+function timeEstimation_s(activityType, distance_m,
+    elevationGain_m, elevationLoss_m) {
+
+    var A = (distance_m / 1000.0) / ActivityType.properties[activityType].flatSpeed_km_h;
+    var B = (elevationGain_m / ActivityType.properties[activityType].climbSpeed_m_h) +
+            (elevationLoss_m / ActivityType.properties[activityType].descentSpeed_m_h);
+
+    var tmp = (A + B) / 2;
+
+    // Convert result to time in seconds
+    var h = Math.floor(tmp);
+    tmp = (tmp - h) * 60;
+    var m = Math.floor(tmp);
+    var s = Math.round((tmp - m) * 60);
+
+    return h*3600 + m*60 + s;
+}
+
+// Read gpx fileUrl and return a track
+function getTrack(fileUrl) {
+    var track;
+    $.ajax({
+        url: "gpx/" + fileUrl,
+        dataType: "xml",
+        async: false,
+        success: function(xml) {
+
+            var name;
+            var activityType;
+            var points = [];
+            var distance_m = 0;
+            var elevations = [];
+            var elevationGain_m = 0;
+            var elevationLoss_m = 0;
+            var estimatedTime_s;
+            var times = [];
+
+            // Get name
+            $(xml).find("name").each(function(){
+                name = $(this).text();
+            });
+
+            // Get activity type
+            $(xml).find("type").each(function(){
+                var code = $(this).text();
+
+                for (var i in ActivityType) {
+                    if (code == ActivityType.properties[ActivityType[i]].code) {
+                        activityType = ActivityType[i];
+                        break;
+                    }
+                }
+            });
+
+            // Get points, elevations and times
+            $(xml).find("trkpt").each(function() {
+                var lat = $(this).attr("lat");
+                var lon = $(this).attr("lon");
+                points.push({lat: parseFloat(lat), lng: parseFloat(lon)});
+                $(this).find("ele").each(function(){
+                        elevations.push(parseFloat($(this).text()));
+                    });
+                $(this).find("time").each(function(){
+                        times.push(Date.parse($(this).text()));
+                    });
+            });
+
+            // Compute distance, elevation gain and elevation loss
+            var delta;
+            for(var j = 0; j < points.length - 1; j++){
+                // distance
+                distance_m += GCDistance(points[j].lat, points[j].lng,
+                    points[j+1].lat, points[j+1].lng);
+
+                // elevations
+                delta = elevations[j+1] - elevations[j];
+                if (delta > 0)
+                    elevationGain_m += delta;
+                else
+                    elevationLoss_m -= delta;
+            }
+
+            // Compute time estimation
+            estimatedTime_s = timeEstimation_s(activityType, distance_m,
+                elevationGain_m, elevationLoss_m);
+
+            track = new Track(name, activityType, points, distance_m, elevations,
+                elevationGain_m, elevationLoss_m, estimatedTime_s, times);
+        }
+    });
+    return track;
+}
+
+// Read GPX files and return an array of tracks
+function getTracks(filesUrl) {
+    var tracks = [];
+    for(var i = 0; i < filesUrl.length; i++) {
+        tracks.push(getTrack(filesUrl[i]));
+    }
+    return tracks;
+}

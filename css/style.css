@@ -28,3 +28,24 @@ body {
 }
 h2 { display: inline }
 p { display: inline }
+
+.window-infotrack-title img {
+    float: left;
+    width: 40px;
+    margin-right: 10px;
+}
+
+.window-infotrack-content {
+    float: left;
+    width:100%;
+    vertical-align: middle;
+}
+.window-infotrack-content img {
+    float: left;
+    margin-right: 10px;
+}
+
+.window-infotrack-content p {
+    margin-right: 40px;
+    float: left;
+}
