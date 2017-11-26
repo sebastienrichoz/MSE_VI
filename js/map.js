@@ -19,6 +19,9 @@ function initMap() {
     'VTT_2017-09-22_09-11-32.gpx'];
 
     var tracks = getTracks(files);
+	
+	var selectedMarker = null;
+	var selectedInfoWindow = null;
 
     for (var i in tracks) {
         let track = tracks[i];
@@ -76,17 +79,44 @@ function initMap() {
          * On marker hover, display global track's data
          */
         marker.addListener('mouseover', function() {
-            infoTrack.open(map, marker);
-            poly.setMap(map);
+			if(selectedMarker != marker){
+				infoTrack.open(map, marker);
+				poly.setMap(map);
+			}
         });
 
         /**
          * On marker mouseout, hide global track's data
          */
         marker.addListener('mouseout', function() {
-            infoTrack.close(map, marker);
-            poly.setMap(null);
+			if(selectedMarker != marker){
+				infoTrack.close(map, marker);
+				poly.setMap(null);	
+			}
         });
+		
+		/**
+         * On marker mouseclick
+         */
+        marker.addListener('click', function() {
+			if(selectedMarker != marker){
+				console.log("a");
+				if(selectedMarker != null && selectedInfoTrack){
+					console.log("b");
+					selectedInfoTrack.close(map, selectedMarker);
+					poly.setMap(null);
+				}
+				selectedMarker = marker;
+				selectedInfoTrack = infoTrack;
+				infoTrack.open(map, marker);
+				poly.setMap(map);
+			} else{
+				infoTrack.close(map, marker);
+				poly.setMap(map);
+				selectedMarker = null;
+			}
+        });
+
 
         /**
          * On marker click, display detailed track's data
