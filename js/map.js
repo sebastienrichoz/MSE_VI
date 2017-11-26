@@ -22,6 +22,7 @@ function initMap() {
 	
 	var selectedMarker = null;
 	var selectedInfoWindow = null;
+	var selectedPoly = null;
 
     for (var i in tracks) {
         let track = tracks[i];
@@ -101,13 +102,14 @@ function initMap() {
         marker.addListener('click', function() {
 			if(selectedMarker != marker){
 				console.log("a");
-				if(selectedMarker != null && selectedInfoTrack){
+				if(selectedMarker != null && selectedInfoTrack != null && selectedPoly != null){
 					console.log("b");
 					selectedInfoTrack.close(map, selectedMarker);
-					poly.setMap(null);
+					selectedPoly.setMap(null);
 				}
 				selectedMarker = marker;
 				selectedInfoTrack = infoTrack;
+				selectedPoly = poly;
 				infoTrack.open(map, marker);
 				poly.setMap(map);
 			} else{
