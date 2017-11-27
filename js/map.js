@@ -183,6 +183,30 @@ function initMap() {
                 }
 
                 polyCpy.setMap(trailDetailsMap);
+				
+				// Show start and end marker
+				if(track.points.length > 0){
+					let imageStart = {
+						url: 'img/start_marker.png',
+						// This marker is 20 pixels wide by 32 pixels high.
+						scaledSize: new google.maps.Size(70, 70),
+					};
+					let markerStart = new google.maps.Marker({
+						position: track.points[0],
+						map: trailDetailsMap,
+						icon: imageStart
+					});
+					let imageEnd = {
+						url: 'img/end_marker.png',
+						// This marker is 20 pixels wide by 32 pixels high.
+						scaledSize: new google.maps.Size(70, 70),
+					};
+					let markerEnd = new google.maps.Marker({
+						position: track.points[track.points.length - 1],
+						map: trailDetailsMap,
+						icon: imageEnd
+					});
+				}
 
                 // fit bounds to track
                 trailDetailsMap.fitBounds(boundsDetail);
