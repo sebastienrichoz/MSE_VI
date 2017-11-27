@@ -30,8 +30,8 @@ var ActivityType = {
         descentSpeed_m_h: 1600.0},
     4: {
         name: "Autre",
-        marker_url: "TODO",
-        icon_url: "TODO",
+        marker_url: "img/other_marker.png",
+        icon_url: "img/other_icon.png",
         code: "other",
         flatSpeed_km_h: 4.0,
         climbSpeed_m_h: 200.0,

@@ -4,6 +4,10 @@
     position: absolute;
     left: 0;
 }
+#google-map {
+    height: 100%;
+    width: 100%;
+}
 #track {
     display: none;
     height: 50%;
@@ -51,4 +55,32 @@ body {
 .window-infotrack-content p {
     margin-right: 40px;
     float: left;
+}
+
+/* Filters */
+#filters{
+	position: absolute;
+    top: 10px;
+    left: 45%; 
+}
+.img-check{
+    opacity: 0.5;
+	direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 8px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; -webkit-background-clip: padding-box; background-clip: padding-box; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; min-width: 39px; border-left: 0px;
+}
+.img-check:hover{
+    background-color: rgb(235,235,235);
+}
+.check
+{
+    opacity: 1;
+	color: blue;
+}
+.label_checkbox {
+	display: none;
+}
+.filter {
+	display: inline-block;
+	cursor: pointer;
+	width: 70px;
+	height: 70px;
 }

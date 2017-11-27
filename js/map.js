@@ -1,11 +1,34 @@
+var tracks = [];
+var map;
+
+/** Handle the filter buttons **/
+$(document).ready(function(e){
+	$(".img-check").click(function(){
+		$(this).toggleClass("check");
+		if($(this).hasClass("check")){
+			for(i in tracks){
+				if(tracks[i].activityType == parseInt($(this).attr("value"))){
+					tracks[i].marker.setMap(map);
+					tracks[i].infoTrack.close(map, tracks[i].marker);
+				}
+			}
+		} else{
+			for(i in tracks){
+				if(tracks[i].activityType == parseInt($(this).attr("value"))){
+					tracks[i].marker.setMap(null);
+					tracks[i].poly.setMap(null);
+				}
+			}
+		}
+	});
+});
+
+/** Initialize the map and the markers **/
 function initMap() {
     var customStyled = customStyleForMap;
 
-    var myLatLng = {lat: -25.363, lng: 131.044};
     var bounds = new google.maps.LatLngBounds();
-    var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 3,
-        center: myLatLng,
+    map = new google.maps.Map(document.getElementById("google-map"), {
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         streetViewControl: false
     });
@@ -18,7 +41,7 @@ function initMap() {
     'VTT_2017-09-15_10-17-33.gpx',
     'VTT_2017-09-22_09-11-32.gpx'];
 
-    var tracks = getTracks(files);
+    tracks = getTracks(files);
 	
 	var selectedMarker = null;
 	var selectedInfoWindow = null;
@@ -37,6 +60,8 @@ function initMap() {
             map: map,
             icon: image
         });
+		
+		track.marker = marker;
 
         bounds.extend(marker.position);
 
@@ -66,6 +91,7 @@ function initMap() {
         let infoTrack = new google.maps.InfoWindow({
           content: contentString
         });
+		track.infoTrack = infoTrack;
 
         // Build track as a polyline
         let poly = new google.maps.Polyline({
@@ -75,6 +101,7 @@ function initMap() {
             strokeOpacity: .7,
             strokeWeight: 4
         });
+		track.poly = poly;
 
         /**
          * On marker hover, display global track's data
