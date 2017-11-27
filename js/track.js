@@ -53,9 +53,10 @@ class Track {
      * elevation_loss: Total of negative elevation of the track
      * estimatedTime_s: total estimated time of the track in seconds
      * times: Array of Date
+	 * distances: The distances between each points
      */
     constructor(name, activityType, points, distance_m, elevations,
-                elevationGain_m, elevationLoss_m, estimatedTime_s, times) {
+                elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances, speeds) {
         this.name = name;
         this.activityType = activityType;
         this.points = points;
@@ -65,6 +66,8 @@ class Track {
         this.elevationLoss_m = elevationLoss_m;
         this.estimatedTime_s = estimatedTime_s;
         this.times = times;
+		this.distances = distances;
+		this.speeds = speeds;
     }
 
 

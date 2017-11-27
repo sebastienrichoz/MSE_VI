@@ -61,7 +61,7 @@ body {
 #filters{
 	position: absolute;
     top: 10px;
-    left: 45%; 
+    left: 37%; 
 }
 .img-check{
     opacity: 0.5;
@@ -84,3 +84,19 @@ body {
 	width: 70px;
 	height: 70px;
 }
+.axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    
+    .x.axis path {
+      display: none;
+    }
+    
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }

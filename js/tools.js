@@ -83,6 +83,7 @@ function getTrack(fileUrl) {
             let elevationLoss_m = 0.0;
             var estimatedTime_s = 0.0;
             var times = [];
+			var distances = [];
 
             // Get name
             $(xml).find("name").each(function(){
@@ -111,16 +112,26 @@ function getTrack(fileUrl) {
                     });
                 $(this).find("time").each(function(){
                         times.push(Date.parse($(this).text()));
-                    });
+                 });
             });
 
-            // Compute distance
+            // Compute distance average and distances between each points
             var delta;
             for(var j = 0; j < points.length - 1; j++){
                 // distance
-                distance_m += GCDistance(points[j].lat, points[j].lng,
-                    points[j+1].lat, points[j+1].lng);
+				var d = GCDistance(points[j].lat, points[j].lng, points[j+1].lat, points[j+1].lng);
+                distance_m += d;
+				distances.push(distance_m);
             }
+						
+			// Compute speeds between each points
+			var speeds = [];
+            var jump = 60;
+            for(var j = 0; j < distances.length; j++){
+				var d = j > 0 ? distances[j] - distances[j-1] : distances[j];
+                speeds.push((d/1000)/((times[j+1]-times[j]) / 1000 / 3600));
+            }
+			
 
             // We can't compute elevation at each point because it becomes
             // irrelevant (usually to high) as the GPS hasn't a trustable
@@ -145,7 +156,7 @@ function getTrack(fileUrl) {
                 elevationGain_m, elevationLoss_m);
 
             track = new Track(name, activityType, points, distance_m, elevations,
-                elevationGain_m, elevationLoss_m, estimatedTime_s, times);
+                elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances, speeds);
         }
     });
     return track;
