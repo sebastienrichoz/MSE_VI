@@ -13,6 +13,7 @@ function initMap() {
     map.set('styles',customStyled);
 
     var files = ['Morning_Hike.gpx',
+    'skitour_2017-11-26.gpx',
     'VTT_2017-05-25_10-00-01.gpx',
     'VTT_2017-09-10_17-12-49.gpx',
     'VTT_2017-09-13_16-22-44.gpx',
@@ -20,7 +21,7 @@ function initMap() {
     'VTT_2017-09-22_09-11-32.gpx'];
 
     tracks = getTracks(files);
-	
+
 	var selectedMarker = null;
 	var selectedInfoWindow = null;
 	var selectedPoly = null;
@@ -38,7 +39,7 @@ function initMap() {
             map: map,
             icon: image
         });
-		
+
 		track.marker = marker;
 
         bounds.extend(marker.position);
@@ -97,10 +98,10 @@ function initMap() {
         marker.addListener('mouseout', function() {
 			if(selectedMarker != marker){
 				infoTrack.close(map, marker);
-				poly.setMap(null);	
+				poly.setMap(null);
 			}
         });
-		
+
 		/**
          * On marker mouseclick
          */
@@ -161,7 +162,7 @@ function initMap() {
                 }
 
                 polyCpy.setMap(trailDetailsMap);
-				
+
 				// Show start and end marker
 				if(track.points.length > 0){
 					let imageStart = {
@@ -198,14 +199,14 @@ function initMap() {
 						'<img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
 						'<img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m' +
 					'</div>');
-					
-					
+
+
 				// Show D3 altitude - distance graph
 				var data = [];
 				for(var i = 0; i < track.elevations.length - 1; i++){
 					data.push({"elevation": Math.max(track.elevations[i], track.elevations[i+1]), "distance": track.distances[i]});
 				}
-				
+
 				var margin = {
 					top: 20,
 					right: 80,
@@ -353,7 +354,7 @@ function initMap() {
 				  .style("stroke", "black")
 				  .style("stroke-width", "1px")
 				  .style("opacity", "0");
-				  
+
 				var lines = document.getElementsByClassName('line');
 
 				var mousePerLine = mouseG.selectAll('.mouse-per-line')
@@ -410,7 +411,7 @@ function initMap() {
 						var xDate = x.invert(mouse[0]),
 							bisect = d3.bisector(function(d) { return d.distance; }).right;
 							idx = bisect(d.values, xDate);
-						
+
 						var beginning = 0,
 							end = lines[i].getTotalLength(),
 							target = null;
@@ -425,16 +426,16 @@ function initMap() {
 						  else if (pos.x < mouse[0]) beginning = target;
 						  else break; //position found
 						}
-						
+
 						d3.select(this).select('text')
 						  .text(y.invert(pos.y).toFixed(2));
-						  
+
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
-				  
-				  
-				  
+
+
+
 				  // Show D3 distance - speed graph
 				var data = [];
 				console.log(track.distances);
@@ -443,7 +444,7 @@ function initMap() {
 				for(var i = 0; i < track.speeds.length; i++){
 					data.push({"speed": track.speeds[i], "distance": track.distances[i]});
 				}
-				
+
 				var margin = {
 					top: 20,
 					right: 80,
@@ -591,7 +592,7 @@ function initMap() {
 				  .style("stroke", "black")
 				  .style("stroke-width", "1px")
 				  .style("opacity", "0");
-				  
+
 				var lines = document.getElementsByClassName('line');
 
 				var mousePerLine = mouseG.selectAll('.mouse-per-line')
@@ -648,7 +649,7 @@ function initMap() {
 						var xDate = x.invert(mouse[0]),
 							bisect = d3.bisector(function(d) { return d.distance; }).right;
 							idx = bisect(d.values, xDate);
-						
+
 						var beginning = 0,
 							end = lines[i].getTotalLength(),
 							target = null;
@@ -663,10 +664,10 @@ function initMap() {
 						  else if (pos.x < mouse[0]) beginning = target;
 						  else break; //position found
 						}
-						
+
 						d3.select(this).select('text')
 						  .text(y.invert(pos.y).toFixed(2));
-						  
+
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
