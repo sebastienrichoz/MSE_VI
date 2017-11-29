@@ -202,8 +202,8 @@ function initMap() {
 					
 				// Show D3 altitude - distance graph
 				var data = [];
-				for(var i = 0; i < track.elevations.length - 1; i++){
-					data.push({"elevation": Math.max(track.elevations[i], track.elevations[i+1]), "distance": track.distances[i]});
+				for(var i = 0; i < track.elevations_jump_60.length - 1; i++){
+					data.push({"elevation": Math.max(track.elevations_jump_60[i], track.elevations_jump_60[i+1]), "distance": track.distances[i*60]});
 				}
 				
 				var margin = {
@@ -437,11 +437,8 @@ function initMap() {
 				  
 				  // Show D3 distance - speed graph
 				var data = [];
-				console.log(track.distances);
-				console.log(track.times);
-				console.log(track.speeds);
-				for(var i = 0; i < track.speeds.length; i++){
-					data.push({"speed": track.speeds[i], "distance": track.distances[i]});
+				for(var i = 0; i < track.speeds_jump_60.length; i++){
+					data.push({"speed": track.speeds_jump_60[i], "distance": track.distances[i*60]});
 				}
 				
 				var margin = {
