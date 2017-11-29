@@ -1,5 +1,7 @@
 var tracks = [];
 var map;
+var trailDetailsMap;
+var circle;
 
 /** Initialize the map and the markers **/
 function initMap() {
@@ -106,9 +108,7 @@ function initMap() {
          */
         marker.addListener('click', function() {
 			if(selectedMarker != marker){
-				console.log("a");
 				if(selectedMarker != null && selectedInfoTrack != null && selectedPoly != null){
-					console.log("b");
 					selectedInfoTrack.close(map, selectedMarker);
 					selectedPoly.setMap(null);
 				}
@@ -138,8 +138,6 @@ function initMap() {
                     strokeOpacity: .7,
                     strokeWeight: 4
                 });
-
-                console.log(event);
                 $("#map").width("50%");
                 $("#map").height("50%");
                 $("#data").show();
@@ -148,7 +146,7 @@ function initMap() {
                 map.setCenter(marker.position);
 
                 // Show trail
-                let trailDetailsMap = new google.maps.Map(
+                trailDetailsMap = new google.maps.Map(
                     document.getElementById("track"), {
                     mapTypeId: google.maps.MapTypeId.TERRAIN,
                     streetViewControl: false,
@@ -406,7 +404,6 @@ function initMap() {
 
 					d3.selectAll(".mouse-per-line")
 					  .attr("transform", function(d, i) {
-						console.log(width/mouse[0])
 						var xDate = x.invert(mouse[0]),
 							bisect = d3.bisector(function(d) { return d.distance; }).right;
 							idx = bisect(d.values, xDate);
@@ -428,6 +425,31 @@ function initMap() {
 						
 						d3.select(this).select('text')
 						  .text(y.invert(pos.y).toFixed(2));
+						  
+						// Display the point on map
+						// Find the right distances
+						var distPos = 0;
+						for(distPos = 0; distPos < track.distances.length; distPos++){
+							if(x.invert(pos.x).toFixed(2) < track.distances[distPos]){
+								break;
+							}
+						}
+						var point = track.points[distPos];
+						if(circle != null){
+							circle.setMap(null);
+						}
+						circle = new google.maps.Circle({
+						  strokeColor: '#1f77b4',
+						  strokeOpacity: 0,
+						  strokeWeight: 0,
+						  fillColor: '#1f77b4',
+						  fillOpacity: 1,
+						  map: trailDetailsMap,
+						  center: point,
+						  radius: 60,
+						  zIndex: 1000
+						});
+						
 						  
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
