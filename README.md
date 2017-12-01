@@ -16,6 +16,12 @@ Libraries : d3js
 ## Requirements
 For running the app python 3 is needed.
 
+## Development
+- Enable local file access in your browser
+- Open index.html page
+
+TODO livereload python http server
+
 ## Run the app
 - Download this repo on your machine
 - cd `MSE_VI`
