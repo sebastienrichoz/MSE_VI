@@ -23,6 +23,6 @@ For running the app python 3 is needed.
 - Browse to `http://localhost:8000/`
 
 ## Authors
-Antoine Drabble <antoine.drabble@master.hes-so.ch>
-Faten Labidi <faten.labidi@master.hes-so.ch>
-Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
+- Antoine Drabble <antoine.drabble@master.hes-so.ch>
+- Faten Labidi <faten.labidi@master.hes-so.ch>
+- Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
