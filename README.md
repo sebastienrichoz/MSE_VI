@@ -7,14 +7,22 @@ TODO screenshot of app
 ## Technologies
 HTML5, CSS3, Javascript.
 
-Libraries : d3js
+Libraries/framework : [bootstrap](https://getbootstrap.com/), [d3js](https://d3js.org/)
 
 ## Data sources
 - For the tracks, we used the gpx files from our own activities.
 - The weather forecasts come from `https://www.prevision-meteo.ch/services`.
+  - limitation of latitude between 41.3 and 51.9 and longitude between -5.2 and 10.7
 
 ## Requirements
 For running the app python 3 is needed.
+
+## Development
+- Enable local file access in your browser
+  - chrome on mac `$ open /Applications/Google\ Chrome.app --args --allow-file-access-from-files`
+- Open index.html page
+
+TODO livereload python http server
 
 ## Run the app
 - Download this repo on your machine
