@@ -6,6 +6,10 @@ function addZero(i) {
     return i;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Return the centroid of gps points in a keyvalue store containing lat and lng
 function computeCentroid(points) {
     var latitude = 0;

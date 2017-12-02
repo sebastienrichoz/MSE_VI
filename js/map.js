@@ -2,6 +2,8 @@ var tracks = [];
 var map;
 var trailDetailsMap;
 var circle;
+var trackPoint; // google map Marker
+var trackerImage; // object using google map Size object
 
 /** Initialize the map and the markers **/
 function initMap() {
@@ -158,6 +160,17 @@ function initMap() {
                     streetViewControl: false,
                 });
                 trailDetailsMap.set('styles',customStyled);
+
+                // Init trackPoint
+                trackerImage ={
+                   url: "img/tracker_marker.png",
+                   scaledSize: new google.maps.Size(16, 16),
+                   anchor: new google.maps.Point(8,8)
+                };
+                trackPoint = new google.maps.Marker({
+                    map: trailDetailsMap,
+                    icon: trackerImage
+                });
 
                 var boundsDetail = new google.maps.LatLngBounds ();
                 for(var j in track.points) {
@@ -392,6 +405,8 @@ function initMap() {
 					  .style("opacity", "0");
 					d3.selectAll(".mouse-per-line text")
 					  .style("opacity", "0");
+
+                     trackPoint.setMap(null);
 				  })
 				  .on('mouseover', function() { // on mouse in show line, circles and text
 					d3.select(".mouse-line")
@@ -400,6 +415,9 @@ function initMap() {
 					  .style("opacity", "1");
 					d3.selectAll(".mouse-per-line text")
 					  .style("opacity", "1");
+
+                    trackPoint.setMap(trailDetailsMap);
+
 				  })
 				  .on('mousemove', function() { // mouse moving over canvas
 					var mouse = d3.mouse(this);
@@ -444,6 +462,11 @@ function initMap() {
 							}
 						}
 						var point = track.points[distPos];
+
+                        // To avoid resizing the circle, use a marker instead
+                        trackPoint.setPosition(point);
+
+                        /*
 						if(circle != null){
 							circle.setMap(null);
 						}
@@ -458,6 +481,7 @@ function initMap() {
 						  radius: 60,
 						  zIndex: 1000
 						});
+                        */
 
 
 						return "translate(" + mouse[0] + "," + pos.y +")";
