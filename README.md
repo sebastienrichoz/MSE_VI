@@ -18,6 +18,7 @@ For running the app python 3 is needed.
 
 ## Development
 - Enable local file access in your browser
+  - chrome on mac `$ open /Applications/Google\ Chrome.app --args --allow-file-access-from-files`
 - Open index.html page
 
 TODO livereload python http server
