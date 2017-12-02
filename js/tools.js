@@ -145,16 +145,17 @@ function getTrack(fileUrl) {
                 speeds_jump_60.push((d/1000)/((times[j]-times[j-jump]) / 1000 / 3600));
             }
 
-			// Compute elevations with jump 60
-			var elevations_jump_60 = [];
+			// Compute altitudes with jump 60
+			var altitudes_jump_60 = [];
             var jump = 60;
-            for(var j = jump; j < elevations.length; j+=jump){
-				elevations_jump_60.push(elevations[j] - elevations[j-jump]);
+            for(var j = 0; j < elevations.length; j+=jump){
+                // altitudes
+                altitudes_jump_60.push(elevations[j]);
+                if (j+jump > elevations.length){
+                    altitudes_jump_60.push(elevations[elevations.length - 1]);
+					break;
+				}
             }
-
-			//console.log(speeds_jump_60);
-			//console.log(elevations_jump_60);
-			//console.log(distances);
 
             // We can't compute elevation at each point because it becomes
             // irrelevant (usually to high) as the GPS hasn't a trustable
@@ -180,7 +181,7 @@ function getTrack(fileUrl) {
 
             track = new Track(name, activityType, points, distance_m, elevations,
                 centroid, elevationGain_m, elevationLoss_m, estimatedTime_s, times,
-                distances, speeds_jump_60, elevations_jump_60);
+                distances, speeds_jump_60, altitudes_jump_60);
         }
     });
     return track;

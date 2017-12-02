@@ -61,7 +61,7 @@ class Track {
      */
     constructor(name, activityType, points, distance_m, elevations, centroid,
                 elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances,
-                speeds_jump_60, elevations_jump_60) {
+                speeds_jump_60, altitudes_jump_60) {
         this.name = name;
         this.activityType = activityType;
         this.points = points;
@@ -74,7 +74,7 @@ class Track {
         this.times = times;
 		this.distances = distances;
 		this.speeds_jump_60 = speeds_jump_60;
-		this.elevations_jump_60 = elevations_jump_60;
+		this.altitudes_jump_60 = altitudes_jump_60;
     }
 
 

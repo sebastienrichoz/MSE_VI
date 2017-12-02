@@ -223,8 +223,13 @@ function initMap() {
 
 				// Show D3 altitude - distance graph
 				var data = [];
-				for(var i = 0; i < track.elevations_jump_60.length - 1; i++){
-					data.push({"elevation": Math.max(track.elevations_jump_60[i], track.elevations_jump_60[i+1]), "distance": track.distances[i*60]});
+				for(var i = 0; i < track.altitudes_jump_60.length; i++){
+					if(i*60 > track.distances.length){
+						console.log(track.distances[track.distances.length - 1]);
+						data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[track.distances.length - 1]});
+					} else{
+						data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[i*60]});
+					}
 				}
 
 				var margin = {
@@ -258,7 +263,7 @@ function initMap() {
 					return x(d.distance);
 				  })
 				  .y(function(d) {
-					return y(d.elevation);
+					return y(d.altitude);
 				  });
 
 				var svg = d3.select("#data").append("svg")
@@ -285,12 +290,12 @@ function initMap() {
 				y.domain([
 				  d3.min(cities, function(c) {
 					return d3.min(c.values, function(v) {
-					  return v.elevation;
+					  return v.altitude;
 					});
 				  }),
 				  d3.max(cities, function(c) {
 					return d3.max(c.values, function(v) {
-					  return v.elevation;
+					  return v.altitude;
 					});
 				  })
 				]);
@@ -334,7 +339,7 @@ function initMap() {
 				  .attr("y", 6)
 				  .attr("dy", ".71em")
 				  .style("text-anchor", "end")
-				  .text("Elevation (m)");
+				  .text("Altitude (m)");
 
 				var city = svg.selectAll(".city")
 				  .data(cities)
@@ -358,7 +363,7 @@ function initMap() {
 					};
 				  })
 				  .attr("transform", function(d) {
-					return "translate(" + x(d.value.distance) + "," + y(d.value.elevation) + ")";
+					return "translate(" + x(d.value.distance) + "," + y(d.value.altitude) + ")";
 				  })
 				  .attr("x", 3)
 				  .attr("dy", ".35em")
