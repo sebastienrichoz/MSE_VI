@@ -1,5 +1,10 @@
-
-
+// Add one zero before minute i if smaller than 10
+function addZero(i) {
+    if (i < 10) {
+        i = "0" + i;
+    }
+    return i;
+}
 
 // Return the centroid of gps points in a keyvalue store containing lat and lng
 function computeCentroid(points) {
@@ -77,6 +82,7 @@ function getTrack(fileUrl) {
             var name;
             var activityType;
             var points = [];
+            var centroid;
             var distance_m = 0.0;
             let elevations = [];
             let elevationGain_m = 0.0;
@@ -115,6 +121,9 @@ function getTrack(fileUrl) {
                  });
             });
 
+            // Compute compute Centroid
+            var centroid = computeCentroid(points);
+
             // Compute distance average and distances between each points
             var delta;
             for(var j = 0; j < points.length - 1; j++){
@@ -123,7 +132,7 @@ function getTrack(fileUrl) {
                 distance_m += d;
 				distances.push(distance_m);
             }
-						
+
 			// Compute speeds with jump 60
 			var speeds_jump_60 = [];
             var jump = 60;
@@ -131,17 +140,17 @@ function getTrack(fileUrl) {
 				var d = distances[j] - distances[j-jump];
                 speeds_jump_60.push((d/1000)/((times[j]-times[j-jump]) / 1000 / 3600));
             }
-			
+
 			// Compute elevations with jump 60
 			var elevations_jump_60 = [];
             var jump = 60;
             for(var j = jump; j < elevations.length; j+=jump){
 				elevations_jump_60.push(elevations[j] - elevations[j-jump]);
             }
-			
-			console.log(speeds_jump_60);
-			console.log(elevations_jump_60);
-			console.log(distances);
+
+			//console.log(speeds_jump_60);
+			//console.log(elevations_jump_60);
+			//console.log(distances);
 
             // We can't compute elevation at each point because it becomes
             // irrelevant (usually to high) as the GPS hasn't a trustable
@@ -166,7 +175,8 @@ function getTrack(fileUrl) {
                 elevationGain_m, elevationLoss_m);
 
             track = new Track(name, activityType, points, distance_m, elevations,
-                elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances, speeds_jump_60, elevations_jump_60);
+                centroid, elevationGain_m, elevationLoss_m, estimatedTime_s, times,
+                distances, speeds_jump_60, elevations_jump_60);
         }
     });
     return track;

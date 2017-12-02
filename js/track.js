@@ -40,6 +40,10 @@ var ActivityType = {
 };
 
 class Track {
+
+    // Other existing variables
+    // forecast (json object)
+
     /**
      * name: name of the track
      * type: ActivityType (MTB|HIKING|SKITOURING)
@@ -55,13 +59,15 @@ class Track {
      * times: Array of Date
 	 * distances: The distances between each points
      */
-    constructor(name, activityType, points, distance_m, elevations,
-                elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances, speeds_jump_60, elevations_jump_60) {
+    constructor(name, activityType, points, distance_m, elevations, centroid,
+                elevationGain_m, elevationLoss_m, estimatedTime_s, times, distances,
+                speeds_jump_60, elevations_jump_60) {
         this.name = name;
         this.activityType = activityType;
         this.points = points;
         this.distance_m = distance_m;
         this.elevations = elevations;
+        this.centroid = centroid;
         this.elevationGain_m = elevationGain_m;
         this.elevationLoss_m = elevationLoss_m;
         this.estimatedTime_s = estimatedTime_s;

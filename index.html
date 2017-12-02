@@ -6,8 +6,11 @@
 	<meta name="viewport" content="initial-scale=1.0">
 	<meta charset="utf-8">
 	<link rel="icon" href="logo.png">
-    <link rel="stylesheet" href="css/foundation.min.css">
    	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+	<script src="js/env.js"></script>
+	<!--<script src="js/charts2.0.js"></script>-->
 </head>
 
 <body>
@@ -23,18 +26,100 @@
 
 	<div id="track"></div>
 
-	<div id="data"></div>
+	<div id="details">
 
+		<div id="data"></div>
+
+
+		<h4>Prévisions météo</h4>
+		<div id="weather-failure"></div>
+
+		<div id="loading-weather">
+			<img src="img/weather_loading.gif" width="100px"/>
+		</div>
+
+		<div id="weather">
+
+			<!-- Nav tabs -->
+			  <ul class="nav nav-tabs nav-justified" role="tablist">
+			    <li id="forecast_0" role="presentation" class="active">
+					<a href="#forecast_0_detail" aria-controls="forecast_0_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_1" role="presentation">
+					<a href="#forecast_1_detail" aria-controls="forecast_1_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_2" role="presentation">
+					<a href="#forecast_2_detail" aria-controls="forecast_2_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_3" role="presentation">
+					<a href="#forecast_3_detail" aria-controls="forecast_3_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_4" role="presentation">
+					<a href="#forecast_4_detail" aria-controls="forecast_4_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			  </ul>
+
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="forecast_0_detail">
+					<div id="forecast_0_detail_icons"></div>
+					<canvas id="forecast_0_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_1_detail">
+					<div id="forecast_1_detail_icons"></div>
+					<canvas id="forecast_1_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_2_detail">
+					<div id="forecast_2_detail_icons"></div>
+					<canvas id="forecast_2_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_3_detail">
+					<div id="forecast_3_detail_icons"></div>
+					<canvas id="forecast_3_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_4_detail">
+					<div id="forecast_4_detail_icons"></div>
+					<canvas id="forecast_4_detail_canvas"></canvas>
+				</div>
+			  </div>
+		</div>
+
+	</div>
+
+	<!-- jquery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- d3js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+	<!-- google maps api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&callback=initMap&sensor=false" async defer></script>
 	<!-- Functions used for different operations -->
 	<script src="js/tools.js"></script>
 	<!-- Track class -->
 	<script src="js/track.js"></script>
 	<!-- custom style for google map -->
 	<script src="js/custom.js"></script>
+	<!-- wheather stuff -->
+	<script src="js/tmp-forecast.js"></script>
+	<script src="js/weather.js"></script>
 	<!-- Map showing all the tracks -->
 	<script src="js/map.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&callback=initMap&sensor=false" async defer></script>
 
 
 </body>

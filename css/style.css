@@ -16,7 +16,7 @@
     bottom: 0;
     left: 0;
 }
-#data{
+#details {
     display: none;
     height: 100%;
     width: 50%;
@@ -101,3 +101,49 @@ body {
       stroke: steelblue;
       stroke-width: 1.5px;
     }
+
+#weather > ul > li > a > img {
+    width: 46px;
+    margin: 0 5px 0 5px;
+}
+
+#weather div > div > canvas {
+    padding: 0 15px;
+}
+
+#weather div > div > div {
+    margin: 10px 30px 0 50px;
+}
+
+.weather-icons {
+    float: left;
+    width: 4%;
+    margin: 0 2.1%;
+}
+
+@media (min-width: 1250px) {
+    .nav-tabs.nav-justified > li > a {
+        height: 70px;
+    }
+}
+
+@media (max-width: 1450px) and (min-width: 768px) {
+    .nav-tabs.nav-justified > li > a {
+        height: 111px;
+    }
+
+    .nav-tabs.nav-justified > li {
+        height: 111px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .nav-tabs.nav-justified > li > a {
+        height: 70px;
+    }
+
+    .nav-tabs.nav-justified > li {
+        height: 70px;
+    }
+}
