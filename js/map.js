@@ -184,7 +184,8 @@ function initMap() {
 					let imageStart = {
 						url: 'img/start_marker.png',
 						// This marker is 20 pixels wide by 32 pixels high.
-						scaledSize: new google.maps.Size(70, 70),
+						scaledSize: new google.maps.Size(40, 40),
+                        anchor: new google.maps.Point(40, 40)
 					};
 					let markerStart = new google.maps.Marker({
 						position: track.points[0],
@@ -194,7 +195,8 @@ function initMap() {
 					let imageEnd = {
 						url: 'img/end_marker.png',
 						// This marker is 20 pixels wide by 32 pixels high.
-						scaledSize: new google.maps.Size(70, 70),
+						scaledSize: new google.maps.Size(30, 30),
+                        anchor: new google.maps.Point(0, 30)
 					};
 					let markerEnd = new google.maps.Marker({
 						position: track.points[track.points.length - 1],
