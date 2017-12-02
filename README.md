@@ -7,7 +7,7 @@ TODO screenshot of app
 ## Technologies
 HTML5, CSS3, Javascript.
 
-Libraries : d3js
+Libraries/framework : [bootstrap](https://getbootstrap.com/), [d3js](https://d3js.org/)
 
 ## Data sources
 - For the tracks, we used the gpx files from our own activities.
