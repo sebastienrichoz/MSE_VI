@@ -306,30 +306,16 @@ function initMap() {
 				  .append('g')
 				  .attr('class', 'legend');
 
-				legend.append('rect')
-				  .attr('x', width - 20)
-				  .attr('y', function(d, i) {
-					return i * 20;
-				  })
-				  .attr('width', 10)
-				  .attr('height', 10)
-				  .style('fill', function(d) {
-					return color(d.name);
-				  });
-
-				legend.append('text')
-				  .attr('x', width - 8)
-				  .attr('y', function(d, i) {
-					return (i * 20) + 9;
-				  })
-				  .text(function(d) {
-					return d.name;
-				  });
-
 				svg.append("g")
 				  .attr("class", "x axis")
 				  .attr("transform", "translate(0," + height + ")")
-				  .call(xAxis);
+				  .call(xAxis)
+				  .append("text")
+				  .attr("transform", "translate(" + width + ", 0)")
+				  .attr("y", -15)
+				  .attr("dy", ".71em")
+				  .style("text-anchor", "end")
+				  .text("Distance (m)");
 
 				svg.append("g")
 				  .attr("class", "y axis")
@@ -353,22 +339,6 @@ function initMap() {
 				  })
 				  .style("stroke", function(d) {
 					return color(d.name);
-				  });
-
-				city.append("text")
-				  .datum(function(d) {
-					return {
-					  name: d.name,
-					  value: d.values[d.values.length - 1]
-					};
-				  })
-				  .attr("transform", function(d) {
-					return "translate(" + x(d.value.distance) + "," + y(d.value.altitude) + ")";
-				  })
-				  .attr("x", 3)
-				  .attr("dy", ".35em")
-				  .text(function(d) {
-					return d.name;
 				  });
 
 				var mouseG = svg.append("g")
@@ -457,7 +427,7 @@ function initMap() {
 						}
 
 						d3.select(this).select('text')
-						  .text(y.invert(pos.y).toFixed(2));
+						  .text(y.invert(pos.y).toFixed(2) + 'm');
 
 
 						// Display the point on map
