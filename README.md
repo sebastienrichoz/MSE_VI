@@ -12,6 +12,7 @@ Libraries : d3js
 ## Data sources
 - For the tracks, we used the gpx files from our own activities.
 - The weather forecasts come from `https://www.prevision-meteo.ch/services`.
+  - limitation of latitude between 41.3 and 51.9 and longitude between -5.2 and 10.7
 
 ## Requirements
 For running the app python 3 is needed.
