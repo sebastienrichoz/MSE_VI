@@ -19,6 +19,19 @@ var maxElevationGain;
 var minElevationLoss;
 var maxElevationLoss;
 
+var distancePieChart;
+
+var distancePieChartData = {
+	datasets: [{
+		data: [0, 1],
+		backgroundColor: ["#FF4136", "#2ECC40"]
+	}],
+	labels: [
+		'Red',
+		'Green'
+	]
+};
+
 /** Initialize the map and the markers **/
 function initMap() {
     var customStyled = customStyleForMap;
@@ -571,27 +584,63 @@ function initMap() {
                         // To avoid resizing the circle, use a marker instead
                         trackPoint.setPosition(point);
 
-                        /*
-						if(circle != null){
-							circle.setMap(null);
-						}
-						circle = new google.maps.Circle({
-						  strokeColor: '#1f77b4',
-						  strokeOpacity: 0,
-						  strokeWeight: 0,
-						  fillColor: '#1f77b4',
-						  fillOpacity: 1,
-						  map: trailDetailsMap,
-						  center: point,
-						  radius: 60,
-						  zIndex: 1000
-						});
-                        */
-
+                        distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
+						distancePieChart.update();
 
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
+				  
+					// Doughnut charts based on the position on the chart
+					distance_data = {
+						datasets: [{
+							data: [Math.floor(track.distance_m) / 1000, 0],
+							backgroundColor: ["#FF4136", "#2ECC40"]
+						}],
+						labels: [
+							'Distance parcourue',
+							'Distance restante'
+						]
+					};
+						
+					// And for a doughnut chart
+					var ctx = document.getElementById("distance-pie-chart").getContext("2d");
+					distancePieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: distance_data,
+						options: {
+							responsive: true,
+						}
+					});	
+					
+					data = {
+						datasets: [{
+							data: [0, track.distance_m],
+							backgroundColor: ["#FF4136", "#2ECC40"]
+						}],
+						labels: [
+							'Green',
+							'Red',
+						]
+					};
+
+					var ctx = document.getElementById("duration-pie-chart").getContext("2d");
+					var myDoughnutChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: data,
+						options: {
+							responsive: true,
+						}
+					});	
+
+					var ctx = document.getElementById("elevation-pie-chart").getContext("2d");
+					var myDoughnutChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: data,
+						options: {
+							responsive: true,
+						}
+					});						
 
                   // Weather forecasts
                   loadWeatherForecasts(track.centroid['lat'], track.centroid['lng']);
