@@ -60,10 +60,14 @@ body {
 }
 
 /* Filters */
-#filters{
+.filter {
+	display: inline-block;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
 	position: absolute;
-    top: 10px;
-    left: 37%;
+    bottom: 10px;
+    left: 10px;
 }
 #sliders{
 	position: absolute;
@@ -93,12 +97,6 @@ body {
 }
 .label_checkbox {
 	display: none;
-}
-.filter {
-	display: inline-block;
-	cursor: pointer;
-	width: 70px;
-	height: 70px;
 }
 .axis path,
     .axis line {

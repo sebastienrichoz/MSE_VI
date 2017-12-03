@@ -575,6 +575,7 @@ function initMap() {
                         // To avoid resizing the circle, use a marker instead
                         trackPoint.setPosition(point);
 
+						// Update all the doughnut charts
                         distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
 						distancePieChart.update();
 						
