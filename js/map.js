@@ -1,9 +1,23 @@
-var tracks = [];
+var tracks = []; // The list of all the tracks
 var map;
 var trailDetailsMap;
-var circle;
+var circle; // Track position marker
 var trackPoint; // google map Marker
 var trackerImage; // object using google map Size object
+
+// Filters
+var filterMTB = false;
+var filterHiking = false;
+var filterSkitour = false;
+var filterOther = false;
+var minDistance;
+var maxDistance;
+var minDuration;
+var maxDuration;
+var minElevationGain;
+var maxElevationGain;
+var minElevationLoss;
+var maxElevationLoss;
 
 /** Initialize the map and the markers **/
 function initMap() {
@@ -127,6 +141,120 @@ function initMap() {
 				selectedMarker = null;
 			}
         });
+		
+		// Handle track type filter click
+		$(".img-check").click(function(){
+			$(this).toggleClass("check");
+			if(parseInt($(this).attr("value")) == ActivityType.MTB){
+				filterMTB = !$(this).hasClass("check");
+			} else if(parseInt($(this).attr("value")) == ActivityType.HIKING){
+				filterHiking = !$(this).hasClass("check");
+			} else if(parseInt($(this).attr("value")) == ActivityType.SKITOUR){
+				filterSkitour = !$(this).hasClass("check");
+			} else if(parseInt($(this).attr("value")) == ActivityType.OTHER){
+				filterOther = !$(this).hasClass("check");
+			}
+			updateMarkers();
+		});
+		
+		// Calculate minimum and maximum for the filter sliders
+		minDistance = tracks[0].distance_m;
+		maxDistance = tracks[0].distance_m;
+		minDuration = tracks[0].estimatedTime_s;
+		maxDuration = tracks[0].estimatedTime_s;
+		minElevationGain = tracks[0].elevationGain_m;
+		maxElevationGain = tracks[0].elevationGain_m;
+		minElevationLoss = tracks[0].elevationLoss_m;
+		maxElevationLoss = tracks[0].elevationLoss_m;
+		for (var j in tracks) {
+			if(tracks[j].distance_m < minDistance){
+				minDistance = tracks[j].distance_m;
+			} else if(tracks[j].distance_m > maxDistance){
+				maxDistance = tracks[j].distance_m;
+			}
+			
+			if(tracks[j].estimatedTime_s < minDuration){
+				minDuration = tracks[j].estimatedTime_s;
+			} else if(tracks[j].estimatedTime_s > maxDuration){
+				maxDuration = tracks[j].estimatedTime_s;
+			}
+			
+			if(tracks[j].elevationGain_m < minElevationGain){
+				minElevationGain = tracks[j].elevationGain_m;
+			} else if(tracks[j].elevationGain_m > maxElevationGain){
+				maxElevationGain = tracks[j].elevationGain_m;
+			}
+			
+			if(tracks[j].elevationLoss_m < minElevationLoss){
+				minElevationLoss = tracks[j].elevationLoss_m;
+			} else if(tracks[j].elevationLoss_m > maxElevationLoss){
+				maxElevationLoss = tracks[j].elevationLoss_m;
+			}
+		}
+		minDistance = Math.floor(minDistance);
+		maxDistance = Math.ceil(maxDistance);
+		
+		// Handle sliders filter
+		$( "#distance-slider" ).slider({
+		  range: true,
+		  min: minDistance,
+		  max: maxDistance,
+		  values: [ minDistance, maxDistance ],
+		  slide: function( event, ui ) {
+			  minDistance = ui.values[ 0 ];
+			  maxDistance = ui.values[ 1 ];
+			$( "#distance" ).text( ui.values[ 0 ] / 1000 + "km - " + ui.values[ 1 ]/1000 + "km" );
+			updateMarkers();
+		  }
+		});
+		$( "#duration-slider" ).slider({
+		  range: true,
+		  min: minDuration,
+		  max: maxDuration,
+		  values: [ minDuration, maxDuration ],
+		  slide: function( event, ui ) {
+			  minDuration = ui.values[ 0 ];
+			  maxDuration = ui.values[ 1 ];
+			$( "#duration" ).text( ui.values[0].toString().toHHhMM() + " - " + ui.values[1].toString().toHHhMM() + "" );
+			updateMarkers();
+		  }
+		});$( "#elevation-gain-slider" ).slider({
+		  range: true,
+		  min: minElevationGain,
+		  max: maxElevationGain,
+		  values: [ minElevationGain, maxElevationGain ],
+		  slide: function( event, ui ) {
+			  minElevationGain = ui.values[ 0 ];
+			  maxElevationGain = ui.values[ 1 ];
+			$( "#elevation-gain" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
+			updateMarkers();
+		  }
+		});$( "#elevation-loss-slider" ).slider({
+		  range: true,
+		  min: minElevationLoss,
+		  max: maxElevationLoss,
+		  values: [ minElevationLoss, maxElevationLoss ],
+		  slide: function( event, ui ) {
+			  minElevationLoss = ui.values[ 0 ];
+			  maxElevationLoss = ui.values[ 1 ];
+			$( "#elevation-loss" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
+			console.log(minElevationLoss + " " + maxElevationLoss);
+			updateMarkers();
+		  }
+		});
+		$( "#distance" ).text($( "#distance-slider" ).slider( "values", 0 ) / 1000 +
+		  "km - " + $( "#distance-slider" ).slider( "values", 1 ) / 1000 + "km" );
+		$( "#duration" ).text($( "#duration-slider" ).slider( "values", 0 ).toString().toHHhMM() +
+		  " - " + $( "#duration-slider" ).slider( "values", 1 ).toString().toHHhMM() + "" );
+		$( "#elevation-gain" ).text($( "#elevation-gain-slider" ).slider( "values", 0 ) +
+		  "m - " + $( "#elevation-gain-slider" ).slider( "values", 1 ) + "m" );
+		$( "#elevation-loss" ).text($( "#elevation-loss-slider" ).slider( "values", 0 ) +
+		  "m - " + $( "#elevation-loss-slider" ).slider( "values", 1 ) + "m" );
+		  
+		// Don't close the dropup menu when someone clicks inside it
+		$( ".dropdown-menu" ).on('click', function(event){
+			event.stopPropagation();
+		});
 
 
         /**
@@ -210,14 +338,14 @@ function initMap() {
 
                 // Show global data of track
                 $("#data").html(
-					//'<h2><img width="35px" src="' + ActivityType.properties[track.activityType].icon_url + '"/>' + track.name + '</h2>' +
+					'<h2><img width="35px" src="' + ActivityType.properties[track.activityType].icon_url + '"/>' + track.name + '</h2>' +
+					 '<div id="properties">' +
+					 	'<img width="30px" style="margin-top:2px" src="img/distance_icon.png"/>' + round(track.distance_m / 1000, 1) + ' km</td>' +
+					 	'<img width="20px" style="margin-top:8px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() +
+					 	'<img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
+					 	'<img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m' +
+					 '</div>' + 
                     '<h4>Profil du parcours</h4>'
-					// '<div id="properties">' +
-					// 	'<img width="30px" style="margin-top:2px" src="img/distance_icon.png"/>' + round(track.distance_m / 1000, 1) + ' km</td>' +
-					// 	'<img width="20px" style="margin-top:8px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() +
-					// 	'<img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
-					// 	'<img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m' +
-					// '</div>'
                 );
 
 
@@ -473,74 +601,25 @@ function initMap() {
     map.fitBounds(bounds);
 }
 
-/** Handle the filter buttons **/
-$(document).ready(function(e){
-	// Handle track type filter click
-	$(".img-check").click(function(){
-		$(this).toggleClass("check");
-		if($(this).hasClass("check")){
-			for(i in tracks){
-				if(tracks[i].activityType == parseInt($(this).attr("value"))){
-					tracks[i].marker.setMap(map);
-					tracks[i].infoTrack.close(map, tracks[i].marker);
-				}
-			}
+function updateMarkers(){
+	for(i in tracks){
+		if((tracks[i].activityType == ActivityType.MTB && filterMTB == true) ||
+		   (tracks[i].activityType == ActivityType.HIKING && filterHiking == true) ||
+		   (tracks[i].activityType == ActivityType.SKITOUR && filterSkitour == true) ||
+		   (tracks[i].activityType == ActivityType.OTHER && filterOther == true) ||
+			tracks[i].distance_m < minDistance || tracks[i].distance_m > maxDistance ||
+			tracks[i].estimatedTime_s < minDuration || tracks[i].estimatedTime_s > maxDuration ||
+			tracks[i].elevationGain_m < minElevationGain || tracks[i].elevationGain_m > maxElevationGain ||
+			tracks[i].elevationLoss_m < minElevationLoss || tracks[i].elevationLoss_m > maxElevationLoss){
+			if(tracks[i].marker.getMap() != null){
+				tracks[i].marker.setMap(null);
+				tracks[i].poly.setMap(null);
+		    }
 		} else{
-			for(i in tracks){
-				if(tracks[i].activityType == parseInt($(this).attr("value"))){
-					tracks[i].marker.setMap(null);
-					tracks[i].poly.setMap(null);
-				}
-			}
+		   if(tracks[i].marker.getMap() == null){
+			tracks[i].marker.setMap(map);
+			tracks[i].infoTrack.close(map, tracks[i].marker);
+		   }
 		}
-	});
-	
-	// Handle sliders filter
-	$( "#distance-slider" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#distance" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
-      }
-    });
-	$( "#duration-slider" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#duration" ).text( ui.values[ 0 ] + " - " + ui.values[ 1 ] + "" );
-      }
-    });$( "#elevation-gain-slider" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#elevation-gain" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
-      }
-    });$( "#elevation-loss-slider" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#elevation-loss" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
-      }
-    });
-    $( "#distance" ).text($( "#distance-slider" ).slider( "values", 0 ) +
-      "m - " + $( "#distance-slider" ).slider( "values", 1 ) + "m" );
-    $( "#duration" ).text($( "#duration-slider" ).slider( "values", 0 ) +
-      " - " + $( "#duration-slider" ).slider( "values", 1 ) + "" );
-    $( "#elevation-gain" ).text($( "#elevation-gain-slider" ).slider( "values", 0 ) +
-      "m - " + $( "#elevation-gain-slider" ).slider( "values", 1 ) + "m" );
-    $( "#elevation-loss" ).text($( "#elevation-loss-slider" ).slider( "values", 0 ) +
-      "m - " + $( "#elevation-loss-slider" ).slider( "values", 1 ) + "m" );
-	  
-	// Don't close the dropup menu when someone clicks inside it
-	$( ".dropdown-menu" ).on('click', function(event){
-		event.stopPropagation();
-	});
-});
+	}
+}
