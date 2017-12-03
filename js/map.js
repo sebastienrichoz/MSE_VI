@@ -20,17 +20,8 @@ var minElevationLoss;
 var maxElevationLoss;
 
 var distancePieChart;
-
-var distancePieChartData = {
-	datasets: [{
-		data: [0, 1],
-		backgroundColor: ["#FF4136", "#2ECC40"]
-	}],
-	labels: [
-		'Red',
-		'Green'
-	]
-};
+var durationPieChart;
+var elevationPieChart;
 
 /** Initialize the map and the markers **/
 function initMap() {
@@ -586,16 +577,22 @@ function initMap() {
 
                         distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
 						distancePieChart.update();
+						
+						durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
+						durationPieChart.update();
+						
+						elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos]];
+						elevationPieChart.update();
 
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
 				  
 					// Doughnut charts based on the position on the chart
-					distance_data = {
+					var distance_data = {
 						datasets: [{
 							data: [Math.floor(track.distance_m) / 1000, 0],
-							backgroundColor: ["#FF4136", "#2ECC40"]
+							backgroundColor: ["#FF473F", "#00E050"]
 						}],
 						labels: [
 							'Distance parcourue',
@@ -613,30 +610,41 @@ function initMap() {
 						}
 					});	
 					
-					data = {
+					var duration_data = {
 						datasets: [{
-							data: [0, track.distance_m],
-							backgroundColor: ["#FF4136", "#2ECC40"]
+							data: [Math.floor(track.estimatedTime_s) / 1000, 0],
+							backgroundColor: ["#FF473F", "#00E050"]
 						}],
 						labels: [
-							'Green',
-							'Red',
+							'Durée parcourue',
+							'Durée restante'
 						]
 					};
 
 					var ctx = document.getElementById("duration-pie-chart").getContext("2d");
-					var myDoughnutChart = new Chart(ctx, {
+					durationPieChart = new Chart(ctx, {
 						type: 'doughnut',
-						data: data,
+						data: duration_data,
 						options: {
 							responsive: true,
 						}
 					});	
+					
+					var elevation_data = {
+						datasets: [{
+							data: [Math.floor(track.elevationGain_m) / 1000, 0],
+							backgroundColor: ["#FF473F", "#00E050"]
+						}],
+						labels: [
+							'Distance parcourue',
+							'Distance restante'
+						]
+					};
 
 					var ctx = document.getElementById("elevation-pie-chart").getContext("2d");
-					var myDoughnutChart = new Chart(ctx, {
+					elevationPieChart = new Chart(ctx, {
 						type: 'doughnut',
-						data: data,
+						data: elevation_data,
 						options: {
 							responsive: true,
 						}
