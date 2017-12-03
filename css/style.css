@@ -65,6 +65,20 @@ body {
     top: 10px;
     left: 37%;
 }
+#sliders{
+	position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+.sliders-dropdown-toggle{
+	display: inline-block;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+}
+.slider{
+	margin-bottom: 5px;
+}
 .img-check{
     opacity: 0.5;
 	direction: ltr; overflow: hidden; text-align: center; position: relative; color: rgb(86, 86, 86); font-family: Roboto, Arial, sans-serif; user-select: none; font-size: 11px; background-color: rgb(255, 255, 255); padding: 8px; border-bottom-right-radius: 2px; border-top-right-radius: 2px; -webkit-background-clip: padding-box; background-clip: padding-box; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px; min-width: 39px; border-left: 0px;

@@ -475,6 +475,7 @@ function initMap() {
 
 /** Handle the filter buttons **/
 $(document).ready(function(e){
+	// Handle track type filter click
 	$(".img-check").click(function(){
 		$(this).toggleClass("check");
 		if($(this).hasClass("check")){
@@ -492,5 +493,54 @@ $(document).ready(function(e){
 				}
 			}
 		}
+	});
+	
+	// Handle sliders filter
+	$( "#distance-slider" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#distance" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
+      }
+    });
+	$( "#duration-slider" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#duration" ).text( ui.values[ 0 ] + " - " + ui.values[ 1 ] + "" );
+      }
+    });$( "#elevation-gain-slider" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#elevation-gain" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
+      }
+    });$( "#elevation-loss-slider" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#elevation-loss" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
+      }
+    });
+    $( "#distance" ).text($( "#distance-slider" ).slider( "values", 0 ) +
+      "m - " + $( "#distance-slider" ).slider( "values", 1 ) + "m" );
+    $( "#duration" ).text($( "#duration-slider" ).slider( "values", 0 ) +
+      " - " + $( "#duration-slider" ).slider( "values", 1 ) + "" );
+    $( "#elevation-gain" ).text($( "#elevation-gain-slider" ).slider( "values", 0 ) +
+      "m - " + $( "#elevation-gain-slider" ).slider( "values", 1 ) + "m" );
+    $( "#elevation-loss" ).text($( "#elevation-loss-slider" ).slider( "values", 0 ) +
+      "m - " + $( "#elevation-loss-slider" ).slider( "values", 1 ) + "m" );
+	  
+	// Don't close the dropup menu when someone clicks inside it
+	$( ".dropdown-menu" ).on('click', function(event){
+		event.stopPropagation();
 	});
 });
