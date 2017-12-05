@@ -1,3 +1,5 @@
+// This data is used when project is under development to avoid
+// making API calls to prevision-meteo.ch
 var json = {
     "city_info": {
         "name": "NA",
