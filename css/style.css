@@ -59,6 +59,10 @@ body {
     float: left;
 }
 
+.actual-weather > table > td {
+    padding: 2px 0;
+}
+
 .area {
     fill: rgba(176,196,222,0.5);
 }
