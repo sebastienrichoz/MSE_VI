@@ -364,11 +364,11 @@ function initMap() {
 					var distance_data = {
 						datasets: [{
 							data: [Math.floor(track.distance_m) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
+							backgroundColor: ["#FF473F", "#1f77b4"]
 						}],
 						labels: [
-							'Distance parcourue',
-							'Distance restante'
+							'Distance restante',
+							'Distance parcourue'
 						]
 					};
 						
@@ -385,11 +385,11 @@ function initMap() {
 					var duration_data = {
 						datasets: [{
 							data: [Math.floor(track.estimatedTime_s) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
+							backgroundColor: ["#FF473F", "#1f77b4"]
 						}],
 						labels: [
-							'Durée parcourue',
-							'Durée restante'
+							'Durée restante',
+							'Durée parcourue'
 						]
 					};
 
@@ -404,12 +404,17 @@ function initMap() {
 					
 					var elevation_data = {
 						datasets: [{
-							data: [Math.floor(track.elevationGain_m) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
+							data: [Math.floor(track.elevationGain_m) / 1000, 0, 0, 0],
+							backgroundColor: ["#FF473F", "#1f77b4", "#7F473F", "#7f77b4"]
+						}, {
+							data: [0,0,Math.floor(track.estimatedTime_s) / 1000, 11],
+							backgroundColor: ["#FF473F", "#1f77b4", "#7F473F", "#7f77b4"]
 						}],
 						labels: [
-							'Distance parcourue',
-							'Distance restante'
+							'Montée parcourue',
+							'Montée restante',
+							'Descente parcourue',
+							'Descente restante'
 						]
 					};
 
@@ -447,9 +452,9 @@ function drawSvg(track){
 
 				var margin = {
 					top: 20,
-					right: 10,
+					right: 20,
 					bottom: 30,
-					left: 10
+					left: 50
 				  },
 				  width = $('#data').width() - margin.left - margin.right,
 				  height = 300 - margin.top - margin.bottom;
@@ -675,7 +680,7 @@ function drawSvg(track){
 						durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
 						durationPieChart.update();
 
-						elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos]];
+						elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos], 0, 0];
 						elevationPieChart.update();
 
 						return "translate(" + mouse[0] + "," + pos.y +")";
