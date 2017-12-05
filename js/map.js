@@ -352,8 +352,88 @@ function initMap() {
                     '<h4>Profil du parcours</h4>'
                 );
 
+				drawSvg(track);
+				
+				 
+					function resize(){
+						drawSvg(track);
+					}
+					window.addEventListener("resize", resize);
+					
+					// Doughnut charts based on the position on the chart
+					var distance_data = {
+						datasets: [{
+							data: [Math.floor(track.distance_m) / 1000, 0],
+							backgroundColor: ["#FF473F", "#00E050"]
+						}],
+						labels: [
+							'Distance parcourue',
+							'Distance restante'
+						]
+					};
+						
+					// And for a doughnut chart
+					var ctx = document.getElementById("distance-pie-chart").getContext("2d");
+					distancePieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: distance_data,
+						options: {
+							responsive: true,
+						}
+					});	
+					
+					var duration_data = {
+						datasets: [{
+							data: [Math.floor(track.estimatedTime_s) / 1000, 0],
+							backgroundColor: ["#FF473F", "#00E050"]
+						}],
+						labels: [
+							'Durée parcourue',
+							'Durée restante'
+						]
+					};
 
-				// Show D3 altitude - distance graph
+					var ctx = document.getElementById("duration-pie-chart").getContext("2d");
+					durationPieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: duration_data,
+						options: {
+							responsive: true,
+						}
+					});	
+					
+					var elevation_data = {
+						datasets: [{
+							data: [Math.floor(track.elevationGain_m) / 1000, 0],
+							backgroundColor: ["#FF473F", "#00E050"]
+						}],
+						labels: [
+							'Distance parcourue',
+							'Distance restante'
+						]
+					};
+
+					var ctx = document.getElementById("elevation-pie-chart").getContext("2d");
+					elevationPieChart = new Chart(ctx, {
+						type: 'doughnut',
+						data: elevation_data,
+						options: {
+							responsive: true,
+						}
+					});	
+					  
+										
+
+                  // Weather forecasts
+                  loadWeatherForecasts(track.centroid['lat'], track.centroid['lng']);
+            }
+        })(marker, i));
+    }
+    map.fitBounds(bounds);
+}
+
+function drawSvg(track){
+	// Show D3 altitude - distance graph
 				var data = [];
 				for(var i = 0; i < track.altitudes_jump_60.length; i++){
 					if(i*60 > track.distances.length){
@@ -366,11 +446,11 @@ function initMap() {
 
 				var margin = {
 					top: 20,
-					right: 80,
+					right: 10,
 					bottom: 30,
-					left: 50
+					left: 10
 				  },
-				  width = 900 - margin.left - margin.right,
+				  width = $('#data').width() - margin.left - margin.right,
 				  height = 300 - margin.top - margin.bottom;
 
 				var x = d3.scale.linear()
@@ -397,7 +477,7 @@ function initMap() {
 				  .y(function(d) {
 					return y(d.altitude);
 				  });
-
+				d3.select("#data").select("svg").remove();
 				var svg = d3.select("#data").append("svg")
 				  .attr("width", width + margin.left + margin.right)
 				  .attr("height", height + margin.top + margin.bottom)
@@ -588,75 +668,6 @@ function initMap() {
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
-				  
-					// Doughnut charts based on the position on the chart
-					var distance_data = {
-						datasets: [{
-							data: [Math.floor(track.distance_m) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
-						}],
-						labels: [
-							'Distance parcourue',
-							'Distance restante'
-						]
-					};
-						
-					// And for a doughnut chart
-					var ctx = document.getElementById("distance-pie-chart").getContext("2d");
-					distancePieChart = new Chart(ctx, {
-						type: 'doughnut',
-						data: distance_data,
-						options: {
-							responsive: true,
-						}
-					});	
-					
-					var duration_data = {
-						datasets: [{
-							data: [Math.floor(track.estimatedTime_s) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
-						}],
-						labels: [
-							'Durée parcourue',
-							'Durée restante'
-						]
-					};
-
-					var ctx = document.getElementById("duration-pie-chart").getContext("2d");
-					durationPieChart = new Chart(ctx, {
-						type: 'doughnut',
-						data: duration_data,
-						options: {
-							responsive: true,
-						}
-					});	
-					
-					var elevation_data = {
-						datasets: [{
-							data: [Math.floor(track.elevationGain_m) / 1000, 0],
-							backgroundColor: ["#FF473F", "#00E050"]
-						}],
-						labels: [
-							'Distance parcourue',
-							'Distance restante'
-						]
-					};
-
-					var ctx = document.getElementById("elevation-pie-chart").getContext("2d");
-					elevationPieChart = new Chart(ctx, {
-						type: 'doughnut',
-						data: elevation_data,
-						options: {
-							responsive: true,
-						}
-					});						
-
-                  // Weather forecasts
-                  loadWeatherForecasts(track.centroid['lat'], track.centroid['lng']);
-            }
-        })(marker, i));
-    }
-    map.fitBounds(bounds);
 }
 
 function updateMarkers(){
