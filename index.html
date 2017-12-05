@@ -56,11 +56,27 @@
 	<div id="details">
 		<div id="data"></div>
 
-		<div class="row">
-			<div class="col-md-4"><h4 style="text-align: center;">Distance</h4><canvas id="distance-pie-chart"></canvas></div>
-			<div class="col-md-4"><h4 style="text-align: center;">Durée</h4><canvas id="duration-pie-chart"></canvas></div>
-			<div class="col-md-4"><h4 style="text-align: center;">Altitude</h4><canvas id="elevation-pie-chart"></canvas></div>
+		<div id="progress-bars">
+			<div class="progress-bar-outside">
+			  <div class="progress-bar-inside" id="distance-progress-bar"></div>
+			</div>
+			<div class="progress-bar-outside">
+			  <div class="progress-bar-inside" id="duration-progress-bar"></div>
+			</div>
+			<div class="progress-bar-outside">
+			  <div class="progress-bar-inside" id="elevation-gain-progress-bar"></div>
+			</div>
+			<div class="progress-bar-outside">
+			  <div class="progress-bar-inside" id="elevation-loss-progress-bar"></div>
+			</div>
 		</div>
+		<table width="100%">
+			<tr>
+				<td>Distance</td>
+				<td><p style="display:inline;">Distance:</p>
+				</td>
+			</tr>
+		</table>
 
 
 		<h4 style="text-align: center;">Prévisions météo</h4>
