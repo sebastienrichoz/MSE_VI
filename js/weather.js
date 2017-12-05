@@ -1,3 +1,7 @@
+var map;
+var marker;
+var infoWindow;
+
 const verticalLinePlugin = {
   getLinePosition: function (chart, pointIndex) {
       const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
@@ -188,6 +192,13 @@ function displayDetailForecast(htmlId, forecast) {
     var ctx = document.getElementById(htmlId + "_canvas");
     ctx.height = 70;
     new Chart(ctx, config);
+
+    ctx.onmouseover = function(evt){
+        displayCurrentForecast(map, marker, infoWindow);
+    };
+    ctx.onmouseout = function(evt){
+        hideCurrentForecast(marker, infoWindow);
+    };
 }
 
 /**
@@ -210,17 +221,68 @@ function displayGlobalForecast(htmlId, forecast) {
     })
 }
 
+function loadCurrentForecast(forecastInfo, currentCondition) {
+    // Box displayed when marker is hovered
+    let contentString =
+    '<div class="actual-weather">'+
+    '<table>'+
+    '<tbody>'+
+    '<tr style="height:2px">'+
+    '<td" colspan="2"><b>Conditions actuelles</b></td>'+
+    '</tr>'+
+    '<tr style="height:18px">'+
+    '<td colspan="2">' + currentCondition.date + ' à '+ currentCondition.hour +'</td>'+
+    '</tr>'+
+    '<tr style="height:18px">'+
+    '<td>Altitude</td>'+
+    '<td><b>' + round(forecastInfo.elevation, 0) + ' m</b></td>'+
+    '</tr>'+
+    '<tr>'+
+    '<td><img width="28px" style="margin-top:0px" src="'+ currentCondition.icon +'"/></td>'+
+    '<td>' + currentCondition.tmp + '°C</td>'+
+    '</tr>'+
+    '</tbody>'+
+    '</table>';
+
+    return new google.maps.InfoWindow({
+        content: contentString
+    });
+}
+
+function displayCurrentForecast() {
+    marker.setOpacity(1.0);
+    infoWindow.open(map, marker);
+}
+
+function hideCurrentForecast() {
+    marker.setOpacity(0.5);
+    infoWindow.close();
+}
+
 /**
  * Get weather forecast from the prevision-meteo.ch service API
  * And display the html content with it
  */
-function loadWeatherForecasts(lat, lng) {
+function loadWeatherForecasts(lat, lng, detailMap, weatherMarker) {
+
+    map = detailMap;
+    marker = weatherMarker;
 
     if(PRODUCTION) {
         $.get(
             "https://www.prevision-meteo.ch/services/json/lat=" + lat + "lng=" + lng,
             function(json, status) {
                 if (status == 'success') {
+
+                    infoWindow = loadCurrentForecast(json.forecast_info, json.current_condition);
+
+                    // Display current data on marker hovered
+                    marker.addListener('mouseover', function() {
+                        displayCurrentForecast();
+                    });
+                    marker.addListener('mouseout', function() {
+                        hideCurrentForecast();
+                    });
 
                     // Display global data for each forecast day
                     displayGlobalForecast("forecast_0", json.fcst_day_0);
