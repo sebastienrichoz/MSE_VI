@@ -59,6 +59,10 @@ body {
     float: left;
 }
 
+.area {
+    fill: rgba(176,196,222,0.5);
+}
+
 /* Filters */
 .filter {
 	display: inline-block;

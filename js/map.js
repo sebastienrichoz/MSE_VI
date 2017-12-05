@@ -145,7 +145,7 @@ function initMap() {
 				selectedMarker = null;
 			}
         });
-		
+
 		// Handle track type filter click
 		$(".img-check").click(function(){
 			$(this).toggleClass("check");
@@ -160,7 +160,7 @@ function initMap() {
 			}
 			updateMarkers();
 		});
-		
+
 		// Calculate minimum and maximum for the filter sliders
 		minDistance = tracks[0].distance_m;
 		maxDistance = tracks[0].distance_m;
@@ -176,19 +176,19 @@ function initMap() {
 			} else if(tracks[j].distance_m > maxDistance){
 				maxDistance = tracks[j].distance_m;
 			}
-			
+
 			if(tracks[j].estimatedTime_s < minDuration){
 				minDuration = tracks[j].estimatedTime_s;
 			} else if(tracks[j].estimatedTime_s > maxDuration){
 				maxDuration = tracks[j].estimatedTime_s;
 			}
-			
+
 			if(tracks[j].elevationGain_m < minElevationGain){
 				minElevationGain = tracks[j].elevationGain_m;
 			} else if(tracks[j].elevationGain_m > maxElevationGain){
 				maxElevationGain = tracks[j].elevationGain_m;
 			}
-			
+
 			if(tracks[j].elevationLoss_m < minElevationLoss){
 				minElevationLoss = tracks[j].elevationLoss_m;
 			} else if(tracks[j].elevationLoss_m > maxElevationLoss){
@@ -197,7 +197,7 @@ function initMap() {
 		}
 		minDistance = Math.floor(minDistance);
 		maxDistance = Math.ceil(maxDistance);
-		
+
 		// Handle sliders filter
 		$( "#distance-slider" ).slider({
 		  range: true,
@@ -254,7 +254,7 @@ function initMap() {
 		  "m - " + $( "#elevation-gain-slider" ).slider( "values", 1 ) + "m" );
 		$( "#elevation-loss" ).text($( "#elevation-loss-slider" ).slider( "values", 0 ) +
 		  "m - " + $( "#elevation-loss-slider" ).slider( "values", 1 ) + "m" );
-		  
+
 		// Don't close the dropup menu when someone clicks inside it
 		$( ".dropdown-menu" ).on('click', function(event){
 			event.stopPropagation();
@@ -348,9 +348,11 @@ function initMap() {
 					 	'<img width="20px" style="margin-top:8px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() +
 					 	'<img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
 					 	'<img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m' +
-					 '</div>' + 
+					 '</div>' +
                     '<h4>Profil du parcours</h4>'
                 );
+
+                // TODO show weather marker on centroid
 
 
 				// Show D3 altitude - distance graph
@@ -379,6 +381,12 @@ function initMap() {
 				var y = d3.scale.linear()
 				  .range([height, 0]);
 
+                // define the area
+                var area = d3.svg.area()
+                    .x(function(d) { return x(d.distance); })
+                    .y0(height)
+                    .y1(function(d) { return y(d.altitude); });
+
 				var color = d3.scale.category10();
 
 				var xAxis = d3.svg.axis()
@@ -390,7 +398,7 @@ function initMap() {
 				  .orient("left");
 
 				var line = d3.svg.line()
-				  .interpolate("basis")
+				  //.interpolate("basis") // FIXME: uncomment if rounded curve is needed
 				  .x(function(d) {
 					return x(d.distance);
 				  })
@@ -472,6 +480,12 @@ function initMap() {
 				  .style("stroke", function(d) {
 					return color(d.name);
 				  });
+
+                // add the area
+                svg.append("path")
+                    .data([data])
+                    .attr("class", "area")
+                    .attr("d", area);
 
 				var mouseG = svg.append("g")
 				  .attr("class", "mouse-over-effects");
@@ -578,17 +592,17 @@ function initMap() {
 						// Update all the doughnut charts
                         distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
 						distancePieChart.update();
-						
+
 						durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
 						durationPieChart.update();
-						
+
 						elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos]];
 						elevationPieChart.update();
 
 						return "translate(" + mouse[0] + "," + pos.y +")";
 					  });
 				  });
-				  
+
 					// Doughnut charts based on the position on the chart
 					var distance_data = {
 						datasets: [{
@@ -600,7 +614,7 @@ function initMap() {
 							'Distance restante'
 						]
 					};
-						
+
 					// And for a doughnut chart
 					var ctx = document.getElementById("distance-pie-chart").getContext("2d");
 					distancePieChart = new Chart(ctx, {
@@ -609,8 +623,8 @@ function initMap() {
 						options: {
 							responsive: true,
 						}
-					});	
-					
+					});
+
 					var duration_data = {
 						datasets: [{
 							data: [Math.floor(track.estimatedTime_s) / 1000, 0],
@@ -629,8 +643,8 @@ function initMap() {
 						options: {
 							responsive: true,
 						}
-					});	
-					
+					});
+
 					var elevation_data = {
 						datasets: [{
 							data: [Math.floor(track.elevationGain_m) / 1000, 0],
@@ -649,7 +663,7 @@ function initMap() {
 						options: {
 							responsive: true,
 						}
-					});						
+					});
 
                   // Weather forecasts
                   loadWeatherForecasts(track.centroid['lat'], track.centroid['lng']);
