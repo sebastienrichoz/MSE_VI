@@ -92,6 +92,9 @@ function getTrack(fileUrl) {
             let elevationGain_m = 0.0;
             let elevationLoss_m = 0.0;
             var estimatedTime_s = 0.0;
+            let elevationGains = [];
+            let elevationLosses = [];
+            var estimatedTimes = [];
             var times = [];
 			var distances = [];
 
@@ -169,18 +172,29 @@ function getTrack(fileUrl) {
                 if (j+jump > len)
                     break;
                 delta = elevations[j+jump] - elevations[j];
+				elevationGains.push(elevationGain_m);
+				elevationLosses.push(elevationLoss_m);
                 if (delta > 0)
                     elevationGain_m += delta;
                 else
                     elevationLoss_m -= delta;
             }
+			elevationGains.push(elevationGain_m);
+			elevationLosses.push(elevationLoss_m);
+			
+			// Calculate estimated times at each points
+			for(var j = 0; j < distances.length; j++){
+				estimatedTimes.push(timeEstimation_s(activityType, distances[j],
+					elevationGains[Math.floor(j/60)], elevationLosses[Math.floor(j/60)]));
+			}
 
             // Compute time estimation
             estimatedTime_s = timeEstimation_s(activityType, distance_m,
                 elevationGain_m, elevationLoss_m);
 
             track = new Track(name, activityType, points, distance_m, elevations,
-                centroid, elevationGain_m, elevationLoss_m, estimatedTime_s, times,
+                centroid, elevationGain_m, elevationLoss_m, estimatedTime_s,
+                elevationGains, elevationLosses, estimatedTimes, times,
                 distances, speeds_jump_60, altitudes_jump_60);
         }
     });

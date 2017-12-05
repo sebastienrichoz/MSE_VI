@@ -249,7 +249,6 @@ function initMap() {
                 minElevationLoss = ui.values[ 0 ];
                 maxElevationLoss = ui.values[ 1 ];
                 $( "#elevation-loss" ).text( ui.values[ 0 ] + "m - " + ui.values[ 1 ] + "m" );
-                console.log(minElevationLoss + " " + maxElevationLoss);
                 updateMarkers();
             }
         });
@@ -361,78 +360,10 @@ function initMap() {
 
                     drawSvg(track);
 
-
                     function resize(){
                         drawSvg(track);
                     }
                     window.addEventListener("resize", resize);
-
-                    // Doughnut charts based on the position on the chart
-                    var distance_data = {
-                        datasets: [{
-                            data: [Math.floor(track.distance_m) / 1000, 0],
-                            backgroundColor: ["#FF473F", "#1f77b4"]
-                        }],
-                        labels: [
-                            'Distance restante',
-                            'Distance parcourue'
-                        ]
-                    };
-
-                    // And for a doughnut chart
-                    var ctx = document.getElementById("distance-pie-chart").getContext("2d");
-                    distancePieChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: distance_data,
-                        options: {
-                            responsive: true,
-                        }
-                    });
-
-                    var duration_data = {
-                        datasets: [{
-                            data: [Math.floor(track.estimatedTime_s) / 1000, 0],
-                            backgroundColor: ["#FF473F", "#1f77b4"]
-                        }],
-                        labels: [
-                            'Durée restante',
-                            'Durée parcourue'
-                        ]
-                    };
-
-                    var ctx = document.getElementById("duration-pie-chart").getContext("2d");
-                    durationPieChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: duration_data,
-                        options: {
-                            responsive: true,
-                        }
-                    });
-
-                    var elevation_data = {
-                        datasets: [{
-                            data: [Math.floor(track.elevationGain_m) / 1000, 0, 0, 0],
-                            backgroundColor: ["#FF473F", "#1f77b4", "#7F473F", "#7f77b4"]
-                        }, {
-                            data: [0,0,Math.floor(track.estimatedTime_s) / 1000, 11],
-                            backgroundColor: ["#FF473F", "#1f77b4", "#7F473F", "#7f77b4"]
-                        }],
-                        labels: [
-                            'Montée parcourue',
-                            'Montée restante',
-                            'Descente parcourue',
-                            'Descente restante'
-                        ]
-                    };
-
-                    var ctx = document.getElementById("elevation-pie-chart").getContext("2d");
-                    elevationPieChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: elevation_data,
-                        options: {
-                            responsive: true,
-                        }
-                    });
 
                     // show weather marker on centroid
                     let weatherMarker = new google.maps.Marker({
@@ -450,275 +381,306 @@ function initMap() {
         map.fitBounds(bounds);
     }
 
-    function drawSvg(track){
-        // Show D3 altitude - distance graph
-        var data = [];
-        for(var i = 0; i < track.altitudes_jump_60.length; i++){
-            if(i*60 > track.distances.length){
-                console.log(track.distances[track.distances.length - 1]);
-                data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[track.distances.length - 1]});
-            } else{
-                data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[i*60]});
-            }
+// Show D3 altitude - distance graph
+function drawSvg(track){
+	// Get the data
+	var data = [];
+	for(var i = 0; i < track.altitudes_jump_60.length; i++){
+		if(i*60 > track.distances.length){
+			data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[track.distances.length - 1]});
+		} else{
+			data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[i*60]});
+		}
+	}
+	
+	// Set width and margin
+	var margin = {
+		top: 20,
+		right: 10,
+		bottom: 30,
+		left: 50
+	  },
+	  width = $('#data').width() - margin.left - margin.right,
+	  height = 300 - margin.top - margin.bottom;
+
+	var x = d3.scale.linear()
+	  .range([0, width]);
+
+	var y = d3.scale.linear()
+	  .range([height, 0]);
+
+	// define the area
+	var area = d3.svg.area()
+		.x(function(d) { return x(d.distance); })
+		.y0(height)
+		.y1(function(d) { return y(d.altitude); });
+
+	var color = d3.scale.category10();
+
+	var xAxis = d3.svg.axis()
+	  .scale(x)
+	  .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	  .scale(y)
+	  .orient("left");
+
+	var line = d3.svg.line()
+	  //.interpolate("basis") // FIXME: uncomment if rounded curve is needed
+	  .x(function(d) {
+		return x(d.distance);
+	  })
+	  .y(function(d) {
+		return y(d.altitude);
+	  });
+	d3.select("#data").select("svg").remove();
+	var svg = d3.select("#data").append("svg")
+	  .attr("width", width + margin.left + margin.right)
+	  .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	color.domain(d3.keys(data[0]).filter(function(key) {
+	  return key !== "distance";
+	}));
+
+	var cities = color.domain().map(function(name) {
+	  return {
+		name: name,
+		values: data
+	  };
+	});
+
+	x.domain(d3.extent(data, function(d) {
+	  return d.distance;
+	}));
+
+	y.domain([
+	  d3.min(cities, function(c) {
+		return d3.min(c.values, function(v) {
+		  return v.altitude;
+		});
+	  }),
+	  d3.max(cities, function(c) {
+		return d3.max(c.values, function(v) {
+		  return v.altitude;
+		});
+	  })
+	]);
+
+	var legend = svg.selectAll('g')
+	  .data(cities)
+	  .enter()
+	  .append('g')
+	  .attr('class', 'legend');
+
+	svg.append("g")
+	  .attr("class", "x axis")
+	  .attr("transform", "translate(0," + height + ")")
+	  .call(xAxis)
+	  .append("text")
+	  .attr("transform", "translate(" + width + ", 0)")
+	  .attr("y", -15)
+	  .attr("dy", ".71em")
+	  .style("text-anchor", "end")
+	  .text("Distance (m)");
+
+	svg.append("g")
+	  .attr("class", "y axis")
+	  .call(yAxis)
+	  .append("text")
+	  .attr("transform", "rotate(-90)")
+	  .attr("y", 6)
+	  .attr("dy", ".71em")
+	  .style("text-anchor", "end")
+	  .text("Altitude (m)");
+
+	var city = svg.selectAll(".city")
+	  .data(cities)
+	  .enter().append("g")
+	  .attr("class", "city");
+
+	city.append("path")
+	  .attr("class", "line")
+	  .attr("d", function(d) {
+		return line(d.values);
+	  })
+	  .style("stroke", function(d) {
+		return color(d.name);
+	  });
+
+	// add the area
+	svg.append("path")
+		.data([data])
+		.attr("class", "area")
+		.attr("d", area);
+
+	var mouseG = svg.append("g")
+	  .attr("class", "mouse-over-effects");
+
+	mouseG.append("path") // this is the black vertical line to follow mouse
+	  .attr("class", "mouse-line")
+	  .style("stroke", "black")
+	  .style("stroke-width", "1px")
+	  .style("opacity", "0");
+
+	var lines = document.getElementsByClassName('line');
+
+	var mousePerLine = mouseG.selectAll('.mouse-per-line')
+	  .data(cities)
+	  .enter()
+	  .append("g")
+	  .attr("class", "mouse-per-line");
+
+	mousePerLine.append("circle")
+	  .attr("r", 7)
+	  .style("stroke", function(d) {
+		return color(d.name);
+	  })
+	  .style("fill", "none")
+	  .style("stroke-width", "1px")
+	  .style("opacity", "0");
+
+	mousePerLine.append("text")
+	  .attr("transform", "translate(10,3)");
+
+	mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+	  .attr('width', width) // can't catch mouse events on a g element
+	  .attr('height', height)
+	  .attr('fill', 'none')
+	  .attr('pointer-events', 'all')
+	  .on('mouseout', function() { // on mouse out hide line, circles and text
+		d3.select(".mouse-line")
+		  .style("opacity", "0");
+		d3.selectAll(".mouse-per-line circle")
+		  .style("opacity", "0");
+		d3.selectAll(".mouse-per-line text")
+		  .style("opacity", "0");
+
+		 trackPoint.setMap(null);
+	  })
+	  .on('mouseover', function() { // on mouse in show line, circles and text
+		d3.select(".mouse-line")
+		  .style("opacity", "1");
+		d3.selectAll(".mouse-per-line circle")
+		  .style("opacity", "1");
+		d3.selectAll(".mouse-per-line text")
+		  .style("opacity", "1");
+
+		trackPoint.setMap(trailDetailsMap);
+
+	  })
+	  .on('mousemove', function() { // mouse moving over canvas
+		var mouse = d3.mouse(this);
+		d3.select(".mouse-line")
+		  .attr("d", function() {
+			var d = "M" + mouse[0] + "," + height;
+			d += " " + mouse[0] + "," + 0;
+			return d;
+		  });
+
+		d3.selectAll(".mouse-per-line")
+		  .attr("transform", function(d, i) {
+			var xDate = x.invert(mouse[0]),
+				bisect = d3.bisector(function(d) { return d.distance; }).right;
+				idx = bisect(d.values, xDate);
+
+			var beginning = 0,
+				end = lines[i].getTotalLength(),
+				target = null;
+
+			while (true){
+			  target = Math.floor((beginning + end) / 2);
+			  pos = lines[i].getPointAtLength(target);
+			  if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+				  break;
+			  }
+			  if (pos.x > mouse[0])      end = target;
+			  else if (pos.x < mouse[0]) beginning = target;
+			  else break; //position found
+			}
+
+			d3.select(this).select('text')
+			  .text(y.invert(pos.y).toFixed(2) + 'm');
+
+
+			// Display the point on map
+			// Find the right distances
+			var distPos = 0;
+			for(distPos = 0; distPos < track.distances.length; distPos++){
+				if(x.invert(pos.x).toFixed(2) < track.distances[distPos]){
+					break;
+				}
+			}
+			var point = track.points[distPos];
+
+			// To avoid resizing the circle, use a marker instead
+			trackPoint.setPosition(point);
+
+			// Update all the doughnut charts
+			/*distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
+			distancePieChart.update();
+
+			durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
+			durationPieChart.update();
+
+			elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos], 0, 0];
+			elevationPieChart.update();*/
+			
+			// Update the progress bars
+			$("#distance-progress-bar").width(Math.floor(100 * x.invert(pos.x).toFixed(2) / track.distance_m).toString() + "%");
+			$("#distance-progress-bar").text(Math.round(x.invert(pos.x).toFixed(2)) + "m");
+			
+			$("#duration-progress-bar").width(Math.floor(100 * track.estimatedTimes[distPos] / track.estimatedTime_s).toString() + "%");
+			$("#duration-progress-bar").text(track.estimatedTimes[distPos].toString().toHHhMM());
+			
+			$("#elevation-gain-progress-bar").width(Math.floor(100 * track.elevationGains[Math.floor(distPos/60)] / track.elevationGain_m).toString() + "%");
+			$("#elevation-gain-progress-bar").text(Math.round(track.elevationGains[Math.floor(distPos/60)]) + "m");
+			
+			$("#elevation-loss-progress-bar").width(Math.floor(100 * track.elevationLosses[Math.floor(distPos/60)] / track.elevationLoss_m).toString() + "%");
+			$("#elevation-loss-progress-bar").text(Math.round(track.elevationLosses[Math.floor(distPos/60)]) + "m");
+			$("#progress-bars").slideDown();
+
+			return "translate(" + mouse[0] + "," + pos.y +")";
+		  });
+	  }).on('mouseout', function() { // mouse moving over canvas
+		$("#progress-bars").slideUp();
+	  });
+}
+
+function move() {
+    var elem = document.getElementById("distance-progress-bar"); 
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++; 
+            elem.style.width = width + '%'; 
         }
-
-        var margin = {
-            top: 20,
-            right: 20,
-            bottom: 30,
-            left: 50
-        },
-        width = $('#data').width() - margin.left - margin.right,
-        height = 300 - margin.top - margin.bottom;
-
-        var x = d3.scale.linear()
-        .range([0, width]);
-
-        var y = d3.scale.linear()
-        .range([height, 0]);
-
-        // define the area
-        var area = d3.svg.area()
-        .x(function(d) { return x(d.distance); })
-        .y0(height)
-        .y1(function(d) { return y(d.altitude); });
-
-        var color = d3.scale.category10();
-
-        var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom");
-
-        var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left");
-
-        var line = d3.svg.line()
-        //.interpolate("basis") // FIXME: uncomment if rounded curve is needed
-        .x(function(d) {
-            return x(d.distance);
-        })
-        .y(function(d) {
-            return y(d.altitude);
-        });
-        d3.select("#data").select("svg").remove();
-        var svg = d3.select("#data").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-        color.domain(d3.keys(data[0]).filter(function(key) {
-            return key !== "distance";
-        }));
-
-        var cities = color.domain().map(function(name) {
-            return {
-                name: name,
-                values: data
-            };
-        });
-
-        x.domain(d3.extent(data, function(d) {
-            return d.distance;
-        }));
-
-        y.domain([
-            d3.min(cities, function(c) {
-                return d3.min(c.values, function(v) {
-                    return v.altitude;
-                });
-            }),
-            d3.max(cities, function(c) {
-                return d3.max(c.values, function(v) {
-                    return v.altitude;
-                });
-            })
-        ]);
-
-        var legend = svg.selectAll('g')
-        .data(cities)
-        .enter()
-        .append('g')
-        .attr('class', 'legend');
-
-        svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis)
-        .append("text")
-        .attr("transform", "translate(" + width + ", 0)")
-        .attr("y", -15)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Distance (m)");
-
-        svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", ".71em")
-        .style("text-anchor", "end")
-        .text("Altitude (m)");
-
-        var city = svg.selectAll(".city")
-        .data(cities)
-        .enter().append("g")
-        .attr("class", "city");
-
-        city.append("path")
-        .attr("class", "line")
-        .attr("d", function(d) {
-            return line(d.values);
-        })
-        .style("stroke", function(d) {
-            return color(d.name);
-        });
-
-        // add the area
-        svg.append("path")
-        .data([data])
-        .attr("class", "area")
-        .attr("d", area);
-
-        var mouseG = svg.append("g")
-        .attr("class", "mouse-over-effects");
-
-        mouseG.append("path") // this is the black vertical line to follow mouse
-        .attr("class", "mouse-line")
-        .style("stroke", "black")
-        .style("stroke-width", "1px")
-        .style("opacity", "0");
-
-        var lines = document.getElementsByClassName('line');
-
-        var mousePerLine = mouseG.selectAll('.mouse-per-line')
-        .data(cities)
-        .enter()
-        .append("g")
-        .attr("class", "mouse-per-line");
-
-        mousePerLine.append("circle")
-        .attr("r", 7)
-        .style("stroke", function(d) {
-            return color(d.name);
-        })
-        .style("fill", "none")
-        .style("stroke-width", "1px")
-        .style("opacity", "0");
-
-        mousePerLine.append("text")
-        .attr("transform", "translate(10,3)");
-
-        mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
-        .attr('width', width) // can't catch mouse events on a g element
-        .attr('height', height)
-        .attr('fill', 'none')
-        .attr('pointer-events', 'all')
-        .on('mouseout', function() { // on mouse out hide line, circles and text
-            d3.select(".mouse-line")
-            .style("opacity", "0");
-            d3.selectAll(".mouse-per-line circle")
-            .style("opacity", "0");
-            d3.selectAll(".mouse-per-line text")
-            .style("opacity", "0");
-
-            trackPoint.setMap(null);
-        })
-        .on('mouseover', function() { // on mouse in show line, circles and text
-            d3.select(".mouse-line")
-            .style("opacity", "1");
-            d3.selectAll(".mouse-per-line circle")
-            .style("opacity", "1");
-            d3.selectAll(".mouse-per-line text")
-            .style("opacity", "1");
-
-            trackPoint.setMap(trailDetailsMap);
-
-        })
-        .on('mousemove', function() { // mouse moving over canvas
-            var mouse = d3.mouse(this);
-            d3.select(".mouse-line")
-            .attr("d", function() {
-                var d = "M" + mouse[0] + "," + height;
-                d += " " + mouse[0] + "," + 0;
-                return d;
-            });
-
-            d3.selectAll(".mouse-per-line")
-            .attr("transform", function(d, i) {
-                var xDate = x.invert(mouse[0]),
-                bisect = d3.bisector(function(d) { return d.distance; }).right;
-                idx = bisect(d.values, xDate);
-
-                var beginning = 0,
-                end = lines[i].getTotalLength(),
-                target = null;
-
-                while (true){
-                    target = Math.floor((beginning + end) / 2);
-                    pos = lines[i].getPointAtLength(target);
-                    if ((target === end || target === beginning) && pos.x !== mouse[0]) {
-                        break;
-                    }
-                    if (pos.x > mouse[0])      end = target;
-                    else if (pos.x < mouse[0]) beginning = target;
-                    else break; //position found
-                }
-
-                d3.select(this).select('text')
-                .text(y.invert(pos.y).toFixed(2) + 'm');
-
-
-                // Display the point on map
-                // Find the right distances
-                var distPos = 0;
-                for(distPos = 0; distPos < track.distances.length; distPos++){
-                    if(x.invert(pos.x).toFixed(2) < track.distances[distPos]){
-                        break;
-                    }
-                }
-                var point = track.points[distPos];
-
-                // To avoid resizing the circle, use a marker instead
-                trackPoint.setPosition(point);
-
-                // Update all the doughnut charts
-                distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
-                distancePieChart.update();
-
-                durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
-                durationPieChart.update();
-
-                elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos], 0, 0];
-                elevationPieChart.update();
-
-                return "translate(" + mouse[0] + "," + pos.y +")";
-            });
-        });
     }
+}
 
-    function updateMarkers(){
-        for(i in tracks){
-            if((tracks[i].activityType == ActivityType.MTB && filterMTB == true) ||
-            (tracks[i].activityType == ActivityType.HIKING && filterHiking == true) ||
-            (tracks[i].activityType == ActivityType.SKITOUR && filterSkitour == true) ||
-            (tracks[i].activityType == ActivityType.OTHER && filterOther == true) ||
-            tracks[i].distance_m < minDistance || tracks[i].distance_m > maxDistance ||
-            tracks[i].estimatedTime_s < minDuration || tracks[i].estimatedTime_s > maxDuration ||
-            tracks[i].elevationGain_m < minElevationGain || tracks[i].elevationGain_m > maxElevationGain ||
-            tracks[i].elevationLoss_m < minElevationLoss || tracks[i].elevationLoss_m > maxElevationLoss){
-                if(tracks[i].marker.getMap() != null){
-                    tracks[i].marker.setMap(null);
-                    tracks[i].poly.setMap(null);
-                }
-            } else{
-                if(tracks[i].marker.getMap() == null){
-                    tracks[i].marker.setMap(map);
-                    tracks[i].infoTrack.close(map, tracks[i].marker);
-                }
-            }
-        }
-    }
+function updateMarkers(){
+	for(i in tracks){
+		if((tracks[i].activityType == ActivityType.MTB && filterMTB == true) ||
+		   (tracks[i].activityType == ActivityType.HIKING && filterHiking == true) ||
+		   (tracks[i].activityType == ActivityType.SKITOUR && filterSkitour == true) ||
+		   (tracks[i].activityType == ActivityType.OTHER && filterOther == true) ||
+			tracks[i].distance_m < minDistance || tracks[i].distance_m > maxDistance ||
+			tracks[i].estimatedTime_s < minDuration || tracks[i].estimatedTime_s > maxDuration ||
+			tracks[i].elevationGain_m < minElevationGain || tracks[i].elevationGain_m > maxElevationGain ||
+			tracks[i].elevationLoss_m < minElevationLoss || tracks[i].elevationLoss_m > maxElevationLoss){
+			if(tracks[i].marker.getMap() != null){
+				tracks[i].marker.setMap(null);
+				tracks[i].poly.setMap(null);
+		    }
+		} else{
+		   if(tracks[i].marker.getMap() == null){
+			tracks[i].marker.setMap(map);
+			tracks[i].infoTrack.close(map, tracks[i].marker);
+		   }
+		}
+	}
+}
