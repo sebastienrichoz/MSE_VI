@@ -19,10 +19,6 @@ var maxElevationGain;
 var minElevationLoss;
 var maxElevationLoss;
 
-var distancePieChart;
-var durationPieChart;
-var elevationPieChart;
-
 /** Initialize the map and the markers **/
 function initMap() {
     var customStyled = customStyleForMap;
@@ -616,16 +612,6 @@ function drawSvg(track){
 
 			// To avoid resizing the circle, use a marker instead
 			trackPoint.setPosition(point);
-
-			// Update all the doughnut charts
-			/*distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
-			distancePieChart.update();
-
-			durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
-			durationPieChart.update();
-
-			elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos], 0, 0];
-			elevationPieChart.update();*/
 			
 			// Update the progress bars
 			$("#distance-progress-bar").width(Math.floor(100 * x.invert(pos.x).toFixed(2) / track.distance_m).toString() + "%");
