@@ -171,6 +171,10 @@ body {
 /* Progress bars */
 #progress-bars{
 	display: none;
+	margin: 10px;
+}
+#progress-bars td{
+	text-align: left;
 }
 .progress-bar-inside {
     width: 0%;
