@@ -19,10 +19,6 @@ var maxElevationGain;
 var minElevationLoss;
 var maxElevationLoss;
 
-var distancePieChart;
-var durationPieChart;
-var elevationPieChart;
-
 /** Initialize the map and the markers **/
 function initMap() {
     var customStyled = customStyleForMap;
@@ -86,7 +82,7 @@ function initMap() {
         '<tr>'+
         '<td style="width:40px"><img width="30px" style="margin-top:2px" src="img/distance_icon.png"/></td>'+
         '<td style="width:90px">' + round(track.distance_m / 1000, 1) + ' km</td>'+
-        '<td style="width:40px"><img width="20px" style="margin-top:8px" src="img/time_icon.png"/></td>'+
+        '<td style="width:40px"><img width="20px" style="margin-top:0px" src="img/time_icon.png"/></td>'+
         '<td style="width:90px">' + track.estimatedTime_s.toString().toHHhMM() + '</td>'+
         '</tr>'+
         '<tr>'+
@@ -348,13 +344,13 @@ function initMap() {
 
                     // Show global data of track
                     $("#data").html(
-                        '<h2><img width="35px" src="' + ActivityType.properties[track.activityType].icon_url + '"/>' + track.name + '</h2>' +
-                        '<div id="properties">' +
+                        '<div class="row"><div class="col-md-6" style="text-align: left"><h2><img width="40px" src="' + ActivityType.properties[track.activityType].icon_url + '"/>' + track.name + '</h2></div>' +
+                        '<div id="properties" class="col-md-6" style="text-align: right; padding: 20px; padding-right: 20px;">' +
                         '<img width="30px" style="margin-top:2px" src="img/distance_icon.png"/>' + round(track.distance_m / 1000, 1) + ' km</td>' +
-                        '<img width="20px" style="margin-top:8px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() +
+                        '<img width="20px" style="margin-top:0px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() +
                         '<img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
                         '<img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m' +
-                        '</div>' +
+                        '</div></div>' +
                         '<h4>Profil du parcours</h4>'
                     );
 
@@ -616,16 +612,6 @@ function drawSvg(track){
 
 			// To avoid resizing the circle, use a marker instead
 			trackPoint.setPosition(point);
-
-			// Update all the doughnut charts
-			/*distancePieChart.data.datasets[0].data = [track.distance_m - x.invert(pos.x).toFixed(2), x.invert(pos.x).toFixed(2)];
-			distancePieChart.update();
-
-			durationPieChart.data.datasets[0].data = [track.estimatedTime_s - track.times[distPos], track.times[distPos]];
-			durationPieChart.update();
-
-			elevationPieChart.data.datasets[0].data = [track.elevationGain_m - track.elevations[distPos], track.elevations[distPos], 0, 0];
-			elevationPieChart.update();*/
 			
 			// Update the progress bars
 			$("#distance-progress-bar").width(Math.floor(100 * x.invert(pos.x).toFixed(2) / track.distance_m).toString() + "%");

@@ -1,4 +1,4 @@
-var map;
+var mainMap;
 var marker;
 var infoWindow;
 
@@ -194,7 +194,7 @@ function displayDetailForecast(htmlId, forecast) {
     new Chart(ctx, config);
 
     ctx.onmouseover = function(evt){
-        displayCurrentForecast(map, marker, infoWindow);
+        displayCurrentForecast(mainMap, marker, infoWindow);
     };
     ctx.onmouseout = function(evt){
         hideCurrentForecast(marker, infoWindow);
@@ -251,7 +251,7 @@ function loadCurrentForecast(forecastInfo, currentCondition) {
 
 function displayCurrentForecast() {
     marker.setOpacity(1.0);
-    infoWindow.open(map, marker);
+    infoWindow.open(mainMap, marker);
 }
 
 function hideCurrentForecast() {
@@ -265,7 +265,7 @@ function hideCurrentForecast() {
  */
 function loadWeatherForecasts(lat, lng, detailMap, weatherMarker) {
 
-    map = detailMap;
+    mainMap = detailMap;
     marker = weatherMarker;
 
     if(PRODUCTION) {
