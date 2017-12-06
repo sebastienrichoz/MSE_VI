@@ -631,7 +631,7 @@ function drawSvg(track){
 			trackPoint.setPosition(point);
 			
 			// Update the gradient
-			var w = track.distances[distPos] - track.distances[distPos - 1];
+			var w = track.distances[distPos] - track.distances[distPos - 60];
 			var h = track.elevationGains[Math.ceil(distPos/60)] - track.elevationGains[Math.ceil(distPos/60) - 1] - (track.elevationLosses[Math.ceil(distPos/60)] - track.elevationLosses[Math.ceil(distPos/60) - 1]);
 			var gradient = 100 * h / w;
 			if(gradient >= 0){
@@ -642,7 +642,7 @@ function drawSvg(track){
 				$("#gradient").css("border-top", gradient * -1 + "px solid red");
 				$("#gradient").css("border-bottom", "0px");
 			}
-			$("#gradient").text(Math.atan(h/w) + "°");
+			$("#gradient").text(Math.atan(h/w) * 180/Math.PI + "°");
 
 			// Update the progress bars
 			$("#distance-progress-bar").width(Math.floor(100 * x.invert(pos.x).toFixed(2) / track.distance_m).toString() + "%");
