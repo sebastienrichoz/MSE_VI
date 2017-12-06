@@ -326,6 +326,23 @@ function initMap() {
                             map: trailDetailsMap,
                             icon: imageStart
                         });
+                        let contentStart = '<p>Cliquer pour itinéraire</p>';
+                        let infoStart = new google.maps.InfoWindow({
+                            content: contentStart
+                        });
+                        markerStart.addListener('mouseover', function() {
+                            // display infowindow
+                            infoStart.open(trailDetailsMap, this);
+                        });
+                        markerStart.addListener('mouseout', function() {
+                            // hide infowindow
+                            infoStart.close();
+                        });
+                        var routeUrl = 'https://www.google.com/maps/dir//'+track.points[0]['lat']+','+track.points[0]['lng']+'/@'+track.points[0]['lat']+','+track.points[0]['lng']+',12z/data=!3m1!4b1';
+                        markerStart.addListener('click', function() {
+                            // Open new tab with google map route
+                            window.open(routeUrl);
+                        });
                         let imageEnd = {
                             url: 'img/end_marker.png',
                             // This marker is 20 pixels wide by 32 pixels high.
@@ -388,7 +405,7 @@ function drawSvg(track){
 			data.push({"altitude": track.altitudes_jump_60[i], "distance": track.distances[i*60]});
 		}
 	}
-	
+
 	// Set width and margin
 	var margin = {
 		top: 20,
@@ -612,17 +629,17 @@ function drawSvg(track){
 
 			// To avoid resizing the circle, use a marker instead
 			trackPoint.setPosition(point);
-			
+
 			// Update the progress bars
 			$("#distance-progress-bar").width(Math.floor(100 * x.invert(pos.x).toFixed(2) / track.distance_m).toString() + "%");
 			$("#distance-progress-bar").text(Math.round(x.invert(pos.x).toFixed(2)) + "m");
-			
+
 			$("#duration-progress-bar").width(Math.floor(100 * track.estimatedTimes[distPos] / track.estimatedTime_s).toString() + "%");
 			$("#duration-progress-bar").text(track.estimatedTimes[distPos].toString().toHHhMM());
-			
+
 			$("#elevation-gain-progress-bar").width(Math.floor(100 * track.elevationGains[Math.floor(distPos/60)] / track.elevationGain_m).toString() + "%");
 			$("#elevation-gain-progress-bar").text(Math.round(track.elevationGains[Math.floor(distPos/60)]) + "m");
-			
+
 			$("#elevation-loss-progress-bar").width(Math.floor(100 * track.elevationLosses[Math.floor(distPos/60)] / track.elevationLoss_m).toString() + "%");
 			$("#elevation-loss-progress-bar").text(Math.round(track.elevationLosses[Math.floor(distPos/60)]) + "m");
 			$("#progress-bars").slideDown();
@@ -635,15 +652,15 @@ function drawSvg(track){
 }
 
 function move() {
-    var elem = document.getElementById("distance-progress-bar"); 
+    var elem = document.getElementById("distance-progress-bar");
     var width = 1;
     var id = setInterval(frame, 10);
     function frame() {
         if (width >= 100) {
             clearInterval(id);
         } else {
-            width++; 
-            elem.style.width = width + '%'; 
+            width++;
+            elem.style.width = width + '%';
         }
     }
 }
