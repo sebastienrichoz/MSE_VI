@@ -189,7 +189,7 @@ function displayDetailForecast(htmlId, forecast) {
                     },
                     ticks: {
                         beginAtZero: true,
-                        suggestedMax: ((maxT + deltaT) - (minT - deltaT)) / 2,
+                        suggestedMax: 5, // ((maxT + deltaT) - (minT - deltaT)) / 2,
                         fontColor: "#1b90e5", // this here
                     },
                     labels: {
