@@ -203,3 +203,10 @@ body {
     width: 100%;
     background-color: #3e3e3e;
 }
+#gradient{
+	width: 0;
+	height: 0;
+	margin-bottom: 20px;
+	border-bottom: 100px solid red;
+	border-left: 100px solid transparent;
+}
