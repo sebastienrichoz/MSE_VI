@@ -181,7 +181,7 @@ function getTrack(fileUrl) {
             }
 			elevationGains.push(elevationGain_m);
 			elevationLosses.push(elevationLoss_m);
-			
+
 			// Calculate estimated times at each points
 			for(var j = 0; j < distances.length; j++){
 				estimatedTimes.push(timeEstimation_s(activityType, distances[j],

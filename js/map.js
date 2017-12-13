@@ -57,7 +57,8 @@ function initMap() {
         let image = {
             url: ActivityType.properties[track.activityType].marker_url,
             // This marker is 20 pixels wide by 32 pixels high.
-            scaledSize: new google.maps.Size(70, 70),
+            scaledSize: new google.maps.Size(45, 70),
+            anchor: new google.maps.Point(22,70)
         };
 
         let marker = new google.maps.Marker({
