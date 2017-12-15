@@ -23,6 +23,8 @@ var maxElevationLoss;
 function initMap() {
     var customStyled = customStyleForMap;
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     var bounds = new google.maps.LatLngBounds();
     map = new google.maps.Map(document.getElementById("google-map"), {
         mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -361,16 +363,17 @@ function initMap() {
                     trailDetailsMap.fitBounds(boundsDetail);
 
                     // Show global data of track
-                    $("#data").html(
-                        '<div class="row"><div class="col-md-8" style="text-align: left"><h2><img width="40px" src="' + ActivityType.properties[track.activityType].icon_url + '"/>' + track.name + '</h2></div>' +
-                        '<div id="properties" class="col-md-4" style="text-align: right; padding: 20px; padding-right: 20px;">' +
-                        '<table><tr><td><img width="30px" style="margin-top:2px" src="img/distance_icon.png"/>' + round(track.distance_m / 1000, 1) + ' km</td>' +
-                        '<td><img width="20px" style="margin-top:0px" src="img/time_icon.png"/>' + track.estimatedTime_s.toString().toHHhMM() + '</td></tr>' +
-                        '<tr><td><img width="40px" style="margin-top:0px" src="img/elevation_gain_icon.png"/>' + round(track.elevationGain_m,0) + ' m</td>' +
-                        '<td><img width="40px" style="margin-top:0px" src="img/elevation_loss_icon.png"/>' + round(track.elevationLoss_m,0) + ' m</td></tr>' +
-                        '</table></div>' +
-                        '<h4>Profil du parcours</h4>'
-                    );
+                    $('#track-icon').attr('src', ActivityType.properties[track.activityType].icon_url);
+                    $('#track-title').text(track.name);
+                    $('#track-distance').text(round(track.distance_m / 1000, 1) + ' km');
+                    $('#track-duration').text(track.estimatedTime_s.toString().toHHhMM());
+                    $('#track-elevation-gain').text(round(track.elevationGain_m,0) + ' m');
+                    $('#track-elevation-loss').text(round(track.elevationLoss_m,0) + ' m');
+                    $('#track-export').attr('href', track.fileUrl);
+
+                    $('#track-export').click(function(e) {
+                        $(this).blur();
+                    });
 
                     drawSvg(track);
 

@@ -9,6 +9,13 @@
    	<link href="css/style.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- jquery-ui -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- chart js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 	<script src="js/env.js"></script>
 	<!--<script src="js/charts2.0.js"></script>-->
@@ -17,6 +24,8 @@
 <body>
 	<div id="map">
 		<div id="google-map"></div>
+
+
 		<label class="filter" style="bottom: 250px;"><img src="img/mtb_icon.png" alt="Mountain Bike" class="img-thumbnail img-check check" value="1"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
 		<label class="filter" style="bottom: 190px;"><img src="img/hiking_icon.png" alt="Hiking" class="img-thumbnail img-check check" value="2"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
 		<label class="filter" style="bottom: 130px;"><img src="img/skitour_icon.png" alt="Ski Tour" class="img-thumbnail img-check check" value="3"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
@@ -54,7 +63,44 @@
 	<div id="track"></div>
 
 	<div id="details">
-		<div id="data"></div>
+		<div id="data">
+			<div class="row" style="background-color: #f4f4f4;padding:0px">
+				<div class="col-md-5" style="text-align: left">
+					<img id="track-icon" style="float: left;width: 20%;padding:  5px;" src="img/mtb_icon.png"/>
+					<div style="float:left; width:80%">
+						 <h4 id="track-title">Romainmotier - Vallée de Joux - Romainmotier</h4>
+						 <p id="track-date">Mai 2016</p>
+					 </div>
+				</div>
+
+				<div id="properties" class="col-md-4" style="padding:5px">
+
+					<table  cellpadding="2">
+						<tbody>
+							<tr>
+								<td><img style="width:30px" src="img/distance_icon.png"/></td>
+								<td id="track-distance">100km</td>
+								<td><img style="width:20px; margin-left:10px" src="img/time_icon.png"/></td>
+								<td id="track-duration">23h39</td>
+							</tr>
+							<tr>
+								<td><img style="width:40px" src="img/elevation_gain_icon.png"/></td>
+								<td id="track-elevation-gain">10000 m</td>
+								<td><img style="width:40px; margin-left:10px" src="img/elevation_loss_icon.png"/></td>
+								<td id="track-elevation-loss">10000 m</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-md-3">
+					<button id="track-print" style="margin:15px 5px 0 0" type="button" class="btn btn-warning btn-lg" data-toggle="tooltip" data-placement="bottom" title="Imprimer"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>
+					<a id="track-export" href="#" download style="margin-top:15px" type="button" class="btn btn-danger btn-lg" data-toggle="tooltip" data-placement="bottom" title="Exporter GPX"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+				</div>
+			</div>
+
+			<h4>Profil du parcours</h4>
+		</div>
 
 		<div id="progress-bars">
 			<table width="100%">
@@ -164,12 +210,6 @@
 
 	</div>
 
-	<!-- jquery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<!-- jquery-ui -->
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<!-- bootstrap -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<!-- d3js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
 	<!-- google maps api -->

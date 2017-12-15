@@ -97,6 +97,7 @@ function getTrack(fileUrl) {
             var estimatedTimes = [];
             var times = [];
 			var distances = [];
+            let gpx = "gpx/" + fileUrl;
 
             // Get name
             $(xml).find("name").each(function(){
@@ -195,7 +196,7 @@ function getTrack(fileUrl) {
             track = new Track(name, activityType, points, distance_m, elevations,
                 centroid, elevationGain_m, elevationLoss_m, estimatedTime_s,
                 elevationGains, elevationLosses, estimatedTimes, times,
-                distances, speeds_jump_60, altitudes_jump_60);
+                distances, speeds_jump_60, altitudes_jump_60, gpx);
         }
     });
     return track;
@@ -209,3 +210,7 @@ function getTracks(filesUrl) {
     }
     return tracks;
 }
+
+function Download(url) {
+    document.getElementById('my_iframe').src = url;
+};

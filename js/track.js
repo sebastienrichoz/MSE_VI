@@ -58,11 +58,12 @@ class Track {
      * estimatedTime_s: total estimated time of the track in seconds
      * times: Array of Date
 	 * distances: The distances between each points
+     * fileUrl : Url from root of the gpx file
      */
     constructor(name, activityType, points, distance_m, elevations, centroid,
                 elevationGain_m, elevationLoss_m, estimatedTime_s,
                 elevationGains, elevationLosses, estimatedTimes, times, distances,
-                speeds_jump_60, altitudes_jump_60) {
+                speeds_jump_60, altitudes_jump_60, fileUrl) {
         this.name = name;
         this.activityType = activityType;
         this.points = points;
@@ -79,6 +80,7 @@ class Track {
 		this.distances = distances;
 		this.speeds_jump_60 = speeds_jump_60;
 		this.altitudes_jump_60 = altitudes_jump_60;
+        this.fileUrl = fileUrl;
     }
 
 
