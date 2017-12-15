@@ -66,7 +66,7 @@ Nous avons hésité entre l'utilisation de Google Maps et de Open Street Maps. A
 
 Nous avons utilisé la librairie jQuery. Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écris en Javascript.
 
-![jQuery](img/jquery.png?raw=true)
+![jQuery](img/jquery.jpg?raw=true)
 
 #### Bootstrap
 
