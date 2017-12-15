@@ -213,7 +213,7 @@
 	<!-- d3js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
 	<!-- google maps api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=<?php getenv('GOOGLE_MAPS_KEY'); ?>&libraries=visualization&callback=initMap" async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo getenv('GOOGLE_MAPS_KEY'); ?>&libraries=visualization&callback=initMap" async defer></script>
 	<!-- Functions used for different operations -->
 	<script src="js/tools.js"></script>
 	<!-- Track class -->
