@@ -94,6 +94,43 @@ Deux différentes sources de données ont été utilisées : une pour les parcou
 
 #### Les parcours
 
+Les parcours sont stockés dans des fichiers GPX (GPS eXchange Format). Ce sont des fichiers au format XML qui contiennent plusieurs informations dont une liste de points qui représente le parcours. Chaque point contient une latitude, une longitude, une altitude et un temps.
+
+Voici un exemple de fichier GPX.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" version="1.1" creator="Polar Flow">
+  <trk>
+      <name>L'Isle - Croix</name>
+      <type>mtb</type>
+    <trkseg>
+      <trkpt lat="46.61722967" lon="6.41248367">
+        <ele>676.0</ele>
+        <time>2017-09-10T18:12:53.000Z</time>
+      </trkpt>
+      <trkpt lat="46.61722967" lon="6.41248367">
+        <ele>676.0</ele>
+        <time>2017-09-10T18:12:54.000Z</time>
+      </trkpt>
+      <trkpt lat="46.61725133" lon="6.41251817">
+        <ele>675.0</ele>
+        <time>2017-09-10T18:12:55.000Z</time>
+      </trkpt>
+      <trkpt lat="46.617277" lon="6.41254933">
+        <ele>673.0</ele>
+        <time>2017-09-10T18:12:56.000Z</time>
+      </trkpt>
+	  
+      [...]
+	  
+    </trkseg>
+  </trk>
+</gpx>
+```
+
+On peut voir dans la balise `trk` les propriétés nom et type du parcours. Ensuite la balise `trkseg` contient les balises de chaque point. La balise `trkpt` a l'attribut `lat` et `lon` pour la latitude et la longitude. Et il contient les éléments `ele` et `time` pour l'alitude et le temps.
+
 #### Prévisions météo
 
 ### Architecture
