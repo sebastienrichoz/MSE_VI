@@ -5,7 +5,6 @@
 **Groupe**
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>
 - Faten Labidi <faten.labidi@master.hes-so.ch>
-- Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
 
 **Public cible** : Toute personne à la recherche d’activités en montagne
 
@@ -29,6 +28,10 @@ Ce travail a pour but de réaliser une interface web interactive pour la recherc
 L'idée consiste à répondre aux besoins d'utilisateurs voulant choisir et se préparer à une activité sportive avant de la pratiquer. Nous considérons que ces personnes se préparent entre une heure et cinq jours avant le début de leur activité.
 
 L'application permettra de filtrer les activités et d’obtenir des informations détaillées sur chacune d’elles tout en gardant une visualisation générale afin de pouvoir rapidement changer de parcours.
+
+Voici un aperçu de l'application:
+
+![Aperçu de l'application](img/app.png?raw=true "Aperçu de l'application")
 
 ## État de l'art
 
@@ -66,6 +69,16 @@ Cette phase de réalisation décrit comment les données ont été traitées afi
     - profil altimétrique (tout les t secondes sinon trop précis et lent)
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
+
+### Graphique du profil altimétrique
+
+Nous avons réalisé un graphique qui montre le profil altimétrique du parcours à l'aide de d3js. Il représente la hauteur sur l'axe y et la distance sur l'axe x. Ce profile permet de voir assez facilement la montée et la descente à réaliser ainsi que la pente à chaque endroit du parcours. Lorsque la souris de l'utilisateur passe sur le graphique altimétrique, plusieurs informations sont affichées en fonction de la position sur l'axe x (distance). Sur la carte Google Maps en bas à gauche est affiché la position dans le parcours par rapport à la position de la souris de l'utilisateur à l'aide d'un rond bleu en fonction. 4 barres de progression affichent les informations sur le graphique en fonction de la position de la souris sur le graphique. Les informations affichées par ces 4 barres sont la distance, la montée, la descente et la durée.
+
+On peut voir dans l'image ci-dessous comment 
+
+    ![Graphique altimétrique avec hover de la souris](img/altimetry_profile_hover.png?raw=true "Graphique altimétrique avec hover de la souris")
+
+Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe.
 
 ## Installation
 **L'installation nécessite la version 3 de python.**
