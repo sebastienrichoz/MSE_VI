@@ -50,7 +50,41 @@ Le projet développé durant ce cours entre dans la catégorie des préparateurs
 La phase de conception décrit les technologies utilisées, la source et le format des données, ainsi que l'architecture de l'application.
 
 ### Technologies
-Afin de déployer rapidement la visualisation, celle-ci a été développée en Javascript, HTML5 et CSS3 avec utilisation de l’API Google maps et des librairies d3js ainsi que chartjs pour les graphes.
+#### HTML5, CSS3 et Javascript
+Nous avons utilisé HTML5, CSS3 et Javascript afin de pouvoir déployer rapidement notre visualisation et d'avoir accès à beaucoup de librairies très utiles.
+
+![Javascript, CSS3 & HTML5](https://upcity.com/wp-content/uploads/2015/07/html-css-js-logos.png)
+
+#### Google Maps
+
+L'application utilise l'API javascript de Google Maps afin d'afficher la carte, les tracés etc.
+Nous avons hésité entre l'utilisation de Google Maps et de Open Street Maps. Ayant de meilleures connaissances dans l'utilisation de Google Maps nous avons décidé de commencer par ça. Nous aimerions bien ajouté la possibilité de choisir Open Street Maps pour l'affichage si l'utilisateur le préfère.
+
+![Google Maps API](https://developers.google.com/maps/images/lhimages/api/icon_javascriptapi.svg)
+
+#### jQuery
+
+Nous avons utilisé la librairie jQuery. Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écris en Javascript.
+
+![jQuery](https://www.javatpoint.com/jquerypages/images/jquery-tutorial.jpg)
+
+#### Bootstrap
+
+Nous avons utilisé Bootstrap pour certaines parties de la mise en page.
+
+![Bootstrap](https://camo.githubusercontent.com/5d417873a11d7175ec40fc3af3c6cb024a531dd7/68747470733a2f2f676574626f6f7473747261702e636f6d2f6173736574732f6272616e642f626f6f7473747261702d736f6c69642e737667)
+
+#### ChartJS
+
+Nous avons utilisé ChartJS pour l'affichage des graphiques de la météo.
+
+![ChartJS](https://www.moodleworld.com/wp-content/uploads/2016/07/chart-js-graph-API-Moodle.png)
+
+#### D3.js
+
+Nous avons utilisé D3.js pour l'affichage du graphique du profile altimetrique.
+
+![D3JS](https://cms-assets.tutsplus.com/uploads/users/442/posts/22935/preview_image/8778.png)
 
 ### Source et format des données
 
