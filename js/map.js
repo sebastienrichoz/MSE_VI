@@ -375,6 +375,51 @@ function initMap() {
                         $(this).blur();
                     });
 
+                    $('#track-print').off();
+                    $('#track-print').click(function(e) {
+                      let $body = $('body');
+                      let $mapContainer = $('#track');
+                      let $elevationGraph = $('#elevation-graph');
+                      let $trackTitle = $('#track-title');
+                      let $properties = $('#properties');
+                      let $mapContainerParent = $mapContainer.parent();
+                      let $printContainer = $('<div style="width: 100%; height:1000px;">');
+
+                      $printContainer
+                        .height($mapContainer.height() + 500)
+                        //.append($trackTitle)
+                        //.append($properties)
+                        .append($mapContainer)
+                        .append($elevationGraph)
+                        .prependTo($body);
+
+                      let $content = $body
+                        .children()
+                        .not($printContainer)
+                        .detach();
+
+                      /**
+                       * Needed for those who use Bootstrap 3.x, because some of
+                       * its `@media print` styles ain't play nicely when printing.
+                       */
+                      let $patchedStyle = $('<style media="print">')
+                        .text(`
+                          img { max-width: none !important; }
+                          a[href]:after { content: ""; }
+                        `)
+                        .appendTo('head');
+
+                      window.print();
+
+                      $body.prepend($content);
+                      $mapContainerParent.prepend($mapContainer);
+
+                      $printContainer.remove();
+                      $patchedStyle.remove();
+                      $(this).blur();
+                      $('*').css('visibility', 'visible');
+                    });
+
                     drawSvg(track);
 
                     function resize(){
@@ -452,6 +497,7 @@ function drawSvg(track){
 	  });
 	d3.select("#data").select("svg").remove();
 	var svg = d3.select("#data").append("svg")
+        .attr('id', 'elevation-graph')
 	  .attr("width", width + margin.left + margin.right)
 	  .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
