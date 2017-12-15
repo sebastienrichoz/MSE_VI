@@ -1,1 +1,230 @@
-<?php header( 'Location: /index.html' ) ;  ?>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Trails</title>
+	<meta name="viewport" content="initial-scale=1.0">
+	<meta charset="utf-8">
+	<link rel="icon" href="logo.png">
+   	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<!-- jquery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- jquery-ui -->
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<!-- bootstrap -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<!-- chart js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+	<script src="js/env.js"></script>
+	<!--<script src="js/charts2.0.js"></script>-->
+</head>
+
+<body>
+	<div id="map">
+		<div id="google-map"></div>
+
+
+		<label class="filter" style="bottom: 250px;"><img src="img/mtb_icon.png" alt="Mountain Bike" class="img-thumbnail img-check check" value="1"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
+		<label class="filter" style="bottom: 190px;"><img src="img/hiking_icon.png" alt="Hiking" class="img-thumbnail img-check check" value="2"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
+		<label class="filter" style="bottom: 130px;"><img src="img/skitour_icon.png" alt="Ski Tour" class="img-thumbnail img-check check" value="3"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
+		<label class="filter" style="bottom: 70px;"><img src="img/other_icon.png" alt="Other" class="img-thumbnail img-check check" value="4"><input type="checkbox" class="label_checkbox" autocomplete="off"></label>
+		<div id="sliders">
+			<div class="dropup">
+				<img src="img/sliders.png" alt="Mountain Bike" class="sliders-dropdown-toggle img-thumbnail dropdown-toggle" data-toggle="dropdown" value="1">
+				<div class="dropdown-menu" role="menu" style="padding: 15px;min-width: 250px;">
+						<p>
+							Distance:
+							<span id="distance" style="border:0; color:#f6931f; font-weight:bold;"></span>
+						</p>
+						<div id="distance-slider" class="slider"></div>
+						<p>
+							Durée:
+							<span id="duration" style="border:0; color:#f6931f; font-weight:bold;"></span>
+						</p>
+						<div id="duration-slider" class="slider"></div>
+						<p>
+							Gain en altitude:
+							<span id="elevation-gain" style="border:0; color:#f6931f; font-weight:bold;"></span>
+						</p>
+						<div id="elevation-gain-slider" class="slider"></div>
+						<p>
+							Perte d'alitde:
+							<span id="elevation-loss" style="border:0; color:#f6931f; font-weight:bold;"></span>
+						</p>
+						<div id="elevation-loss-slider" class="slider"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="track"></div>
+
+	<div id="details">
+		<div id="data">
+			<div class="row" style="background-color: #f4f4f4;padding:0px">
+				<div class="col-md-5" style="text-align: left">
+					<img id="track-icon" style="float: left;width: 20%;padding:  5px;" src="img/mtb_icon.png"/>
+					<div style="float:left; width:80%">
+						 <h4 id="track-title">Romainmotier - Vallée de Joux - Romainmotier</h4>
+						 <p id="track-date">Mai 2016</p>
+					 </div>
+				</div>
+
+				<div id="properties" class="col-md-4" style="padding:5px">
+
+					<table  cellpadding="2">
+						<tbody>
+							<tr>
+								<td><img style="width:30px" src="img/distance_icon.png"/></td>
+								<td id="track-distance">100km</td>
+								<td><img style="width:20px; margin-left:10px" src="img/time_icon.png"/></td>
+								<td id="track-duration">23h39</td>
+							</tr>
+							<tr>
+								<td><img style="width:40px" src="img/elevation_gain_icon.png"/></td>
+								<td id="track-elevation-gain">10000 m</td>
+								<td><img style="width:40px; margin-left:10px" src="img/elevation_loss_icon.png"/></td>
+								<td id="track-elevation-loss">10000 m</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="col-md-3">
+					<button id="track-print" style="margin:15px 5px 0 0" type="button" class="btn btn-warning btn-lg" data-toggle="tooltip" data-placement="bottom" title="Imprimer"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>
+					<a id="track-export" href="#" download style="margin-top:15px" type="button" class="btn btn-danger btn-lg" data-toggle="tooltip" data-placement="bottom" title="Exporter GPX"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
+				</div>
+			</div>
+
+			<h4>Profil du parcours</h4>
+		</div>
+
+		<div id="progress-bars">
+			<table width="100%">
+				<tr>
+					<td width="75px"><b>Distance :</b></td>
+					<td>
+						<div class="progress-bar-outside">
+							<div class="progress-bar-inside" id="distance-progress-bar"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="75px"><b>Durée :</b></td>
+					<td>
+
+				<div class="progress-bar-outside">
+				  <div class="progress-bar-inside" id="duration-progress-bar"></div>
+				</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="75px"><b>Montée :</b></td>
+					<td>
+						<div class="progress-bar-outside">
+				  <div class="progress-bar-inside" id="elevation-gain-progress-bar"></div>
+				</div>
+					</td>
+				</tr>
+				<tr>
+					<td width="75px"><b>Descente :</b></td>
+					<td>
+						<div class="progress-bar-outside">
+				  <div class="progress-bar-inside" id="elevation-loss-progress-bar"></div>
+				</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<h4 style="text-align: center;">Prévisions météo</h4>
+		<div id="weather-failure"></div>
+
+		<div id="loading-weather">
+			<img src="img/weather_loading.gif" width="100px"/>
+		</div>
+
+		<div id="weather">
+
+			<!-- Nav tabs -->
+			  <ul class="nav nav-tabs nav-justified" role="tablist">
+			    <li id="forecast_0" role="presentation" class="active">
+					<a href="#forecast_0_detail" click="e.preventdefault()"aria-controls="forecast_0_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_1" role="presentation">
+					<a href="#forecast_1_detail" click="e.preventdefault()" aria-controls="forecast_1_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_2" role="presentation">
+					<a href="#forecast_2_detail" click="e.preventdefault()" aria-controls="forecast_2_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_3" role="presentation">
+					<a href="#forecast_3_detail" click="e.preventdefault()" aria-controls="forecast_3_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			    <li id="forecast_4" role="presentation">
+					<a href="#forecast_4_detail" click="e.preventdefault()" aria-controls="forecast_4_detail" role="tab" data-toggle="tab">
+						<img src="logo.png" style="float:left"/>
+						<p style="float:left"></p>
+					</a>
+				</li>
+			  </ul>
+
+			  <!-- Tab panes -->
+			  <div class="tab-content">
+			    <div role="tabpanel" class="tab-pane active" id="forecast_0_detail">
+					<div id="forecast_0_detail_icons"></div>
+					<canvas id="forecast_0_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_1_detail">
+					<div id="forecast_1_detail_icons"></div>
+					<canvas id="forecast_1_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_2_detail">
+					<div id="forecast_2_detail_icons"></div>
+					<canvas id="forecast_2_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_3_detail">
+					<div id="forecast_3_detail_icons"></div>
+					<canvas id="forecast_3_detail_canvas"></canvas>
+				</div>
+			    <div role="tabpanel" class="tab-pane" id="forecast_4_detail">
+					<div id="forecast_4_detail_icons"></div>
+					<canvas id="forecast_4_detail_canvas"></canvas>
+				</div>
+			  </div>
+		</div>
+
+	</div>
+
+	<!-- d3js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
+	<!-- google maps api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=<?php getenv('GOOGLE_MAPS_KEY'); ?>&libraries=visualization&callback=initMap" async defer></script>
+	<!-- Functions used for different operations -->
+	<script src="js/tools.js"></script>
+	<!-- Track class -->
+	<script src="js/track.js"></script>
+	<!-- custom style for google map -->
+	<script src="js/custom.js"></script>
+	<!-- wheather stuff -->
+	<script src="js/tmp-forecast.js"></script>
+	<script src="js/weather.js"></script>
+	<!-- Map showing all the tracks -->
+	<script src="js/map.js"></script>
+</body>
+
+</html>
