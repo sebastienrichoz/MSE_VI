@@ -4,7 +4,7 @@
 
 **Groupe**
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>
-- Faten Labidi <faten.labidi@master.hes-so.ch>
+- Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
 
 **Public cible** : Toute personne à la recherche d’activités en montagne
 
@@ -85,6 +85,10 @@ Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle rep
 Voilà à quoi ressemblait le prototype de la pente en fonction de la position de la souris sur le graphique.
 
 ![Affichage de la pente](img/gradient.png?raw=true "Affichage de la pente")
+
+Nous avions commencé par utiliser des doughnut charts au lieu des progress bars en pensant d'abord à un aspect esthétique. Nous avons ensuite réalisés que les progress bar permettait une meilleure comparaison des différentes propriétés. Voilà à quoi ressemblait le prototype des doughnut charts.
+
+![Doughnut chart](img/doughnut.png?raw=true "Doughnut chart")
 
 ## Installation
 **L'installation nécessite la version 3 de python.**
