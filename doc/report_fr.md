@@ -74,11 +74,17 @@ Cette phase de réalisation décrit comment les données ont été traitées afi
 
 Nous avons réalisé un graphique qui montre le profil altimétrique du parcours à l'aide de d3js. Il représente la hauteur sur l'axe y et la distance sur l'axe x. Ce profile permet de voir assez facilement la montée et la descente à réaliser ainsi que la pente à chaque endroit du parcours. Lorsque la souris de l'utilisateur passe sur le graphique altimétrique, plusieurs informations sont affichées en fonction de la position sur l'axe x (distance). Sur la carte Google Maps en bas à gauche est affiché la position dans le parcours par rapport à la position de la souris de l'utilisateur à l'aide d'un rond bleu en fonction. 4 barres de progression affichent les informations sur le graphique en fonction de la position de la souris sur le graphique. Les informations affichées par ces 4 barres sont la distance, la montée, la descente et la durée.
 
+Le profile altimétrique est un assez bonne indicateur de la difficulté du chemin et il peut être également utile pour les personnes à mobilité réduite pour savoir s'ils peuvent le faire.
+
 On peut voir dans l'image ci-dessous comment 
 
-    ![Graphique altimétrique avec hover de la souris](img/altimetry_profile_hover.png?raw=true "Graphique altimétrique avec hover de la souris")
+![Graphique altimétrique avec hover de la souris](img/altimetry_profile_hover.png?raw=true "Graphique altimétrique avec hover de la souris")
 
-Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe.
+Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe. Nous avons ensuite décidé de ne pas le garder car dans le cas d'une pente très forte il devient très grand et la localisation GPS n'étant pas toujours très précise il peut arriver que la distance parcourue soit petite mais la différence d'alitutde soit très grande. Nous avons aussi décidé que le graphique du profile altimétrique suffisait pour déterminer la pente à chaque endroit.
+
+Voilà à quoi ressemblait le prototype de la pente en fonction de la position de la souris sur le graphique.
+
+![Affichage de la pente](img/gradient.png?raw=true "Affichage de la pente")
 
 ## Installation
 **L'installation nécessite la version 3 de python.**
