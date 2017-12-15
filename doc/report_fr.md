@@ -47,11 +47,13 @@ Le projet développé durant ce cours entre dans la catégorie des préparateurs
 La phase de conception décrit les technologies utilisées, la source et le format des données, ainsi que l'architecture de l'application.
 
 ### Technologies
-Afin de déployer rapidement la visualisation, celle-ci a été développée en Javascript, HTML5 et CSS3 avec utilisation de l’API Google maps et des librairies d3js ainsi que chartjs pour les graphes.
+La visualisation a été développée en Javascript, HTML5 et CSS3 avec utilisation de l’API Google maps et des librairies d3js ainsi que chartjs pour les graphes.
 
 ### Source et format des données
+Deux différentes sources de données ont été utilisées : une pour les parcours et l'autre pour les prévisions météo.
 
 #### Les parcours
+Les parcours issus 
 
 #### Prévisions météo
 

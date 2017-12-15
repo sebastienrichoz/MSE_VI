@@ -3,8 +3,10 @@ var marker;
 var infoWindow;
 var selectedDay = 0;
 var lat, lng;
+/*
 var heatmapData = [];
 var heatmap;
+*/
 var currentIndex = 0;
 
 const verticalLinePlugin = {
@@ -140,9 +142,11 @@ function displayDetailForecast(htmlId, forecast) {
                 mode: 'index',
                 intersect: false,
                 custom: function(tooltipModel) {
+                    /*
                     if (tooltipModel.dataPoints) {
                         displayHeatmap(selectedDay, tooltipModel.dataPoints[0].index, tooltipModel.dataPoints[0].yLabel);
                     }
+                    */
                 }
             },
             legend: {
@@ -215,11 +219,11 @@ function displayDetailForecast(htmlId, forecast) {
 
     ctx.onmouseover = function(evt){
         displayCurrentForecast(mainMap, marker, infoWindow);
-        heatmap.setMap(mainMap);
+        //heatmap.setMap(mainMap);
     };
     ctx.onmouseout = function(evt){
         hideCurrentForecast(marker, infoWindow);
-        heatmap.setMap(null);
+        //heatmap.setMap(null);
     };
 }
 
@@ -293,13 +297,15 @@ function loadWeatherForecasts(lat, lng, detailMap, weatherMarker) {
     marker = weatherMarker;
     lat = lat;
     lng = lng;
-    heatmapData.push({location: new google.maps.LatLng(lat, lng), weight: 2.0});
-    heatmapData.push({location: new google.maps.LatLng(46.385472, 7.103633), weight: 1.0});
+    //heatmapData.push({location: new google.maps.LatLng(lat, lng), weight: 2.0});
+    //heatmapData.push({location: new google.maps.LatLng(46.385472, 7.103633), weight: 1.0});
 
+    /*
     heatmap = new google.maps.visualization.HeatmapLayer({
         data: heatmapData,
         radius: 100
     });
+    */
 
     if(PRODUCTION) {
         $.get(
