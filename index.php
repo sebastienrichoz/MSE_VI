@@ -105,7 +105,7 @@
 		<div id="progress-bars">
 			<table width="100%">
 				<tr>
-					<td width="75px"><b>Distance :</b></td>
+					<td width="75px"><b>Distance</b></td>
 					<td>
 						<div class="progress-bar-outside">
 							<div class="progress-bar-inside" id="distance-progress-bar"></div>
@@ -113,7 +113,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="75px"><b>Durée :</b></td>
+					<td width="75px"><b>Durée</b></td>
 					<td>
 
 				<div class="progress-bar-outside">
@@ -122,7 +122,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="75px"><b>Montée :</b></td>
+					<td width="75px"><b>Montée</b></td>
 					<td>
 						<div class="progress-bar-outside">
 				  <div class="progress-bar-inside" id="elevation-gain-progress-bar"></div>
@@ -130,7 +130,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td width="75px"><b>Descente :</b></td>
+					<td width="75px"><b>Descente</b></td>
 					<td>
 						<div class="progress-bar-outside">
 				  <div class="progress-bar-inside" id="elevation-loss-progress-bar"></div>
@@ -213,7 +213,7 @@
 	<!-- d3js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
 	<!-- google maps api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=<?php echo getenv('GOOGLE_MAPS_KEY'); ?>&libraries=visualization&callback=initMap" async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&libraries=visualization&callback=initMap" async defer></script>
 	<!-- Functions used for different operations -->
 	<script src="js/tools.js"></script>
 	<!-- Track class -->

@@ -190,16 +190,16 @@ body {
     color: white;
 }
 #distance-progress-bar{
-    background-color: #1f77b4;
+    background-color: #6734BA;
 }
 #duration-progress-bar{
-    background-color: #F2635F;
+    background-color: #89C540;
 }
 #elevation-gain-progress-bar{
-    background-color: #c6c155;
+    background-color: #FFCB21;
 }
 #elevation-loss-progress-bar{
-    background-color: #87AA66;
+    background-color: #F77C00;
 }
 .progress-bar-outside {
 	margin-right: 100px;
