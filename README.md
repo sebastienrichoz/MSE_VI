@@ -2,7 +2,7 @@
 
 This app let users explore different mountain activities like mountain bike, hiking or skitouring on a 2D google map in order to find their specific track for their personal activity.
 
-TODO screenshot of app
+![Aperçu de l'application](img/app.png?raw=true "Aperçu de l'application")
 
 ## Technologies
 HTML5, CSS3, Javascript.
@@ -32,5 +32,4 @@ TODO livereload python http server
 
 ## Authors
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>
-- Faten Labidi <faten.labidi@master.hes-so.ch>
 - Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
