@@ -7,7 +7,7 @@ This app let users explore different mountain activities like mountain bike, hik
 ## Technologies
 HTML5, CSS3, Javascript.
 
-Libraries/framework : [bootstrap](https://getbootstrap.com/), [d3js](https://d3js.org/), [chartjs](http://www.chartjs.org/), [Google Maps API](https://developers.google.com/maps/?hl=fr), [jQuery UI](https://jqueryui.com/)
+Libraries/framework : [Bootstrap](https://getbootstrap.com/), [D3.js](https://d3js.org/), [Chartjs](http://www.chartjs.org/), [Google Maps API](https://developers.google.com/maps/?hl=fr), [jQuery](https://jquery.com/), [jQuery UI](https://jqueryui.com/)
 
 ## Data sources
 - For the tracks, we used the gpx files from our own activities.

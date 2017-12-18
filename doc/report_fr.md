@@ -60,32 +60,36 @@ Nous avons utilisé HTML5, CSS3 et Javascript afin d'avoir un développement sim
 
 #### Google Maps
 
-L'application utilise l'API javascript de Google Maps afin d'afficher la carte, les tracés etc.
+L'application utilise l'[API](https://developers.google.com/maps/?hl=fr) javascript de Google Maps afin d'afficher la carte, les tracés etc.
 Nous avons hésité entre l'utilisation de Google Maps et de Open Street Maps. Ayant de meilleures connaissances dans l'utilisation de Google Maps nous avons décidé de commencer par ça. Nous aimerions bien ajouté la possibilité de choisir Open Street Maps pour l'affichage de différents calques (privilégiant le relief ou la vision satellite par exemple) selon les envies de l'utilisateur.
 
 ![Google Maps API](img/googlemapsapi.png?raw=true)
 
 #### jQuery
 
-Nous avons utilisé la librairie jQuery. Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écrit en Javascript.
+Nous avons utilisé la librairie [jQuery](https://jquery.com/). Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écrit en Javascript.
+
+#### jQuery UI
+
+Nous avons utilisé la librairie [jQuery UI](https://jqueryui.com/) afin d'afficher les sliders permettant de chosir les valeurs minimales et maximales des filtres.
 
 ![jQuery](img/jquery.jpg?raw=true)
 
 #### Bootstrap
 
-Nous avons utilisé Bootstrap pour certaines parties de la mise en page.
+Nous avons utilisé [Bootstrap](https://getbootstrap.com/) pour certaines parties de la mise en page.
 
 ![Bootstrap](img/bootstrap.png?raw=true)
 
 #### ChartJS
 
-Nous avons utilisé ChartJS pour l'affichage des graphiques de la météo.
+Nous avons utilisé [Chartjs](http://www.chartjs.org/) pour l'affichage des graphiques de la météo.
 
 ![ChartJS](img/chartjs.png?raw=true)
 
 #### D3.js
 
-Nous avons utilisé D3.js pour l'affichage du graphique du profil altimétrique.
+Nous avons utilisé [D3.js](https://d3js.org/) pour l'affichage du graphique du profil altimétrique.
 
 ![D3JS](img/d3.png?raw=true)
 
