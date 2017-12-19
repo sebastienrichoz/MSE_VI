@@ -112,14 +112,6 @@ function displayDetailForecast(htmlId, forecast) {
             labels: chartData.hours,
             datasets: [
                 {
-                    type: 'bar',
-                    label: "Précipitations",
-                    data: chartData.rainfalls,
-                    fill: false,
-                    backgroundColor: '#1bb6e5',
-                    hoverBackgroundColor: '#1b90e5',
-                    yAxisID: 'y-axis-2'
-                }, {
                     label: "Température",
                     type:'line',
                     data: chartData.temperatures,
@@ -128,6 +120,15 @@ function displayDetailForecast(htmlId, forecast) {
                     pointBackgroundColor: '#e51b1b',
                     pointHoverBackgroundColor: '#e5391b',
                     yAxisID: 'y-axis-1'
+                },
+                {
+                    type: 'bar',
+                    label: "Précipitations",
+                    data: chartData.rainfalls,
+                    fill: false,
+                    backgroundColor: '#1bb6e5',
+                    hoverBackgroundColor: '#1b90e5',
+                    yAxisID: 'y-axis-2'
                 },
             ]
         };
@@ -256,14 +257,14 @@ function loadCurrentForecast(forecastInfo, currentCondition) {
     '<table>'+
     '<tbody>'+
     '<tr style="height:2px">'+
-    '<td" colspan="2"><b>Conditions actuelles</b></td>'+
-    '</tr>'+
-    '<tr style="height:18px">'+
-    '<td colspan="2">' + currentCondition.date + ' à '+ currentCondition.hour +'</td>'+
+    '<td" colspan="2"><b>Point de mesure météo</b></td>'+
     '</tr>'+
     '<tr style="height:18px">'+
     '<td>Altitude</td>'+
     '<td><b>' + round(forecastInfo.elevation, 0) + ' m</b></td>'+
+    '</tr>'+
+    '<tr style="height:18px">'+
+    '<td colspan="2">' + currentCondition.date + ' à '+ currentCondition.hour +'</td>'+
     '</tr>'+
     '<tr>'+
     '<td><img width="28px" style="margin-top:0px" src="'+ currentCondition.icon +'"/></td>'+
@@ -311,7 +312,8 @@ function loadWeatherForecasts(lat, lng, detailMap, weatherMarker) {
         $.get(
             "https://www.prevision-meteo.ch/services/json/lat=" + lat + "lng=" + lng,
             function(json, status) {
-                if (status == 'success') {
+
+                if (status == 'success' && json.errors == undefined) {
 
                     infoWindow = loadCurrentForecast(json.forecast_info, json.current_condition);
 
@@ -331,15 +333,17 @@ function loadWeatherForecasts(lat, lng, detailMap, weatherMarker) {
                     displayGlobalForecast("forecast_3", json.fcst_day_3, 3);
                     displayGlobalForecast("forecast_4", json.fcst_day_4, 4);
 
+                    $("#weather").show();
+                    $("#weather-failure").hide();
                 } else {
                     $("#weather-failure").html(
                         '<div class="alert alert-danger">' +
-                        '<strong>Erreur.</strong> ' + json +
+                        '<strong>Error: ' + json.errors[0].text + '</strong> ' + json.errors[0].description +
                         '</div>');
                     $("#weather-failure").show();
+                    $("#weather").hide();
                 }
 
-                $("#weather").show();
                 $("#loading-weather").hide();
             }
         );
