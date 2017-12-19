@@ -102,7 +102,7 @@
 				</div>
 
 				<div class="col-md-3">
-					<button id="track-print" style="margin:15px 5px 0 0" type="button" class="btn btn-warning btn-lg" data-toggle="tooltip" data-placement="bottom" title="Imprimer"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></button>
+					<a id="track-print" style="margin:15px 5px 0 0" type="button" class="btn btn-warning btn-lg" data-toggle="tooltip" data-placement="bottom" title="Imprimer"><span class="glyphicon glyphicon-print" aria-hidden="true"></span></a>
 					<a id="track-export" href="#" download style="margin-top:15px" type="button" class="btn btn-danger btn-lg" data-toggle="tooltip" data-placement="bottom" title="Exporter GPX"><span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span></a>
 				</div>
 			</div>

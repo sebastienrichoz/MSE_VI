@@ -1,15 +1,15 @@
-# Projet VI - Mountain Tracks Explorator
+# Mountain Tracks Explorator
 
-*Octobre - décembre 2017*
+*Projet effectué durant le cours VI de octobre à décembre 2017*
 
+---
 
-
-Il est conseillé de visualiser l'application en même temps que la lecture de ce document
+**Il est conseillé de visualiser l'application en même temps que la lecture de ce document**
 
 - Landing page : [https://sebastienrichoz.github.io/MSE_VI/](https://sebastienrichoz.github.io/MSE_VI/)
 - Lien direct vers l'application : [https://mountain-tracks-explorator.herokuapp.com/](https://mountain-tracks-explorator.herokuapp.com/)
 
-
+---
 
 **Groupe**
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>
@@ -19,9 +19,9 @@ Il est conseillé de visualiser l'application en même temps que la lecture de c
 
 **Intention/objectif** : Aider les personnes à la recherche d’activités en montagne à trouver des parcours (VTT, randonnée, ski, ...) en les explorant sur une carte en 2D.
 
-**Source de données** : BikingSpots.ch et la montre à Sébastien (fichiers GPX) + https://www.prevision-meteo.ch/services pour les données météo.
+**Source de données** : la montre à Sébastien (fichiers GPX) + https://www.prevision-meteo.ch/services pour les données météo.
 
-**Technologie** : Javascript & HTML & CSS
+**Technologies** : Javascript & HTML & CSS
 
 **Court descriptif** :  Visualisation des parcours à l’aide de l’API de Google Maps avec détails de ceux-ci (profil altimétrique, distance...).
 
@@ -228,7 +228,7 @@ L' API limite la latitude entre 41.3 et 51.9 et la longitude entre -5.2 and 10.7
 
 ![window-forecast](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/window-forecast.png)
 
-Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être récupérées et l'application retournera un message d'erreur en lieu et place du graphe des prévisions météo :
+Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être récupérée et l'application retournera un message d'erreur en lieu et place du graphe des prévisions météo :
 
 ![forecast-error](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/forecast-error.png)
 
@@ -246,6 +246,22 @@ Cette phase décrit comment les données ont été traitées et affichées à l'
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
 
+### Présentation de l'application
+
+Lorsqu'un utilisateur découvre l'application pour la première fois il ne comprend pas forcément tout de suite ce qu'elle permet de faire. De plus, elle ne contient pas de barre de titre ni de descriptif permettant d'en savoir plus, l'objectif étant de maximiser l'espace disponible avec les cartes et les graphiques amenant des informations plus riches au véritable problème.
+
+C'est pourquoi nous avons créé une page de présentation séparée totalement de l'application qui fournit les informations nécessaires à la mise en contexte de l'utilisateur vis-à-vis du problème permettant également de provoquer l'envie d'utiliser l'outil au moyen d'une visualisation attirante. C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
+
+![landing-page](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/landing-page.png)
+
+La photo en background identifie les trois types d'activités. La landing page a été réalisée avec un thème gratuit bootstrap https://startbootstrap.com/template-overviews/creative/ .
+
+Il est possible de passer de la landing page à l'application interactive et vice-versa.
+
+![switch-landing-app](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/switch-landing-app.jpg)
+
+Ainsi nous obtenons une navigation cohérente et une manière de mettre l'utilisateur dans le contexte de l'application.
+
 ### Les 3 parties de l'application
 
 Nous avons essayé de suivre les 7 étapes du mantra de la visualisation selon Ben Schneidermann en divisant l'application en 3 parties.
@@ -258,9 +274,13 @@ Les marqueurs sur la carte sont positionnés au centre de tous les points qui co
 
 Pour compléter cette étape "details-on-demand", lors d'un clique sur un marqueur de parcours, les deux autres parties de l'application sont affichées et la 1ère partie est redimensionnée pour prendre un quart de l'écran.
 
-La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours qui permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours permet d'identifier si le parcours revient à son point de départ. Le dernier marqueur permet d'afficher le point de mesure météo avec l'altitude correspondante et les données météorologiques actuelles.
+La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours permet d'identifier si le parcours revient à son point de départ. Le dernier marqueur permet d'afficher le point de mesure météo avec l'altitude correspondante et les données météorologiques actuelles.
 
-La 3ème partie est positionnée sur la droite de l'application web et prend 50% de sa largeur. Elle affiche toute les informations utiles sur le parcours, c'est à dire le graphique du profile altimétrique qui est décrit plus bas, la météo, les informations générales, le titre, le type du parcours et la date du parcours. La date du parcours peut être utile pour s'assurer que le parcours n'est pas trop vieux (encore réalisable) et à quelle saison il a été réalisé. Finalement cette partie permet d'imprimer les détails du parcours dans un meilleur format et de télécharger le fichier gpx du parcours pour par exemple pouvoir l'importer dans une application mobile ou sur une montre connectée.
+La 3ème partie est positionnée sur la droite de l'application web et prend 50% de sa largeur. Elle affiche toute les informations utiles sur le parcours, c'est à dire le graphique du profil altimétrique qui est décrit plus bas, la météo, les informations générales, le titre, le type du parcours et la date du parcours. La date du parcours peut être utile pour s'assurer que le parcours n'est pas trop vieux (encore réalisable) et à quelle saison il a été réalisé. Finalement cette partie permet d'imprimer les détails du parcours dans un meilleur format et de télécharger le fichier gpx du parcours pour par exemple pour l'importer dans une application mobile ou sur une montre connectée.
+
+Les étapes **5. Relate** et **6. History** n'ont pas été implémentées. Il n'y a pas de relations entre les parcours ni entre les utilisateurs. Pour l'historique la seule chose faite consiste à diviser l'écran en 3 parties pour situer l'utilisateur mais nous ne pensons pas que ceci est suffisant pour être défini en tant que tel.
+
+L'étape **7. Extract** a par contre été implémentée. En effet, l'utilisateur peut exporter un parcours au format GPX ou l'imprimer.
 
 
 ### Responsive Design
@@ -314,7 +334,7 @@ Nous avions commencé par utiliser des doughnut charts au lieu des progress bars
 
 Etant donné qu'une préparation implique souvent la consultation de la météo, cette information est fournie pour chaque parcours du jour actuel J0 au jour J+4. Bien que beaucoup de données sont à disposition comme la température, les précipitations, la vitesse du vent, le taux d'humidité, etc., nous avons décidé de ne retenir que la température [°C] et les précipitations de pluie [mm/h] car ce sont selon nous les éléments les plus importantes à la pratique d'activités outdoor.
 
-Le graphe montre la température et les précipitations à chaque heure de la journée. La température est représentée par une courbe pour montrer l'évolution de celle-ci. Les barres verticales pour les précipitations se prêtent bien à la symbolique d'accumulation d'eau. Pour les couleurs, le bleu est bien assimilé à de l'eau et le rouge correspond à une température mais plutôt chaude. Nous l'avons tout de même laissé ainsi car elle se différencie bien des précipitations. Au survol des données, une pop-up noire affiche le détail des précipitations et de la température à l'heure spécifiée.
+Le graphe montre la température et les précipitations à chaque heure de la journée. La température est représentée par une courbe pour montrer l'évolution de celle-ci. Les barres verticales pour les précipitations se prêtent bien à la symbolique d'accumulation d'eau. Pour les couleurs, le bleu est bien assimilé à de l'eau et le rouge correspond à une température mais plutôt chaude. Nous l'avons tout de même laissé ainsi car elle se différencie bien des précipitations. Au survol des données, une pop-up noire affiche le détail des précipitations et de la température à l'heure spécifiée. Les petites icônes météo sont très pratiques pour visualiser l'évolution du temps au cours de la journée.
 
 ![weather-graph](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/weather-graph.png)
 
@@ -324,7 +344,27 @@ Lorsque le graphe est survolé, le marqueur orange sur le tracé s'affichent pou
 
 #### Améliorations possibles
 
-Nous avons envisagé d'implémenter une heat map affichant les précipitations à chaque heure au survol du graphe afin que l'utilisateur puisse visualiser leurs évolutions au long de la journés. Il s'est avéré que cela impliquait près de 20 requêtes à l'API météo par jour par parcours, ce qui risquait de ralentir l'application et de complexifier le projet. Par ailleurs l'API n'est probablement pas assez précise pour fournir des données météos différentes entre deux points GPS distants de quelques centaines de mètres, ce qui rend l'implémentation d'une heatmap peu relevante.
+Nous avons envisagé d'implémenter une heat map affichant les précipitations à chaque heure sur la carte au survol du graphe afin que l'utilisateur puisse visualiser les évolutions au long de la journée. Il s'est avéré que cela impliquait près de 20 requêtes à l'API météo par jour par parcours, ce qui risquait de ralentir l'application et de complexifier le projet. Par ailleurs l'API n'est probablement pas assez précise pour fournir des données météos différentes entre deux points GPS distants de quelques centaines de mètres, ce qui rend l'implémentation d'une heatmap peu relevante. Par contre la heatmap ferait plus de sens si elle était implémentée sur la carte affichant tous les parcours (avec un slider pour se déplacer dans le temps).
+
+## Critiques
+
+TODO
+
+- Différents calques de carte pour mieux montrer les courbes de niveau (API openstreetmap différente de google map)
+- Une heatmap montrant l'évolution de la température/précipitation/nuage aurait été cool
+- Pas adapté pour le mobile (afficher moins de données pour une meilleure visu ?)
+- L'impression n'est pas encore bien mise en place (bugs d'affichage, graphe altitude coupé)
+- Sur le graphe météo il manque les unités sur la popup noire
+- Fichiers GPX trop lourd => réduction des données
+
+## Conclusion
+
+TODO
+
+- Pas facile d'avoir une solution à la fois simple et qui regroupe beaucoup d'informations. Vite débordé.
+- Les interactions ne sont pas forcément intuitives, on les découvre au fil du temps ou par curiosité.
+- L'application implémente les étapes principales du mantra (1,2,3 et 4). Intéressant.
+- ​
 
 ## Installation
 
@@ -337,6 +377,7 @@ Pour exécuter l'application en local :
 
 - Cloner le projet (ou le télécharger)
 - Placer son contenu sur un serveur supportant PHP (Xampp, Mamp, Wamp, …)
+- Dans index.php, modifier la clé Javascript avec votre propre clé pour utiliser l'API de Google Map
 - Lancer le serveur PHP
 - Ouvrir la page index.php dans un navigateur web
 
