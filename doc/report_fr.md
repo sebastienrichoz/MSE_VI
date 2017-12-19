@@ -2,6 +2,15 @@
 
 *Octobre - décembre 2017*
 
+
+
+Il est conseillé de visualiser l'application en même temps que la lecture de ce document
+
+- Landing page : [https://sebastienrichoz.github.io/MSE_VI/](https://sebastienrichoz.github.io/MSE_VI/)
+- Lien direct vers l'application : [https://mountain-tracks-explorator.herokuapp.com/](https://mountain-tracks-explorator.herokuapp.com/)
+
+
+
 **Groupe**
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>
 - Sébastien Richoz <sebastien.richoz@master.hes-so.ch>
@@ -223,11 +232,13 @@ Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être
 
 ![forecast-error](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/forecast-error.png)
 
-### Architecture
+### Architecture MVC
+
+HTML pour la vue, CSS pour la mise en forme, JavaScript pour les controlleurs et les fichiers .gpx comme modèles.
 
 ## Réalisation
 
-Cette phase de réalisation décrit comment les données ont été traitées afin de mettre en avant certains problèmes engendrés par celles-ci.
+Cette phase décrit comment les données ont été traitées et affichées à l'utilisateur
 
 - Filtrage des .gpx
     - calcul du dénivelé (tout les t secondes sinon imprécis)
@@ -254,7 +265,7 @@ La 3ème partie est positionnée sur la droite de l'application web et prend 50%
 
 ### Responsive Design
 
-Nous avons fait en sorte que l'application soit "responsive", c'est à dire qu'elle se redimensionne en fonction de l'écran afin d'utiliser au mieu toute la place disponible, peu importe la résolution de l'utilisateur.
+Nous avons fait en sorte que l'application soit "responsive", c'est à dire qu'elle se redimensionne en fonction de l'écran afin d'utiliser au mieux toute la place disponible, peu importe la résolution de l'écran.
 L'utilisation de 2 cartes Google Maps et des graphiques limite quand même la taille minimum de l'écran et il ne peut pas être visionné sur mobile.
 
 ### Support des différents navigateurs
@@ -317,15 +328,56 @@ Nous avons envisagé d'implémenter une heat map affichant les précipitations �
 
 ## Installation
 
-**L'installation nécessite la version 3 de python.**
+L'application est en ligne et disponible à l'adresse
 
-Le projet est stocké sur le repository github https://github.com/sebastienrichoz/MSE_VI.
-- Télécharger son contenu
-- Dans le dossier racine `$ cd MSE_VI`,
-- Exécuter `$ python -m http.server`
-- L'application est alors disponible sur `http://localhost:8000/`
+- Page de présentation :  https://sebastienrichoz.github.io/MSE_VI/
+- Application : https://mountain-tracks-explorator.herokuapp.com/
+
+Pour exécuter l'application en local :
+
+- Cloner le projet (ou le télécharger)
+- Placer son contenu sur un serveur supportant PHP (Xampp, Mamp, Wamp, …)
+- Lancer le serveur PHP
+- Ouvrir la page index.php dans un navigateur web
 
 ## Mode d'emploi
-L'application devrait être suffisamment simple d'utilisation. Lorsqu'un marqueur est survolé il affiche des données générales et lorsqu'il est cliqué des données plus détaillées apparaissent sur la droite de l'écran. En survolant le profil altimétrique on obtient une interaction avec le tracé du parcours (un marqueur suit le tracé selon le positionnement du curseur sur le profil altimétrique).
+L'application devrait être suffisamment simple d'utilisation. Voici un ensemble d'étape pour découvrir toutes ses fonctionnalités:
 
-Le graphique météo donne des informations météorologiques entre le jour J et J+4. Le point de mesure est affiché par un marqueur orange muni d'une icône thermomètre et correspond à la centroïde du tracé. Le graphique fournit la température et la quantité de précipitation pour toutes les heures de chaque jour.
+1. Au premier chargement de l'application, visualiser les différents parcours en se déplacant sur la carte
+
+   - Filtrer les parcours avec les icônes en bas à gauche (Filtrer par type, distance, durée ou dénivelé positif)
+   - Revenir à la page de présentation avec l'icone en haut à gauche
+
+2. Survoler les marqueurs pour obtenir des informations générales sur chaque parcours
+
+3. Cliquer sur le marqueur pour obtenir des informations détaillées. L'application est divisée en 3 parties
+
+   1. Partie en haut à gauche : Permet de naviguer sur la carte comme avant
+   2. Partie à droite : Affiche les informations détaillées du parcours
+   3. Partie en bas à gauche : Affiche le tracé du parcours
+
+4. Sur la partie droite :
+
+   1. Survoler le graphe du profil altimétrique avec le curseur
+
+      - L'altitude est affichée
+
+
+      - Des barres de progressions montrent la complétion du parcours à la position du curseur
+      - Un point bleu se déplace sur la partie en bas à gauche selon la position du curseur
+
+   2. Suvoler le graphe des prévisions météos
+
+      - La température et les précipitations s'affichent dans un cadran noir sur le graphe
+      - Le marqueur orange muni d'une icone thermomètre s'affiche sur le partie en bas à gauche indiquant le point de mesure météo et les conditions actuelles
+      - Changer les jours pour obtenir les prévisions des autres jours
+
+   3. Tout en haut à droite
+
+      - Un bouton permet d'imprimer le parcours
+      - Un bouton permet d'exporter le fichier gpx du parcours
+
+5. Sur la partie en bas à gauche
+
+   1. Cliquer sur le marqueur du point de départ du parcours (drapeau vert) pour ouvrir une nouvelle fenêtre dans le navigateur avec l'itinéraire google map menant à ce point.
+   2. Survoler le marqueur orange pour afficher les conditions météo actuelles
