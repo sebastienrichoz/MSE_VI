@@ -58,7 +58,7 @@ Les traqueurs d'activité concernent quant à eux la phase se déroulant **aprè
 
 Le projet développé durant ce cours entre dans la catégorie des préparateurs de parcours. Les solutions trouvées sur le web sont à notre goût incomplètes au niveau du regroupement des informations : certaines manquent ou sont incomplètes et d'autres sont de trop. De plus, il faut souvent cliquer sur plusieurs boutons/liens avant d'arriver à l'information souhaitée. Finalement l'utilisateur se perd et est contraint de récolter l'informations sur plusieurs sites web afin de préparer correctement son parcours.
 
-À la différence de ces solutions, Mountain Tracks Explorator se veut plus pertinant, selon nous, vis-à-vis de la présentation des données nécessaires à une préparation minimale mais complète d'un parcours en montagne, tout en accédant en un minimum d'étape à l'information souhaitée.
+À la différence de ces solutions, Mountain Tracks Explorator se veut plus pertinent, selon nous, vis-à-vis de la présentation des données nécessaires à une préparation minimale mais complète d'un parcours en montagne, tout en accédant en un minimum d'étape à l'information souhaitée.
 
 ## Conception
 
@@ -123,7 +123,7 @@ Voici un exemple de fichier GPX.
   <trk>
       <name>L'Isle - Croix</name>
       <type>mtb</type>
-    
+
       <trkseg>
         <trkpt lat="46.61722967" lon="6.41248367">
           <ele>676.0</ele>
@@ -177,7 +177,7 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
   "forecast_info": {
     "elevation": "725.44"
   },
-  
+
   // Conditions actuelles
   "current_condition": {
     "date": "19.12.2017",
@@ -186,7 +186,7 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
     "condition": "Nuit nuageuse",
     "icon": "https://www.prevision-meteo.ch/style/images/icon/nuit-nuageuse.png",
   },
-  
+
   // Prévisions du jour actuel
   "fcst_day_0": {
     "date": "19.12.2017",
@@ -194,7 +194,7 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
     "tmin": -7, // Température minimum en °C
     "tmax": -1, // Température maximum en °C
     "icon": "https://www.prevision-meteo.ch/style/images/icon/stratus-se-dissipant.png",
-    
+
     // Prévision pour chaque heure de la journée
     "hourly_data": {
       "0H00": {
@@ -206,7 +206,7 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
       "23H00": { /*... */ }
     }
   },
-  
+
   // Prévisions des jours suivants
   "fcst_day_1" : { /* ... */ },
   "fcst_day_2" : { /* ... */ },
@@ -234,6 +234,44 @@ Cette phase de réalisation décrit comment les données ont été traitées afi
     - profil altimétrique (tout les t secondes sinon trop précis et lent)
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
+
+### Les 3 parties de l'application
+
+Nous avons essayé de suivre les 7 étapes du mantra de la visualisation selon Ben Schneidermann en divisant l'application en 3 parties.
+
+La première qui est affichée en plein écran lorsque l'application est ouverte est une carte Google Maps. Cette carte affiche tous les parcours avec des marqueurs ayant comme image le type du parcours et une couleur distincte des autres types. Cela remplis **1. Overview first** du mantra.
+
+Les étapes **2. zoom and 3. filter** sont permises d'une part par les contrôles de Google Maps qui permettent de zoomer et de se déplacer sur la carte mais aussi par les filtres en bas à gauche qui permettent de sélectionnner précisément quels parcours doivent être affichés. Les filtres sont décrits plus en détails dans la sections "filtrage des parcours".
+
+Les marqueurs sur la carte sont positionnés au centre de tous les points qui composent le parcours. Lorsque la souris de l'utilisateur passe sur le marqueur son nom et ses différentes informations sont affichées dans une case au-dessus du marqueur et le parcours du marqueur est affiché en fushia (afin d'être facilement différenciable des autres couleurs de la carte). Cela fait partie de l'étape **4. details-on-demand** du mantra.
+
+Pour compléter cette étape "details-on-demand", lors d'un clique sur un marqueur de parcours, les deux autres parties de l'application sont affichées et la 1ère partie est redimensionnée pour prendre un quart de l'écran.
+
+La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours qui permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours permet d'identifier si le parcours revient à son point de départ. Le dernier marqueur permet d'afficher le point de mesure météo avec l'altitude correspondante et les données météorologiques actuelles.
+
+La 3ème partie est positionnée sur la droite de l'application web et prend 50% de sa largeur. Elle affiche toute les informations utiles sur le parcours, c'est à dire le graphique du profile altimétrique qui est décrit plus bas, la météo, les informations générales, le titre, le type du parcours et la date du parcours. La date du parcours peut être utile pour s'assurer que le parcours n'est pas trop vieux (encore réalisable) et à quelle saison il a été réalisé. Finalement cette partie permet d'imprimer les détails du parcours dans un meilleur format et de télécharger le fichier gpx du parcours pour par exemple pouvoir l'importer dans une application mobile ou sur une montre connectée.
+
+
+### Responsive Design
+
+Nous avons fait en sorte que l'application soit "responsive", c'est à dire qu'elle se redimensionne en fonction de l'écran afin d'utiliser au mieu toute la place disponible, peu importe la résolution de l'utilisateur.
+L'utilisation de 2 cartes Google Maps et des graphiques limite quand même la taille minimum de l'écran et il ne peut pas être visionné sur mobile.
+
+### Support des différents navigateurs
+
+L'application a été développée principalement sur le navigateur Chrome et il est recommandé d'utiliser ce navigateur. L'application a également été testée sur Mozilla Firefox, Internet Explorer, Safari et Microsoft Edge. Aucun problème n'a été rencontré sur ces navigateurs à l'exception de Internet Explorer qui rencontre plusieurs erreurs.
+
+### Filtrage des parcours
+
+Plusieurs filtres ont été réalisé afin que l'utilisateur puisse afficher seulement les parcours qui l'intéressent.
+
+La première partie des filtres consiste en 4 boutons qui représentent les 4 types de parcours possibles (mountain bike, randonnée, ski et autre) et qui sont activés par défaut. L'appui sur l'un des 4 filtres permet de basculer entre l'affichage ou non des parcours de ce type. Lorsque les parcours d'un type ne sont pas affichés, le bouton correspondant est partiellement transparent. On peut voir ce comportement dans l'image ci-dessous.
+
+![Filtrage par type](img/filter_type.png?raw=true)
+
+La deuxième partie des filtres concerne les propriétés des parcours. Par exemple un utilisateur qui voudrait faire un parcours pas trop difficile pourrait limiter le gain en altitude des parcours affichés et leurs longueurs. Il y a 4 propriétés des parcours qui peuvent être filtrées, la distance, la durée, le gain en altitude et la perte d'altitude. Les valeurs peuvent être saisies à l'aide de sliders de portée de la librairie jQuery UI. Afin de ne pas prendre trop de place sur l'écran de l'utilisateur, ils sont cachés sur par défaut et il faut cliquer sur le bouton tout en bas à gauche de la carte qui affiche les parcours pour les afficher. On peut voir dans l'image ci-dessous à quoi ressemble ces filtres.
+
+![Filtrage par propriété](img/filter_properties.png?raw=true)
 
 ### Choix des couleurs
 
@@ -288,6 +326,6 @@ Le projet est stocké sur le repository github https://github.com/sebastienricho
 - L'application est alors disponible sur `http://localhost:8000/`
 
 ## Mode d'emploi
-L'application devrait être suffisament simple d'utilisation. Lorsqu'un marqueur est survolé il affiche des données générales et lorsqu'il est cliqué des données plus détaillées apparaissent sur la droite de l'écran. En survolant le profil altimétrique on obtient une interaction avec le tracé du parcours (un marqueur suit le tracé selon le positionnement du curseur sur le profil altimétrique).
+L'application devrait être suffisamment simple d'utilisation. Lorsqu'un marqueur est survolé il affiche des données générales et lorsqu'il est cliqué des données plus détaillées apparaissent sur la droite de l'écran. En survolant le profil altimétrique on obtient une interaction avec le tracé du parcours (un marqueur suit le tracé selon le positionnement du curseur sur le profil altimétrique).
 
-Le graphique météo donne des informations météorologiques entre le jour J et J+4. Le point de mesure est affiché par un marqueur orange muni d'une icône thermomètre et correspond à la centroïde du tracé. Le graphique fournit la température et la quantité de précépitation pour toutes les heures de chaque jour.
+Le graphique météo donne des informations météorologiques entre le jour J et J+4. Le point de mesure est affiché par un marqueur orange muni d'une icône thermomètre et correspond à la centroïde du tracé. Le graphique fournit la température et la quantité de précipitation pour toutes les heures de chaque jour.
