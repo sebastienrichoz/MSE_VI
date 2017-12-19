@@ -38,6 +38,14 @@ body {
 	margin-right: 10px;
 }
 */
+
+#landing-page {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    z-index: 1000;
+}
+
 #properties div {
     padding:0;
 }

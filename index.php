@@ -22,7 +22,15 @@
 </head>
 
 <body>
+	<!-- button to go back to landing page -->
+	<div id="landing-page">
+		<a href="https://sebastienrichoz.github.io/MSE_VI/" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Accueil">
+			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		</a>
+	</div>
+
 	<div id="map">
+
 		<div id="google-map"></div>
 
 
@@ -212,8 +220,6 @@
 
 	<!-- d3js -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.js"></script>
-	<!-- google maps api -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&libraries=visualization&callback=initMap" async defer></script>
 	<!-- Functions used for different operations -->
 	<script src="js/tools.js"></script>
 	<!-- Track class -->
@@ -225,6 +231,8 @@
 	<script src="js/weather.js"></script>
 	<!-- Map showing all the tracks -->
 	<script src="js/map.js"></script>
+	<!-- google maps api -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCOrTKgjSW25PfnWVUaytebQdX3mEhNsU4&libraries=visualization&callback=initMap" async defer></script>
 </body>
 
 </html>
