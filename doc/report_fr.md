@@ -149,6 +149,23 @@ Cette phase de réalisation décrit comment les données ont été traitées afi
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
 
+### Les 3 parties de l'application
+
+Nous avons essayé de suivre le mantra de la visualisation. L'application est séparée en 3 parties. 
+
+La première qui est affichée en plein écran lorsque l'application est ouverte est une carte Google Maps. Cette carte affiche tous les parcours avec des marqueurs ayant comme image le type du parcours et une couleur distincte des autres types. Cela remplis le critère "Overview first" du mantra.
+
+Le mantra "zoom and filter" est permis d'une part par les contrôles de Google Maps qui permettent de zoomer et de se déplacer sur la carte mais aussi par les filtres en bas à gauche qui permettent de sélectionnner précisément quels parcours doivent être affichés. Les filtres sont décrit plus en détails dans la sections "filtrage des parcours".
+
+Les marqueurs sur la carte sont positionnés au centre de tous les points qui composent le parcours. Lorsque la souris de l'utilisateur passe sur le marqueur son nom et ces différentes informations sont affichées dans une case au dessus du marqueur et le parcours du marqueur est affiché en fushia (afin d'être facilement différenciable des autres couleurs de la carte). Cela fait partie du mantra "details-on-demand".
+
+Pour compléter le mantra "details-on-demand", lors d'un clique sur un marqueur de parcours, les deux autres parties de l'application sont affichées et la 1ère partie est redimensionnée pour prendre un quart de l'écran. 
+
+La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours qui permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours et un marqueur qui permet d'afficher la météo actuel et l'alitude du parcours.
+
+La 3ème partie est positionnée sur la droite de l'application web et prend 50% de sa largeur. Elle affiche toute les informations utiles sur le parcours, c'est à dire le graphique du profile altimétrique qui est décrit plus bas, la météo, les informations générales, le titre, le type du parcours et la date du parcours. La date du parcours peut être utile pour s'assurer que le parcours n'est pas trop vieux (encore réalisable) et à quelle saison il a été réalisé. Finalement cette partie permet d'imprimer les détails du parcours dans un meilleur format et de télécharger le fichier gpx du parcours pour par exemple pouvoir le importer dans une application mobile ou sur une montre connectée.
+
+
 ### Responsive Design
 
 Nous avons fait en sorte que l'application soit "responsive", c'est à dire qu'elle se redimensionne en fonction de l'écran afin d'utiliser au mieu toute la place disponible, peu importe la résolution de l'utilisateur.
