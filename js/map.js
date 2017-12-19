@@ -105,7 +105,7 @@ function initMap() {
         let poly = new google.maps.Polyline({
             // use your own style here
             path: track.points,
-            strokeColor: "#6734BA",
+            strokeColor: "#ff0090",
             strokeOpacity: .7,
             strokeWeight: 4
         });
@@ -279,7 +279,7 @@ function initMap() {
                 let polyCpy = new google.maps.Polyline({
                     // use your own style here
                     path: track.points,
-                    strokeColor: "#6734BA",
+                    strokeColor: "#ff0090",
                     strokeOpacity: .7,
                     strokeWeight: 4
                 });
