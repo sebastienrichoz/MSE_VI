@@ -343,11 +343,11 @@ Etant donné qu'une préparation implique souvent la consultation de la météo,
 
 Le graphe montre la température et les précipitations à chaque heure de la journée. La température est représentée par une courbe pour montrer l'évolution de celle-ci. Les barres verticales pour les précipitations se prêtent bien à la symbolique d'accumulation d'eau. Pour les couleurs, le bleu est bien assimilé à de l'eau et le rouge correspond à une température mais plutôt chaude. Nous l'avons tout de même laissé ainsi car elle se différencie bien des précipitations. Au survol des données, une pop-up noire affiche le détail des précipitations et de la température à l'heure spécifiée. Les petites icônes météo sont très pratiques pour visualiser l'évolution du temps au cours de la journée.
 
-![weather-graph](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/weather-graph.png)
+![weather-graph](img/weather-graph.png)
 
 Lorsque le graphe est survolé, le marqueur orange sur le tracé s'affichent pour indiquer le point de mesure de la météo. En effet, en montagne, la température dépend beaucoup de l'altitude et il est important de savoir à quelle hauteur elle est mesurée. Le choix du point de mesure correspond à la centroïde du parcours.
 
-![weather-mesure](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/weather-mesure.png)
+![weather-mesure](img/weather-mesure.png)
 
 #### Améliorations possibles
 
