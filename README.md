@@ -1,4 +1,4 @@
-# Mountain Track Explorator
+# Mountain Tracks Explorator
 
 This app let users explore different mountain activities like mountain bike, hiking or skitouring on a 2D google map in order to find their specific track for their personal activity.
 
