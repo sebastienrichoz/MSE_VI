@@ -233,11 +233,11 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
 
 L' API limite la latitude entre 41.3 et 51.9 et la longitude entre -5.2 and 10.7 ce qui correspond au fenêtrage suivant :
 
-![window-forecast](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/window-forecast.png)
+![window-forecast](img/window-forecast.png)
 
 Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être récupérée et l'application retournera un message d'erreur en lieu et place du graphe des prévisions météo :
 
-![forecast-error](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/forecast-error.png)
+![forecast-error](img/forecast-error.png)
 
 ### Architecture MVC
 
@@ -259,13 +259,13 @@ Lorsqu'un utilisateur découvre l'application pour la première fois il ne compr
 
 C'est pourquoi nous avons créé une page de présentation séparée totalement de l'application qui fournit les informations nécessaires à la mise en contexte de l'utilisateur vis-à-vis du problème permettant également de provoquer l'envie d'utiliser l'outil au moyen d'une visualisation attirante. C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
 
-![landing-page](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/landing-page.png)
+![landing-page](img/landing-page.png)
 
 La photo en background identifie les trois types d'activités. La landing page a été réalisée avec un thème gratuit bootstrap https://startbootstrap.com/template-overviews/creative/ .
 
 Il est possible de passer de la landing page à l'application interactive et vice-versa.
 
-![switch-landing-app](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/switch-landing-app.jpg)
+![switch-landing-app](img/switch-landing-app.jpg)
 
 Ainsi nous obtenons une navigation cohérente et une manière de mettre l'utilisateur dans le contexte de l'application.
 
