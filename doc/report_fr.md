@@ -149,6 +149,27 @@ Cette phase de réalisation décrit comment les données ont été traitées afi
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
 
+### Responsive Design
+
+Nous avons fait en sorte que l'application soit "responsive", c'est à dire qu'elle se redimensionne en fonction de l'écran afin d'utiliser au mieu toute la place disponible, peu importe la résolution de l'utilisateur.
+L'utilisation de 2 cartes Google Maps et des graphiques limite quand même la taille minimum de l'écran et il ne peut pas être visionné sur mobile.
+
+### Support des différents navigateurs
+
+L'application a été développée principalement sur le navigateur Chrome et il est recommendé d'utiliser ce navigateur. L'application a également été testée sur Mozilla Firefox, Internet Explorer, Safari et Microsoft Edge. Aucun problème n'a été rencontré sur ces navigateurs à l'exception de Internet Explorer qui rencontre plusieurs erreurs.
+
+### Filtrage des parcours
+
+Plusieurs filtres ont été réalisé afin que l'utilisateur puisse afficher seulement les parcours qui l'intéressent.
+
+La première partie des filtres consiste en 4 boutons qui représentent les 4 types de parcours possibles (mountain bike, randonnée, ski et autre) et qui sont activés par défaut. L'appui sur l'un des 4 filtres permet de basculer entre l'affichage ou non des parcours de ce type. Lorsque les parcours d'un type ne sont pas affichés, le bouton correspondant est partiellement transparent. On peut voir ce comportement dans l'image ci-dessous.
+
+![Filtrage par type](img/filter_type.png?raw=true)
+
+La deuxième partie des filtres concerne les propriétés des parcours. Par exemple un utilisateur qui voudrait faire un parcours pas trop difficile pourrait limiter le gain en altitude des parcours affichés et leurs longueurs. Il y a 4 propriétés des parcours qui peuvent être filtrées, la distance, la durée, le gain en altitude et la perte d'altitude. Les valeurs peuvent être saisies à l'aide de sliders de portée de la librairie jQuery UI. Afin de ne pas prendre trop de place sur l'écran de l'utilisateur, ils sont cachés sur par défaut et il faut cliquer sur le bouton tout en bas à gauche de la carte qui affiche les parcours pour les afficher. On peut voir dans l'image ci-dessous à quoi ressemble ces filtres.
+
+![Filtrage par propriété](img/filter_properties.png?raw=true)
+
 ### Choix des couleurs
 
 Nous avons choisi d'utiliser une palette de couleurs disponible sur l'application [kuler](https://color.adobe.com/fr/Color-Blind-Safe-Colors-color-theme-8074910). Cette palette est color blind friendly et devrait donc permettre à un maximum de personnes d'utiliser les couleurs comme repères dans l'application. Nous n'avons malheureusement pas pu modifier les couleurs de Google Maps pour qu'elle soit accordée à cette palette de couleur.

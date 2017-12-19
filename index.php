@@ -58,7 +58,7 @@
 						</p>
 						<div id="elevation-gain-slider" class="slider"></div>
 						<p>
-							Perte d'alitde:
+							Perte d'alitude:
 							<span id="elevation-loss" style="border:0; color:#f6931f; font-weight:bold;"></span>
 						</p>
 						<div id="elevation-loss-slider" class="slider"></div>
