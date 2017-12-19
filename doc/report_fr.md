@@ -43,7 +43,7 @@ Les traqueurs d'activité concernent quant à eux la phase se déroulant **aprè
 
 Le projet développé durant ce cours entre dans la catégorie des préparateurs de parcours. Les solutions trouvées sur le web sont à notre goût incomplètes au niveau du regroupement des informations : certaines manquent ou sont incomplètes et d'autres sont de trop. De plus, il faut souvent cliquer sur plusieurs boutons/liens avant d'arriver à l'information souhaitée. Finalement l'utilisateur se perd et est contraint de récolter l'informations sur plusieurs sites web afin de préparer correctement son parcours.
 
-À la différence de ces solutions, Mountain Tracks Explorator se veut plus pertinant, selon nous, vis-à-vis de la présentation des données nécessaires à une préparation minimale mais complète d'un parcours en montagne, tout en accédant en un minimum d'étape l'information souhaitée.
+À la différence de ces solutions, Mountain Tracks Explorator se veut plus pertinent, selon nous, vis-à-vis de la présentation des données nécessaires à une préparation minimale mais complète d'un parcours en montagne, tout en accédant en un minimum d'étape l'information souhaitée.
 
 ## Conception
 
@@ -133,7 +133,7 @@ Voici un exemple de fichier GPX.
 </gpx>
 ```
 
-On peut voir dans la balise `trk` les propriétés nom et type du parcours. Ensuite la balise `trkseg` contient les balises de chaque point. La balise `trkpt` a l'attribut `lat` et `lon` pour la latitude et la longitude. Et il contient les éléments `ele` et `time` pour l'alitude et le temps.
+On peut voir dans la balise `trk` les propriétés nom et type du parcours. Ensuite la balise `trkseg` contient les balises de chaque point. La balise `trkpt` a l'attribut `lat` et `lon` pour la latitude et la longitude. Et il contient les éléments `ele` et `time` pour l'altitude et le temps.
 
 #### Prévisions météo
 
@@ -157,11 +157,11 @@ La première qui est affichée en plein écran lorsque l'application est ouverte
 
 Le mantra "zoom and filter" est permis d'une part par les contrôles de Google Maps qui permettent de zoomer et de se déplacer sur la carte mais aussi par les filtres en bas à gauche qui permettent de sélectionnner précisément quels parcours doivent être affichés. Les filtres sont décrit plus en détails dans la sections "filtrage des parcours".
 
-Les marqueurs sur la carte sont positionnés au centre de tous les points qui composent le parcours. Lorsque la souris de l'utilisateur passe sur le marqueur son nom et ces différentes informations sont affichées dans une case au dessus du marqueur et le parcours du marqueur est affiché en fushia (afin d'être facilement différenciable des autres couleurs de la carte). Cela fait partie du mantra "details-on-demand".
+Les marqueurs sur la carte sont positionnés au centre de tous les points qui composent le parcours. Lorsque la souris de l'utilisateur passe sur le marqueur son nom et ces différentes informations sont affichées dans une case au-dessus du marqueur et le parcours du marqueur est affiché en fushia (afin d'être facilement différenciable des autres couleurs de la carte). Cela fait partie du mantra "details-on-demand".
 
 Pour compléter le mantra "details-on-demand", lors d'un clique sur un marqueur de parcours, les deux autres parties de l'application sont affichées et la 1ère partie est redimensionnée pour prendre un quart de l'écran. 
 
-La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours qui permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours et un marqueur qui permet d'afficher la météo actuel et l'alitude du parcours.
+La 2ème partie est également une carte Google Maps mais qui affiche cette fois un zoom sur le parcours en question et qui affiche 3 marqueurs. Le marqueur de début de parcours qui permet, si l'on clique dessus, d'afficher l'itinéraire de Google Maps jusqu'au marqueur. Le marqueur de fin de parcours et un marqueur qui permet d'afficher la météo actuel et l'altitude du parcours.
 
 La 3ème partie est positionnée sur la droite de l'application web et prend 50% de sa largeur. Elle affiche toute les informations utiles sur le parcours, c'est à dire le graphique du profile altimétrique qui est décrit plus bas, la météo, les informations générales, le titre, le type du parcours et la date du parcours. La date du parcours peut être utile pour s'assurer que le parcours n'est pas trop vieux (encore réalisable) et à quelle saison il a été réalisé. Finalement cette partie permet d'imprimer les détails du parcours dans un meilleur format et de télécharger le fichier gpx du parcours pour par exemple pouvoir le importer dans une application mobile ou sur une montre connectée.
 
@@ -173,7 +173,7 @@ L'utilisation de 2 cartes Google Maps et des graphiques limite quand même la ta
 
 ### Support des différents navigateurs
 
-L'application a été développée principalement sur le navigateur Chrome et il est recommendé d'utiliser ce navigateur. L'application a également été testée sur Mozilla Firefox, Internet Explorer, Safari et Microsoft Edge. Aucun problème n'a été rencontré sur ces navigateurs à l'exception de Internet Explorer qui rencontre plusieurs erreurs.
+L'application a été développée principalement sur le navigateur Chrome et il est recommandé d'utiliser ce navigateur. L'application a également été testée sur Mozilla Firefox, Internet Explorer, Safari et Microsoft Edge. Aucun problème n'a été rencontré sur ces navigateurs à l'exception de Internet Explorer qui rencontre plusieurs erreurs.
 
 ### Filtrage des parcours
 
@@ -197,19 +197,19 @@ Nous avons choisi d'utiliser une palette de couleurs disponible sur l'applicatio
 
 Nous avons réalisé un graphique qui montre le profil altimétrique du parcours à l'aide de d3js. Il représente la hauteur sur l'axe y et la distance sur l'axe x. Ce profile permet de voir assez facilement la montée et la descente à réaliser ainsi que la pente à chaque endroit du parcours. Lorsque la souris de l'utilisateur passe sur le graphique altimétrique, plusieurs informations sont affichées en fonction de la position sur l'axe x (distance). Sur la carte Google Maps en bas à gauche est affiché la position dans le parcours par rapport à la position de la souris de l'utilisateur à l'aide d'un rond bleu en fonction. 4 barres de progression affichent les informations sur le graphique en fonction de la position de la souris sur le graphique. Les informations affichées par ces 4 barres sont la distance, la montée, la descente et la durée.
 
-Le profile altimétrique est un assez bonne indicateur de la difficulté du chemin et il peut être également utile pour les personnes à mobilité réduite pour savoir s'ils peuvent le faire.
+Le profile altimétrique est un assez bon indicateur de la difficulté du chemin et il peut être également utile pour les personnes à mobilité réduite pour savoir s'ils peuvent le faire.
 
 On peut voir dans l'image ci-dessous comment
 
 ![Graphique altimétrique avec hover de la souris](img/altimetry_profile_hover.png?raw=true "Graphique altimétrique avec hover de la souris")
 
-Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe. Nous avons ensuite décidé de ne pas le garder car dans le cas d'une pente très forte il devient très grand et la localisation GPS n'étant pas toujours très précise il peut arriver que la distance parcourue soit petite mais la différence d'alitutde soit très grande. Nous avons aussi décidé que le graphique du profile altimétrique suffisait pour déterminer la pente à chaque endroit.
+Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe. Nous avons ensuite décidé de ne pas le garder car dans le cas d'une pente très forte il devient très grand et la localisation GPS n'étant pas toujours très précise il peut arriver que la distance parcourue soit petite mais la différence d'altitude soit très grande. Nous avons aussi décidé que le graphique du profile altimétrique suffisait pour déterminer la pente à chaque endroit.
 
 Voilà à quoi ressemblait le prototype de la pente en fonction de la position de la souris sur le graphique.
 
 ![Affichage de la pente](img/gradient.png?raw=true "Affichage de la pente")
 
-Nous avions commencé par utiliser des doughnut charts au lieu des progress bars en pensant d'abord à un aspect esthétique. Nous avons ensuite réalisés que les progress bar permettait une meilleure comparaison des différentes propriétés. Voilà à quoi ressemblait le prototype des doughnut charts.
+Nous avions commencé par utiliser des doughnut charts au lieu des progress bars en pensant d'abord à un aspect esthétique. Nous avons ensuite réalisés que les progress bar permettaient une meilleure comparaison des différentes propriétés. Voilà à quoi ressemblait le prototype des doughnut charts.
 
 ![Doughnut chart](img/doughnut.png?raw=true "Doughnut chart")
 
@@ -223,6 +223,6 @@ Le projet est stocké sur le repository github https://github.com/sebastienricho
 - L'application est alors disponible sur `http://localhost:8000/`
 
 ## Mode d'emploi
-L'application devrait être suffisament simple d'utilisation. Lorsqu'un marqueur est survolé il affiche des données générales et lorsqu'il est cliqué des données plus détaillées apparaissent sur la droite de l'écran. En survolant le profil altimétrique on obtient une interaction avec le tracé du parcours (un marqueur suit le tracé selon le positionnement du curseur sur le profil altimétrique).
+L'application devrait être suffisamment simple d'utilisation. Lorsqu'un marqueur est survolé il affiche des données générales et lorsqu'il est cliqué des données plus détaillées apparaissent sur la droite de l'écran. En survolant le profil altimétrique on obtient une interaction avec le tracé du parcours (un marqueur suit le tracé selon le positionnement du curseur sur le profil altimétrique).
 
-Le graphique météo donne des informations météorologiques entre le jour J et J+4. Le point de mesure est affiché par un marqueur orange muni d'une icône thermomètre et correspond à la centroïde du tracé. Le graphique fournit la température et la quantité de précépitation pour toutes les heures de chaque jour.
+Le graphique météo donne des informations météorologiques entre le jour J et J+4. Le point de mesure est affiché par un marqueur orange muni d'une icône thermomètre et correspond à la centroïde du tracé. Le graphique fournit la température et la quantité de précipitation pour toutes les heures de chaque jour.
