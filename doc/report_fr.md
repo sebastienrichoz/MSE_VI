@@ -187,7 +187,7 @@ Les prévisions météo ont été récoltées sur l'API publique et gratuite de 
 
 L'objet JSON est très complet. Pour simplifier, seules les données utilisées sont décrites :
 
-```json
+```javascript
 {
   // Altitude du point de mesure
   "forecast_info": {
