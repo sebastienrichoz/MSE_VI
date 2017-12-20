@@ -102,7 +102,7 @@ Nous avons utilisé la librairie [jQuery](https://jquery.com/). Elle permet de m
 
 #### jQuery UI
 
-Nous avons utilisé la librairie [jQuery UI](https://jqueryui.com/) afin d'afficher les sliders permettant de chosir les valeurs minimales et maximales des filtres.
+Nous avons utilisé la librairie [jQuery UI](https://jqueryui.com/) afin d'afficher les sliders permettant de choisir les valeurs minimales et maximales des filtres.
 
 ![jQuery](img/jquery.jpg?raw=true)
 
@@ -170,7 +170,7 @@ Description des balises utilisées :
 - `<trk>` contient les informations sur le parcours
   - `<name>` est le nom résumant le parcours
   - `<type>` permet de différencier les trois types de parcours à savoir **mtb | hiking | skitouring**
-  - `<trkseg>` contient les les points du parcours, appelés "trackpoints".
+  - `<trkseg>` contient les points du parcours, appelés "trackpoints".
     - `<trkpt>` possède l'attribut `lat` et `lon` pour la latitude et la longitude.
       - `<ele>` est l'altitude.
       - `<time>` est le temps auquel le "trackpoint" a été mesuré
@@ -179,7 +179,7 @@ Description des balises utilisées :
 
 Il existe encore d'autres balises qui viennent compléter le format GPX mais nous n'en avons pas besoin. Seuls le nom et le type du parcours ainsi que tous les "trackpoints" avec leur latitude, longitude et altitude nous sont utiles pour la représentation des parcours.
 
-Le nombre de "trackpoints" est également conséquent (un point mesuré toutes les secondes) et alourdit l'application. Dans l'état des choses, tous les points sont pris en compte bien que seulement un dixième aurait suffit. La visualisation reste pour le moment agréable étant donnée du petit nombre de parcours présentés (une dizaine). À l'avenir il serait indispensable de ne représenter qu'un faible pourcentage de ces points pour des raisons de performance et obtenir ainsi une interaction toujours très réactive.
+Le nombre de "trackpoints" est également conséquent (un point mesuré toutes les secondes) et alourdit l'application. Dans l'état des choses, tous les points sont pris en compte bien que seulement un dixième aurait suffi. La visualisation reste pour le moment agréable étant donnée du petit nombre de parcours présentés (une dizaine). À l'avenir il serait indispensable de ne représenter qu'un faible pourcentage de ces points pour des raisons de performance et obtenir ainsi une interaction toujours très réactive.
 
 #### Prévisions météo
 
@@ -241,7 +241,7 @@ Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être
 
 ### Architecture MVC
 
-HTML pour la vue, CSS pour la mise en forme, JavaScript pour les controlleurs et les fichiers .gpx comme modèles.
+HTML pour la vue, CSS pour la mise en forme, JavaScript pour les contrôleurs et les fichiers .gpx comme modèles.
 
 ## Réalisation
 
@@ -275,7 +275,7 @@ Nous avons essayé de suivre les 7 étapes du mantra de la visualisation selon B
 
 La première qui est affichée en plein écran lorsque l'application est ouverte est une carte Google Maps. Cette carte affiche tous les parcours avec des marqueurs ayant comme image le type du parcours et une couleur distincte des autres types. Cela remplis **1. Overview first** du mantra.
 
-Les étapes **2. zoom and 3. filter** sont permises d'une part par les contrôles de Google Maps qui permettent de zoomer et de se déplacer sur la carte mais aussi par les filtres en bas à gauche qui permettent de sélectionnner précisément quels parcours doivent être affichés. Les filtres sont décrits plus en détails dans la sections "filtrage des parcours".
+Les étapes **2. zoom and 3. filter** sont permises d'une part par les contrôles de Google Maps qui permettent de zoomer et de se déplacer sur la carte mais aussi par les filtres en bas à gauche qui permettent de sélectionner précisément quels parcours doivent être affichés. Les filtres sont décrits plus en détails dans la sections "filtrage des parcours".
 
 Les marqueurs sur la carte sont positionnés au centre de tous les points qui composent le parcours. Lorsque la souris de l'utilisateur passe sur le marqueur son nom et ses différentes informations sont affichées dans une case au-dessus du marqueur et le parcours du marqueur est affiché en fushia (afin d'être facilement différenciable des autres couleurs de la carte). Cela fait partie de l'étape **4. details-on-demand** du mantra.
 
@@ -327,9 +327,9 @@ L'image ci-dessous montre l'apparition du marqueur bleu sur le tracé en fonctio
 
 ![Graphique altimétrique avec hover de la souris](img/altimetry_profile_hover.png?raw=true "Graphique altimétrique avec hover de la souris")
 
-Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe. Nous avons ensuite décidé de ne pas le garder car dans le cas d'une pente très forte il devient très grand et la localisation GPS n'étant pas toujours très précise il peut arriver que la distance parcourue soit petite mais la différence d'alitutde soit très grande. Nous avons aussi décidé que le graphique du profil altimétrique suffisait pour déterminer la pente à chaque endroit.
+Afin d'afficher la pente nous avons essayé d'afficher un triangle rectangle représentant la pente à chaque point du graphe. Nous avons ensuite décidé de ne pas le garder car dans le cas d'une pente très forte il devient très grand et la localisation GPS n'étant pas toujours très précise il peut arriver que la distance parcourue soit petite mais la différence d'altitude soit très grande. Nous avons aussi décidé que le graphique du profil altimétrique suffisait pour déterminer la pente à chaque endroit.
 
-Cependant l'avantage du graphe de la pente est qu'il donnait une visualisation instantannée de la déclivité de celle-ci, l'échelle du profil altimétrique pouvant fausser son interprétation. Voilà à quoi ressemblait le prototype de la pente en fonction de la position de la souris sur le graphique.
+Cependant l'avantage du graphe de la pente est qu'il donnait une visualisation instantanée de la déclivité de celle-ci, l'échelle du profil altimétrique pouvant fausser son interprétation. Voilà à quoi ressemblait le prototype de la pente en fonction de la position de la souris sur le graphique.
 
 ![Affichage de la pente](img/gradient.png?raw=true "Affichage de la pente")
 
@@ -394,9 +394,9 @@ Pour exécuter l'application en local :
 ## Mode d'emploi
 L'application devrait être suffisamment simple d'utilisation. Voici un ensemble d'étape pour découvrir toutes ses fonctionnalités:
 
-1. Au premier chargement de l'application, visualiser les différents parcours en se déplacant sur la carte
+1. Au premier chargement de l'application, visualiser les différents parcours en se déplaçant sur la carte
     - Filtrer les parcours avec les icônes en bas à gauche (Filtrer par type, distance, durée ou dénivelé positif)
-    - Revenir à la page de présentation avec l'icone en haut à gauche
+    - Revenir à la page de présentation avec l'icône en haut à gauche
 
 
 2. Survoler les marqueurs pour obtenir des informations générales sur chaque parcours
@@ -413,7 +413,7 @@ L'application devrait être suffisamment simple d'utilisation. Voici un ensemble
         - L'altitude est affichée
         - Des barres de progressions montrent la complétion du parcours à la position du curseur
         - Un point bleu se déplace sur la partie en bas à gauche selon la position du curseur
-    2. Suvoler le graphe des prévisions météos
+    2. Survoler le graphe des prévisions météos
         - La température et les précipitations s'affichent dans un cadran noir sur le graphe
         - Le marqueur orange muni d'une icone thermomètre s'affiche sur le partie en bas à gauche indiquant le point de mesure météo et les conditions actuelles
         - Changer les jours pour obtenir les prévisions des autres jours
