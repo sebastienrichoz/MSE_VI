@@ -16,18 +16,19 @@ Libraries/framework : [Bootstrap](https://getbootstrap.com/), [D3.js](https://d3
 - For the tracks, we used the gpx files from our own activities.
 - The weather forecasts come from `https://www.prevision-meteo.ch/services`.
   - limitation of latitude between 41.3 and 51.9 and longitude between -5.2 and 10.7
-  
+
 ## Development
+If you have an http server supporting PHP (Xampp, Mampp, Wampp, ...)
+- Clone this repo
+- Place its content in your server
+- Identifiy `<script>` tag loading google map api and change the link with your own API key.
+- Run index.php in your browser
+
+Without server supporting PHP
+- Clone the repo
 - Enable local file access in your browser
   - chrome on mac `$ open /Applications/Google\ Chrome.app --args --allow-file-access-from-files`
 - Rename index.php into index.html page and add your Google Map API key
-
-## Run the app
-For running the app python 3 is needed.
-- Download this repo on your machine
-- cd `MSE_VI`
-- `python -m http.server` to start a local http server serving the folder
-- Browse to `http://localhost:8000/`
 
 ## Authors
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>

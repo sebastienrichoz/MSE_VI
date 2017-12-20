@@ -44,8 +44,8 @@
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
 6. [Conclusion](#conclusion)
-5. [Installation](#installation)
-6. [Mode d'emploi](#mode-demploi)
+7. [Installation](#installation)
+8. [Mode d'emploi](#mode-demploi)
 
 ## Introduction
 
@@ -395,40 +395,33 @@ Pour exécuter l'application en local :
 L'application devrait être suffisamment simple d'utilisation. Voici un ensemble d'étape pour découvrir toutes ses fonctionnalités:
 
 1. Au premier chargement de l'application, visualiser les différents parcours en se déplacant sur la carte
+    - Filtrer les parcours avec les icônes en bas à gauche (Filtrer par type, distance, durée ou dénivelé positif)
+    - Revenir à la page de présentation avec l'icone en haut à gauche
 
-   - Filtrer les parcours avec les icônes en bas à gauche (Filtrer par type, distance, durée ou dénivelé positif)
-   - Revenir à la page de présentation avec l'icone en haut à gauche
 
 2. Survoler les marqueurs pour obtenir des informations générales sur chaque parcours
 
-3. Cliquer sur le marqueur pour obtenir des informations détaillées. L'application est divisée en 3 parties
 
-   1. Partie en haut à gauche : Permet de naviguer sur la carte comme avant
-   2. Partie à droite : Affiche les informations détaillées du parcours
-   3. Partie en bas à gauche : Affiche le tracé du parcours
+3. Cliquer sur le marqueur pour obtenir des informations détaillées. L'application est divisée en 3 parties
+    1. Partie en haut à gauche : Permet de naviguer sur la carte comme avant
+    2. Partie à droite : Affiche les informations détaillées du parcours
+    3. Partie en bas à gauche : Affiche le tracé du parcours
+
 
 4. Sur la partie droite :
+    1. Survoler le graphe du profil altimétrique avec le curseur
+        - L'altitude est affichée
+        - Des barres de progressions montrent la complétion du parcours à la position du curseur
+        - Un point bleu se déplace sur la partie en bas à gauche selon la position du curseur
+    2. Suvoler le graphe des prévisions météos
+        - La température et les précipitations s'affichent dans un cadran noir sur le graphe
+        - Le marqueur orange muni d'une icone thermomètre s'affiche sur le partie en bas à gauche indiquant le point de mesure météo et les conditions actuelles
+        - Changer les jours pour obtenir les prévisions des autres jours
+    3. Tout en haut à droite
+        - Un bouton permet d'imprimer le parcours
+        - Un bouton permet d'exporter le fichier gpx du parcours
 
-   1. Survoler le graphe du profil altimétrique avec le curseur
-
-      - L'altitude est affichée
-
-
-      - Des barres de progressions montrent la complétion du parcours à la position du curseur
-      - Un point bleu se déplace sur la partie en bas à gauche selon la position du curseur
-
-      2. Suvoler le graphe des prévisions météos
-
-      - La température et les précipitations s'affichent dans un cadran noir sur le graphe
-      - Le marqueur orange muni d'une icone thermomètre s'affiche sur le partie en bas à gauche indiquant le point de mesure météo et les conditions actuelles
-      - Changer les jours pour obtenir les prévisions des autres jours
-
-      3. Tout en haut à droite
-
-      - Un bouton permet d'imprimer le parcours
-      - Un bouton permet d'exporter le fichier gpx du parcours
-
-   4. Sur la partie en bas à gauche
-
-   1. Cliquer sur le marqueur du point de départ du parcours (drapeau vert) pour ouvrir une nouvelle fenêtre dans le navigateur avec l'itinéraire google map menant à ce point.
-   2. Survoler le marqueur orange pour afficher les conditions météo actuelles
+      
+5. Sur la partie en bas à gauche
+    1. Cliquer sur le marqueur du point de départ du parcours (drapeau vert) pour ouvrir une nouvelle fenêtre dans le navigateur avec l'itinéraire google map menant à ce point.
+    2. Survoler le marqueur orange pour afficher les conditions météo actuelles
