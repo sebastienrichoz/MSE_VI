@@ -21,14 +21,15 @@ Libraries/framework : [Bootstrap](https://getbootstrap.com/), [D3.js](https://d3
 If you have an http server supporting PHP (Xampp, Mampp, Wampp, ...)
 - Clone this repo
 - Place its content in your server
-- Identifiy `<script>` tag loading google map api and change the link with your own API key.
+- Set an environement variable `GOOGLE_MAPS_KEY` on your server with your own Google Map API key as value.
 - Run index.php in your browser
 
 Without server supporting PHP
 - Clone the repo
 - Enable local file access in your browser
   - chrome on mac `$ open /Applications/Google\ Chrome.app --args --allow-file-access-from-files`
-- Rename index.php into index.html page and add your Google Map API key
+- Rename index.php into index.html
+- Identify `<script>` tag and upload the link with your own Google Map API key
 
 ## Authors
 - Antoine Drabble <antoine.drabble@master.hes-so.ch>

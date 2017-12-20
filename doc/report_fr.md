@@ -386,8 +386,8 @@ L'application est en ligne et disponible à l'adresse
 Pour exécuter l'application en local :
 
 - Cloner le projet (ou le télécharger)
-- Placer son contenu sur un serveur supportant PHP (Xampp, Mamp, Wamp, …)
-- Dans index.php, modifier la clé Javascript avec votre propre clé pour utiliser l'API de Google Map
+- Placer son contenu sur un serveur HTTP supportant PHP (Xampp, Mamp, Wamp, …)
+- Créer une variable d'environnement `GOOGLE_MAPS_KEY` sur votre serveur ayant comme valeur votre propre clé pour l'API Google map
 - Lancer le serveur PHP
 - Ouvrir la page index.php dans un navigateur web
 
@@ -421,7 +421,7 @@ L'application devrait être suffisamment simple d'utilisation. Voici un ensemble
         - Un bouton permet d'imprimer le parcours
         - Un bouton permet d'exporter le fichier gpx du parcours
 
-      
+
 5. Sur la partie en bas à gauche
     1. Cliquer sur le marqueur du point de départ du parcours (drapeau vert) pour ouvrir une nouvelle fenêtre dans le navigateur avec l'itinéraire google map menant à ce point.
     2. Survoler le marqueur orange pour afficher les conditions météo actuelles
