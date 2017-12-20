@@ -348,23 +348,26 @@ Nous avons envisagé d'implémenter une heat map affichant les précipitations �
 
 ## Critiques
 
-TODO
+Plus nous travaillions sur l'application, plus nous nous rendions compte de points à améliorer ou changer:
 
-- Différents calques de carte pour mieux montrer les courbes de niveau (API openstreetmap différente de google map)
-- Une heatmap montrant l'évolution de la température/précipitation/nuage aurait été cool
-- Pas adapté pour le mobile (afficher moins de données pour une meilleure visu ?)
-- L'impression n'est pas encore bien mise en place (bugs d'affichage, graphe altitude coupé)
-- Sur le graphe météo il manque les unités sur la popup noire
-- Fichiers GPX trop lourd => réduction des données
+- Offrir à l'utilisateur le choix de changer de calques de carte afin de mieux visualiser les courbes de niveau. Nous avons vu qu'il était possible de le faire avec Openstreet Map après avoir commencé à développer avec l'API de Google Map. Les APIs étant différentes, nous sommes restés sur la version Google Map.
+- Nous voulions créer une heatmap des précipitations ou de la température qui réagit au survol du graphe météo. L'utilisateur obtiendrait alors une visualisation de l'évolution du temps au cours de la journée. L'idéal serait d'obtenir cette visualisation sur les deux cartes afin que l'utilisateur puisse avoir un aperçu général et aussi détaillé des prévisions météo. Au moyen de filtres, l'utilisateur pourrait choisir entre la température ou les précipitations.
+- Mountain Tracks Explorator est adaptée à un affichage relativement grand (dès 960 x 720 pixels) bien que l'application soit responsive. Pour les smartphones il faudrait décider de ne visualiser qu'une partie des informations par exemple supprimer le bouton "Imprimer" ou réduire les intervalles des axes des graphes (en n'affichant que toutes les 2h ou lieu de toutes les heures pour la météo).
+
+
+- L'impression n'est pas complètement mise en place. Quelques bugs apparaissent parfois liés à l'affichage du profil altimétrique (la fin est coupée). Il manque également des données du parcours comme le titre, la date mais surtout le temps d'estimation ou le dénivelé positif et négatif et la distance totale. Cependant nous nous sommes dit que l'espace à disposition était pratique pour écrire d'autres informations par l'utilisateur.
+- Sur le graphe météo il manque les unités de température et de précipitation sur la popup noire apparaissant au survol des données. Ces unités permettent de plus rapidement identifier la valeur de la température et de la précipitation.
+- Les fichiers GPX sont très lourds, certains possèdent près de 30'000 points. Une amélioration consisterait à réduire cette quantité de points pour avoir une application plus réactive bien que pour le moment elle tienne le coup. Les points pourraient être réduit drastiquement pour les activités de randonnée où la vitesse est lente et donc où peu de différence apparait entre deux points. Quant aux activités de VTT et ski de randonnée, il s'agirait de réduire beaucoup de points à la montée et peu à la descente étant donnée de la différence de vitesse entre ces deux phases.
 
 ## Conclusion
 
-TODO
+Nous sommes partis d'une problématique simple à partir de laquelle nous voulions réaliser une visualisation simple et intuitive. Au fil du projet nous nous sommes rendus compte qu'il fallait rajouter des fonctionnalités pour enrichir l'application dans le but de résoudre au mieux la problématique initiale. C'est à partir de ce moment-là que nous nous sommes rendus compte qu'il n'était pas facile d'avoir une solution à la fois simple et complète, qui regroupe toutes les informations nécessaires.
 
-- Pas facile d'avoir une solution à la fois simple et qui regroupe beaucoup d'informations. Vite débordé.
-- Les interactions ne sont pas forcément intuitives, on les découvre au fil du temps ou par curiosité.
-- L'application implémente les étapes principales du mantra (1,2,3 et 4). Intéressant.
-- ​
+L'interaction avec l'utilisateur est une manière très pratique d'afficher/cacher des informations. Elle a l'avantage de produire une vue légère avec peu de donnée lorsqu'il n'y a pas d'interaction et d'afficher une information très ciblée à l'inverse (par exemple le marqueur qui se déplace au survol du profil altimétrique). Son désavantage est qu'elle n'est pas forcément évidente à identifier : l'utilisateur sait-il qu'il doit survoler les graphes ou les marqueurs de la carte pour afficher des informations supplémentaires ? Certains cas peuvent être évidents mais pas tous, d'où l'importance de guider l'utilisateur, provoquer la curiosité. Mais comment ? Documenter l'application alourdit la quantité d'informations... Dans le cas du survol des graphes, on aurait pu afficher un carré grisé transparent avec un texte "Survolez-moi" qui disparait immédiatement au premier survol. On guide ainsi l'utilisateur sans alourdir la visualisation.
+
+Nous ne voulions pas spécialement suivre les 7 étapes du mantra définit selon Ben Schneidermann mais nous nous sommes vite rendus compten que notre application respectait 5 de ces 7 principes. Une fois de plus, Ben avait raison.
+
+Finalement, le choix de nos visualisations (choix des graphes) repose uniquement sur notre propre expérience. Selon nous, c'est toute une communauté qui devrait participer à l'amélioration d'une visualisation afin qu'un maximum d'utilisateurs s'y retrouve. C'est pourquoi la landing page dispose d'une section de contact avec un lien vers le repo Github pour laisser des "issues" en guise de proposition d'amélioration de la solution.
 
 ## Installation
 
@@ -407,18 +410,18 @@ L'application devrait être suffisamment simple d'utilisation. Voici un ensemble
       - Des barres de progressions montrent la complétion du parcours à la position du curseur
       - Un point bleu se déplace sur la partie en bas à gauche selon la position du curseur
 
-   2. Suvoler le graphe des prévisions météos
+      2. Suvoler le graphe des prévisions météos
 
       - La température et les précipitations s'affichent dans un cadran noir sur le graphe
       - Le marqueur orange muni d'une icone thermomètre s'affiche sur le partie en bas à gauche indiquant le point de mesure météo et les conditions actuelles
       - Changer les jours pour obtenir les prévisions des autres jours
 
-   3. Tout en haut à droite
+      3. Tout en haut à droite
 
       - Un bouton permet d'imprimer le parcours
       - Un bouton permet d'exporter le fichier gpx du parcours
 
-5. Sur la partie en bas à gauche
+   4. Sur la partie en bas à gauche
 
    1. Cliquer sur le marqueur du point de départ du parcours (drapeau vert) pour ouvrir une nouvelle fenêtre dans le navigateur avec l'itinéraire google map menant à ce point.
    2. Survoler le marqueur orange pour afficher les conditions météo actuelles
