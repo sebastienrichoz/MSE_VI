@@ -31,12 +31,19 @@
 2. [Etat de l'art](#%C3%89tat-de-lart)
 3. [Conception](#conception)
    - [Technologies](#technologies)
-   - [Source et format des données](#source-et-format-des-donnees)
-   - [Architecture](#architecture)
-4. [Réalisation](#realisation)
+   - [Source et format des données](#source-et-format-des-donn%C3%A9es)
+   - [Architecture](#architecture-mvc)
+4. [Réalisation](#r%C3%A9alisation)
+   - [Présentation de l'application](#pr%C3%A9sentation-de-lapplication)
+   - [Les 3 parties de l'application](#les-3-parties-de-lapplication)
+   - [Responsive Design](#responsive-design)
+   - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
+   - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
-   - [Graphique du profil altimétrique](#graphique-du-profil-altimetrique)
-   - [Graphique des prévisions météos](#graphique-des-previsions-meteos)
+   - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
+   - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
+5. [Critiques](#critiques)
+6. [Conclusion](#conclusion)
 5. [Installation](#installation)
 6. [Mode d'emploi](#mode-demploi)
 
@@ -226,11 +233,11 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
 
 L' API limite la latitude entre 41.3 et 51.9 et la longitude entre -5.2 and 10.7 ce qui correspond au fenêtrage suivant :
 
-![window-forecast](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/window-forecast.png)
+![window-forecast](img/window-forecast.png)
 
 Si un parcours se trouve en dehors de cette zone, la météo ne pourra pas être récupérée et l'application retournera un message d'erreur en lieu et place du graphe des prévisions météo :
 
-![forecast-error](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/forecast-error.png)
+![forecast-error](img/forecast-error.png)
 
 ### Architecture MVC
 
@@ -252,13 +259,13 @@ Lorsqu'un utilisateur découvre l'application pour la première fois il ne compr
 
 C'est pourquoi nous avons créé une page de présentation séparée totalement de l'application qui fournit les informations nécessaires à la mise en contexte de l'utilisateur vis-à-vis du problème permettant également de provoquer l'envie d'utiliser l'outil au moyen d'une visualisation attirante. C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
 
-![landing-page](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/landing-page.png)
+![landing-page](img/landing-page.png)
 
 La photo en background identifie les trois types d'activités. La landing page a été réalisée avec un thème gratuit bootstrap https://startbootstrap.com/template-overviews/creative/ .
 
 Il est possible de passer de la landing page à l'application interactive et vice-versa.
 
-![switch-landing-app](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/switch-landing-app.jpg)
+![switch-landing-app](img/switch-landing-app.jpg)
 
 Ainsi nous obtenons une navigation cohérente et une manière de mettre l'utilisateur dans le contexte de l'application.
 
@@ -336,11 +343,11 @@ Etant donné qu'une préparation implique souvent la consultation de la météo,
 
 Le graphe montre la température et les précipitations à chaque heure de la journée. La température est représentée par une courbe pour montrer l'évolution de celle-ci. Les barres verticales pour les précipitations se prêtent bien à la symbolique d'accumulation d'eau. Pour les couleurs, le bleu est bien assimilé à de l'eau et le rouge correspond à une température mais plutôt chaude. Nous l'avons tout de même laissé ainsi car elle se différencie bien des précipitations. Au survol des données, une pop-up noire affiche le détail des précipitations et de la température à l'heure spécifiée. Les petites icônes météo sont très pratiques pour visualiser l'évolution du temps au cours de la journée.
 
-![weather-graph](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/weather-graph.png)
+![weather-graph](img/weather-graph.png)
 
 Lorsque le graphe est survolé, le marqueur orange sur le tracé s'affichent pour indiquer le point de mesure de la météo. En effet, en montagne, la température dépend beaucoup de l'altitude et il est important de savoir à quelle hauteur elle est mesurée. Le choix du point de mesure correspond à la centroïde du parcours.
 
-![weather-mesure](/Users/sebastien/Documents/MSE/VI/MSE_VI/doc/img/weather-mesure.png)
+![weather-mesure](img/weather-mesure.png)
 
 #### Améliorations possibles
 
