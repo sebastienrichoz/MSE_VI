@@ -33,7 +33,13 @@ function initMap() {
     map.set('styles',customStyled);
 
     var files = ['Morning_Hike.gpx',
+    'Morning_ski_Grimentz.gpx',
     'skitour_2017-11-26.gpx',
+    'A_la_d_couverte_de_petits_lacs.gpx',
+    'Hauterive_Neuchatel.gpx',
+    'rochers_naye.gpx',
+    'Presque_Grammont.gpx',
+    'Spartan_Race_Beast.gpx',
     'VTT_2017-05-25_10-00-01.gpx',
     'VTT_2017-09-10_17-12-49.gpx',
     'VTT_2017-09-13_16-22-44.gpx',
