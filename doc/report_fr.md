@@ -35,17 +35,13 @@
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
    - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication)
-      - Antoine
    - [Les 3 parties de l'application](#les-3-parties-de-lapplication)
    - [Responsive Design](#responsive-design)
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
    - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
    - [Représentation des marqueurs](#TODO: icone+pictos+drapeau)
-      - Antoine
    - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
-      - TODO : Saut de 60 : réduit lag + lissage du profil
-      - Seb
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
 6. [Conclusion](#conclusion)
@@ -269,24 +265,11 @@ HTML pour la vue, CSS pour la mise en forme, JavaScript pour les contrôleurs et
 
 ## Réalisation
 
-Cette phase décrit et justifie les choix de représentation faits pour les différents éléments de l'application. Elle se concentre sur les points suivants :
--
-
-- Filtrage des .gpx
-    - calcul du dénivelé (tout les t secondes sinon imprécis)
-    - profil altimétrique (tout les t secondes sinon trop précis et lent)
-- Estimation de la durée (ce n'est qu'une estimation!)
-- screenshot final de la visu
+Cette phase décrit et justifie les choix de représentation faits pour les différents éléments de l'application.
 
 ### Présentation de l'application : "Discoverability"
 
-TODO expliquer discoverability selon Eric S. Raymond
-
 Lorsqu'un utilisateur découvre l'application pour la première fois il ne comprend pas forcément tout de suite ce qu'elle permet de faire. Elle ne contient pas de barre de titre ni de descriptif permettant d'en savoir plus, l'objectif étant de maximiser l'espace disponible avec les cartes et les graphiques amenant des informations plus riches au véritable problème.
-
-C'est pourquoi nous avons créé une page de présentation, appelée communément la landing page, séparée totalement de l'application. En plus de fournir les informations nécessaires à la mise en contexte de l'utilisateur et de provoquer l'envie d'utilisation, elle permet surtout d'expliquer les fonctionnalités cachées par les interactions.
-
-C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
 
 ![landing-page](img/landing-page.png)
 
@@ -297,6 +280,16 @@ Il est possible de passer de la landing page à l'application interactive et vic
 ![switch-landing-app](img/switch-landing-app.jpg)
 
 Ainsi nous obtenons une navigation cohérente et une manière de mettre l'utilisateur dans le contexte de l'application.
+
+En plus de fournir les informations nécessaires à la mise en contexte de l'utilisateur et de provoquer l'envie d'utilisation, elle permet surtout d'expliquer les fonctionnalités cachées par les interactions et répond au problème de "Discoverability" selon Eric S. Raymond.
+
+Pour ce faire, la landing page est munie d'une section "Services" et "Portfolio" décrivant très rapidement par du texte, des images et des pictogrammes les fonctionnalités interactives de l'application. Grâce à celà, il est possible de cacher l'information par l'interaction du côté de l'application, et, du côté de la landing page, d'expliquer comment découvrir ces interactions.
+
+**Services**
+![Services](img/services.png)
+
+**Portfolio**
+![Portfolio](img/portfolio.png)
 
 ### Les 3 parties de l'application
 
@@ -353,7 +346,7 @@ Voici les 4 marqueurs que nous avons utilisé pour les marqueurs. Les trois peti
 
 ![Les marqueurs des différents types de parcours](img/markers.png?raw=true)
 
-La carte affichant le tracé détaillé du parcours affiche un marqueur pour le début du parcours et un autre pour la fin du parcours. Nous avons tout d'abord utilisé un marqueur rouge et un marqueur vert ayant la même forme que les marqueurs ci-dessus (mais avec une couleur remplie). 
+La carte affichant le tracé détaillé du parcours affiche un marqueur pour le début du parcours et un autre pour la fin du parcours. Nous avons tout d'abord utilisé un marqueur rouge et un marqueur vert ayant la même forme que les marqueurs ci-dessus (mais avec une couleur remplie).
 Nous avions deux problèmes avec ce choix, il n'est pas forcément clair si la couleur verte ou rouge représente le début ou la fin du parcours. Si par exemple on recherche "flag start finish" sur Google, on peut voir que certains utilisent la couleur rouge pour le départ et d'autre la couleur rouge pour la fin. Le deuxième problème était qu'étant donné que les marqueurs avaient la même forme, l'un des deux marqueurs était caché quand ils étaient superposés.
 Finalement nous avons décidé d'utiliser des drapeaux avec des formes différentes et de la transparence afin que même s'ils sont superposés, on peut voir qu'ils sont les deux là. Voici les deux marqueurs que nous avons choisi.
 
