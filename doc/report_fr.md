@@ -346,6 +346,21 @@ Nous avons choisi d'utiliser une palette de couleurs disponible sur l'applicatio
 
 ![Palette de couleurs](img/colors.png?raw=true)
 
+### Représentation des marqueurs
+
+Afin de pouvoir différencier les différents types de parcours (ski, randonnée, mountain bike), nous avons utilisé des couleurs diffrentes et des pictogrammes différents. Nous avons choisi des pictogrammes simples et permettant de rapidement différencier les différents types.
+Voici les 4 marqueurs que nous avons utilisé pour les marqueurs. Les trois petits points représentent les autres types de parcours.
+
+![Les marqueurs des différents types de parcours](img/markers.png?raw=true)
+
+La carte affichant le tracé détaillé du parcours affiche un marqueur pour le début du parcours et un autre pour la fin du parcours. Nous avons tout d'abord utilisé un marqueur rouge et un marqueur vert ayant la même forme que les marqueurs ci-dessus (mais avec une couleur remplie). 
+Nous avions deux problèmes avec ce choix, il n'est pas forcément clair si la couleur verte ou rouge représente le début ou la fin du parcours. Si par exemple on recherche "flag start finish" sur Google, on peut voir que certains utilisent la couleur rouge pour le départ et d'autre la couleur rouge pour la fin. Le deuxième problème était qu'étant donné que les marqueurs avaient la même forme, l'un des deux marqueurs était caché quand ils étaient superposés.
+Finalement nous avons décidé d'utiliser des drapeaux avec des formes différentes et de la transparence afin que même s'ils sont superposés, on peut voir qu'ils sont les deux là. Voici les deux marqueurs que nous avons choisi.
+
+![Start marker](../img/start_marker.png?raw=true)
+
+![Finish marker](../img/finish_marker.png?raw=true)
+
 ### Graphique du profil altimétrique
 
 Nous avons réalisé un graphique qui montre le profil altimétrique du parcours à l'aide de d3js. Il représente l'altitude en mètre sur l'axe y et la distance en mètre sur l'axe x. Ce profil permet de voir assez facilement la montée et la descente à réaliser ainsi que la pente à chaque endroit du parcours. Lorsque la souris de l'utilisateur passe sur le graphique altimétrique, plusieurs informations sont affichées en fonction de la position sur l'axe x (distance). Sur la carte Google Maps en bas à gauche est affichée la position dans le parcours par rapport à la position de la souris de l'utilisateur à l'aide d'un rond bleu. 4 barres de progression affichent les informations sur le graphique en fonction de la position de la souris sur le graphique. Les informations affichées par ces 4 barres sont la distance [m], la montée cumulée [m], la descente cumulée [m] et la durée [hh:mm].
