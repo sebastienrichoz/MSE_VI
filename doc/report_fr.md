@@ -31,16 +31,23 @@
 2. [Etat de l'art](#%C3%89tat-de-lart)
 3. [Conception](#conception)
    - [Technologies](#technologies)
-   - [Source et format des données](#source-et-format-des-donn%C3%A9es)
+   - [Source, format et prétraitement des données](#source-et-format-des-donn%C3%A9es)
+      - TODO : Filtrage fait (quelques balises sélectionnées) mais un pré-traitement (réduction des données aurait été bien)
+      - Seb
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
-   - [Présentation de l'application](#pr%C3%A9sentation-de-lapplication)
+   - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication)
+      - Antoine
    - [Les 3 parties de l'application](#les-3-parties-de-lapplication)
    - [Responsive Design](#responsive-design)
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
    - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
+   - [Représentation des marqueurs](#TODO: icone+pictos+drapeau)
+      - Antoine
    - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
+      - TODO : Saut de 60 : réduit lag + lissage du profil
+      - Seb
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
 6. [Conclusion](#conclusion)
@@ -85,7 +92,7 @@ La phase de conception décrit les technologies utilisées, la source et le form
 Ci-dessous sont présentées les technologies utilisées à l'élaboration de la visualisation.
 
 #### HTML5, CSS3 et Javascript
-Nous avons utilisé HTML5, CSS3 et Javascript afin d'avoir un développement simple et efficace ainsi que l'accès à beaucoup de librairies très utiles.
+Nous avons utilisé HTML5, CSS3 et Javascript afin d'avoir un développement simple et efficace ainsi que l'accès à beaucoup de bibliothèques très utiles.
 
 ![Javascript, CSS3 & HTML5](img/htmljscss.png?raw=true)
 
@@ -98,7 +105,7 @@ Nous avons hésité entre l'utilisation de Google Maps et de Open Street Maps. A
 
 #### jQuery
 
-Nous avons utilisé la librairie [jQuery](https://jquery.com/). Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écrit en Javascript.
+Nous avons utilisé la bibliothèque [jQuery](https://jquery.com/). Elle permet de manipuler facilement les objets du DOM et nous a donc simplifier la tâche plutôt que d'avoir tout écrit en Javascript.
 
 #### jQuery UI
 
@@ -124,7 +131,7 @@ Nous avons utilisé [D3.js](https://d3js.org/) pour l'affichage du graphique du 
 
 ![D3JS](img/d3.png?raw=true)
 
-### Source et format des données
+### Source, format et prétraitement des données
 Deux différentes sources de données ont été utilisées : une pour les parcours et l'autre pour les prévisions météo.
 
 #### Les parcours
@@ -245,7 +252,8 @@ HTML pour la vue, CSS pour la mise en forme, JavaScript pour les contrôleurs et
 
 ## Réalisation
 
-Cette phase décrit comment les données ont été traitées et affichées à l'utilisateur
+Cette phase décrit et justifie les choix de représentation faits pour les différents éléments de l'application. Elle se concentre sur les points suivants :
+- 
 
 - Filtrage des .gpx
     - calcul du dénivelé (tout les t secondes sinon imprécis)
@@ -253,11 +261,15 @@ Cette phase décrit comment les données ont été traitées et affichées à l'
 - Estimation de la durée (ce n'est qu'une estimation!)
 - screenshot final de la visu
 
-### Présentation de l'application
+### Présentation de l'application : "Discoverability"
 
-Lorsqu'un utilisateur découvre l'application pour la première fois il ne comprend pas forcément tout de suite ce qu'elle permet de faire. De plus, elle ne contient pas de barre de titre ni de descriptif permettant d'en savoir plus, l'objectif étant de maximiser l'espace disponible avec les cartes et les graphiques amenant des informations plus riches au véritable problème.
+TODO expliquer discoverability selon Eric S. Raymond
 
-C'est pourquoi nous avons créé une page de présentation séparée totalement de l'application qui fournit les informations nécessaires à la mise en contexte de l'utilisateur vis-à-vis du problème permettant également de provoquer l'envie d'utiliser l'outil au moyen d'une visualisation attirante. C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
+Lorsqu'un utilisateur découvre l'application pour la première fois il ne comprend pas forcément tout de suite ce qu'elle permet de faire. Elle ne contient pas de barre de titre ni de descriptif permettant d'en savoir plus, l'objectif étant de maximiser l'espace disponible avec les cartes et les graphiques amenant des informations plus riches au véritable problème.
+
+C'est pourquoi nous avons créé une page de présentation, appelée communément la landing page, séparée totalement de l'application. En plus de fournir les informations nécessaires à la mise en contexte de l'utilisateur et de provoquer l'envie d'utilisation, elle permet surtout d'expliquer les fonctionnalités cachées par les interactions. 
+
+C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
 
 ![landing-page](img/landing-page.png)
 
