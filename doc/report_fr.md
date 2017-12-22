@@ -32,8 +32,6 @@
 3. [Conception](#conception)
    - [Technologies](#technologies)
    - [Source, format et prétraitement des données](#source-et-format-des-donn%C3%A9es)
-      - TODO : Filtrage fait (quelques balises sélectionnées) mais un pré-traitement (réduction des données aurait été bien)
-      - Seb
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
    - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication)
@@ -109,7 +107,7 @@ Nous avons utilisé la bibliothèque [jQuery](https://jquery.com/). Elle permet 
 
 #### jQuery UI
 
-Nous avons utilisé la librairie [jQuery UI](https://jqueryui.com/) afin d'afficher les sliders permettant de choisir les valeurs minimales et maximales des filtres.
+Nous avons utilisé la bibliothèque [jQuery UI](https://jqueryui.com/) afin d'afficher les sliders permettant de choisir les valeurs minimales et maximales des filtres.
 
 ![jQuery](img/jquery.jpg?raw=true)
 
@@ -132,10 +130,15 @@ Nous avons utilisé [D3.js](https://d3js.org/) pour l'affichage du graphique du 
 ![D3JS](img/d3.png?raw=true)
 
 ### Source, format et prétraitement des données
-Deux différentes sources de données ont été utilisées : une pour les parcours et l'autre pour les prévisions météo.
+
+Deux différentes sources de données ont été utilisées : une pour les parcours et l'autre pour les prévisions météo. Pour chaque source nous expliquons son format et le prétraitement fait.
 
 #### Les parcours
 
+##### Source
+Les parcours recueuillis proviennent de nos données personnelles (montre Polar et Garmin Forerunner). Nous les avons extraits depuis notre compte sur l'application web [Strava](https://www.strava.com/) qui est un traqueur d'activité.
+
+#### Format
 Les parcours sont stockés dans des fichiers GPX (GPS eXchange Format). Ce sont des fichiers au format XML qui contiennent plusieurs informations dont une liste de points qui représentent le parcours. Chaque point contient une latitude, une longitude, une altitude et un temps.
 
 Voici un exemple de fichier GPX.
@@ -172,7 +175,13 @@ Voici un exemple de fichier GPX.
 </gpx>
 ```
 
-Description des balises utilisées :
+#### Pré-traitement
+
+Le nombre de "trackpoints" est  conséquent (un point mesuré toutes les secondes) et alourdit l'application. Dans l'état des choses, tous les points sont pris en compte et aucun pré-traitement n'est fait au niveau de la réduction de leur quantité bien que seulement un dixième aurait suffi. La visualisation reste pour le moment réactive étant donnée du petit nombre de parcours présentés (une dizaine). À l'avenir il serait indispensable de ne représenter qu'un faible pourcentage de ces points. Comme les fichiers gpx sont stockés dans un dossier de l'application, l'idéal serait de nettoyer le .gpx de sorte à garder un point par minute voir un point toutes les 30 secondes selon l'activité. Même avec une réduction de 90% des points, le parcours reste suffisament bien détaillé pour le visualiser sur la carte.
+
+##### Filtrage des données GPX
+
+Seuls le nom et le type du parcours ainsi que tous les "trackpoints" avec leur latitude, longitude et altitude nous sont utiles pour la représentation des parcours :
 
 - `<trk>` contient les informations sur le parcours
   - `<name>` est le nom résumant le parcours
@@ -182,15 +191,14 @@ Description des balises utilisées :
       - `<ele>` est l'altitude.
       - `<time>` est le temps auquel le "trackpoint" a été mesuré
 
-##### Filtrage des données GPX
-
-Il existe encore d'autres balises qui viennent compléter le format GPX mais nous n'en avons pas besoin. Seuls le nom et le type du parcours ainsi que tous les "trackpoints" avec leur latitude, longitude et altitude nous sont utiles pour la représentation des parcours.
-
-Le nombre de "trackpoints" est également conséquent (un point mesuré toutes les secondes) et alourdit l'application. Dans l'état des choses, tous les points sont pris en compte bien que seulement un dixième aurait suffi. La visualisation reste pour le moment agréable étant donnée du petit nombre de parcours présentés (une dizaine). À l'avenir il serait indispensable de ne représenter qu'un faible pourcentage de ces points pour des raisons de performance et obtenir ainsi une interaction toujours très réactive.
+D'autres balises viennent compléter le format GPX mais nous les avons pas retenues car elles n'amènent pas d'information utile à l'application. Ces balises supplémentaires stockent par exemple l'appareil utilisé, la température ou la pulsation cardiaque en chaque point. cela dépend de l'appareil de mesure.
 
 #### Prévisions météo
 
+##### Source
 Les prévisions météo ont été récoltées sur l'API publique et gratuite de [https://www.prevision-meteo.ch/services](https://www.prevision-meteo.ch/services). La requête consiste à fournir un point GPS (lat + lon) et retourne un objet JSON contenant les prévisions météo détaillées du jour J0 (jour courant) au jour J+4.
+
+##### Format
 
 L'objet JSON est très complet. Pour simplifier, seules les données utilisées sont décrites :
 
@@ -238,6 +246,15 @@ L'objet JSON est très complet. Pour simplifier, seules les données utilisées 
 }
 ```
 
+Le format complet est disponible ici [https://www.prevision-meteo.ch/uploads/pdf/recuperation-donnees-meteo.pdf](https://www.prevision-meteo.ch/uploads/pdf/recuperation-donnees-meteo.pdf).
+
+##### Prétraitement et filtrage des données
+
+Nous n'avons pas retenus toutes les données de l'API car nous les jugeons pas ou peu utiles à la résolution de la problématique de l'application. Seules la température et les précipitations apportent une information pertinente à l'utilisateur : il pourra décider comment s'habiller.
+
+Ainsi, Le point de rosée, le refroidissement éolien, l'humidité relative ou la pression atmosphérique ne constituent pas en des données pertinentes.
+
+##### Limitations
 L' API limite la latitude entre 41.3 et 51.9 et la longitude entre -5.2 and 10.7 ce qui correspond au fenêtrage suivant :
 
 ![window-forecast](img/window-forecast.png)
@@ -253,7 +270,7 @@ HTML pour la vue, CSS pour la mise en forme, JavaScript pour les contrôleurs et
 ## Réalisation
 
 Cette phase décrit et justifie les choix de représentation faits pour les différents éléments de l'application. Elle se concentre sur les points suivants :
-- 
+-
 
 - Filtrage des .gpx
     - calcul du dénivelé (tout les t secondes sinon imprécis)
@@ -267,7 +284,7 @@ TODO expliquer discoverability selon Eric S. Raymond
 
 Lorsqu'un utilisateur découvre l'application pour la première fois il ne comprend pas forcément tout de suite ce qu'elle permet de faire. Elle ne contient pas de barre de titre ni de descriptif permettant d'en savoir plus, l'objectif étant de maximiser l'espace disponible avec les cartes et les graphiques amenant des informations plus riches au véritable problème.
 
-C'est pourquoi nous avons créé une page de présentation, appelée communément la landing page, séparée totalement de l'application. En plus de fournir les informations nécessaires à la mise en contexte de l'utilisateur et de provoquer l'envie d'utilisation, elle permet surtout d'expliquer les fonctionnalités cachées par les interactions. 
+C'est pourquoi nous avons créé une page de présentation, appelée communément la landing page, séparée totalement de l'application. En plus de fournir les informations nécessaires à la mise en contexte de l'utilisateur et de provoquer l'envie d'utilisation, elle permet surtout d'expliquer les fonctionnalités cachées par les interactions.
 
 C'est un concept très souvent utilisé qui porte le terme de "landing page" et qui redirige l'utilisateur sur l'application s'il désire la découvrir.
 
@@ -319,7 +336,7 @@ La première partie des filtres consiste en 4 boutons qui représentent les 4 ty
 
 ![Filtrage par type](img/filter_type.png?raw=true)
 
-La deuxième partie des filtres concerne les propriétés des parcours. Par exemple un utilisateur qui voudrait faire un parcours pas trop difficile pourrait limiter le gain en altitude des parcours affichés et leurs longueurs. Il y a 4 propriétés des parcours qui peuvent être filtrées, la distance, la durée, le gain en altitude et la perte d'altitude. Les valeurs peuvent être saisies à l'aide de sliders de portée de la librairie jQuery UI. Afin de ne pas prendre trop de place sur l'écran de l'utilisateur, ils sont cachés sur par défaut et il faut cliquer sur le bouton tout en bas à gauche de la carte qui affiche les parcours pour les afficher. On peut voir dans l'image ci-dessous à quoi ressemble ces filtres.
+La deuxième partie des filtres concerne les propriétés des parcours. Par exemple un utilisateur qui voudrait faire un parcours pas trop difficile pourrait limiter le gain en altitude des parcours affichés et leurs longueurs. Il y a 4 propriétés des parcours qui peuvent être filtrées, la distance, la durée, le gain en altitude et la perte d'altitude. Les valeurs peuvent être saisies à l'aide de sliders de portée de la bibliothèque jQuery UI. Afin de ne pas prendre trop de place sur l'écran de l'utilisateur, ils sont cachés sur par défaut et il faut cliquer sur le bouton tout en bas à gauche de la carte qui affiche les parcours pour les afficher. On peut voir dans l'image ci-dessous à quoi ressemble ces filtres.
 
 ![Filtrage par propriété](img/filter_properties.png?raw=true)
 
