@@ -40,7 +40,7 @@
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
    - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
-   - [Représentation des marqueurs](#representation-des-marqueurs)
+   - [Représentation des marqueurs](#représentation-des-marqueurs)
    - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
