@@ -34,7 +34,7 @@
    - [Source, format et prétraitement des données](#source-et-format-des-donn%C3%A9es)
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
-   - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication)
+   - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication--discoverability)
    - [Les 3 parties de l'application](#les-3-parties-de-lapplication)
    - [Responsive Design](#responsive-design)
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
