@@ -40,7 +40,11 @@
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
    - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
+<<<<<<< HEAD
    - [Représentation des marqueurs](#TODO: icone+pictos+drapeau)
+=======
+   - [Représentation des marqueurs](#représentation-des-marqueurs)
+>>>>>>> 7da8c177482575fff02760915c034e85fccf18a3
    - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
@@ -352,7 +356,7 @@ Finalement nous avons décidé d'utiliser des drapeaux avec des formes différen
 
 ![Start marker](../img/start_marker.png?raw=true)
 
-![Finish marker](../img/finish_marker.png?raw=true)
+![Finish marker](../img/end_marker.png?raw=true)
 
 ### Graphique du profil altimétrique
 
@@ -373,6 +377,9 @@ Cependant l'avantage du graphe de la pente est qu'il donnait une visualisation i
 Nous avions commencé par utiliser des doughnut charts au lieu des progress bars en pensant d'abord à un aspect esthétique. Nous avons ensuite réalisé que les progress bar permettaient une meilleure comparaison des différentes propriétés. Voilà à quoi ressemblait le prototype des doughnut charts.
 
 ![Doughnut chart](img/doughnut.png?raw=true "Doughnut chart")
+
+Un autre point que nous avons dû faire afin d'améliorer le graphique du profil altimétrique a été de lisser la courbe. Le GPS n'est pas très précis au niveau de l'altitude et il varie entre chaque point, ce qui causait que le profil altimétrique était très bruité. Nous avons calculer la différence d'altitude tous les 60 points plutôt que tous les points ce qui a permis de lisser la ligne du graphique et cela l'a rendu plus facilement lisible et plus agréable à regarder.
+Nous avons également effectué ce point pour le calcul du gain et de la perte d'altitude afin de ne pas prendre en compte toutes les différences d'altitude causées par l'imprécision du GPS. Ces sauts de 60 en 60 pourraient être évité si l'on réalisait un pré-traitement des fichiers GPX afin de les aléger.
 
 ### Graphique des prévisions météo
 
