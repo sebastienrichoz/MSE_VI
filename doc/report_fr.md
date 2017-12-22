@@ -31,7 +31,7 @@
 2. [Etat de l'art](#%C3%89tat-de-lart)
 3. [Conception](#conception)
    - [Technologies](#technologies)
-   - [Source, format et prétraitement des données](#source-et-format-des-donn%C3%A9es)
+   - [Source, format et prétraitement des données](#source-format-et-pr%C3%A9traitement-des-donn%C3%A9es)
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
    - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication--discoverability)
