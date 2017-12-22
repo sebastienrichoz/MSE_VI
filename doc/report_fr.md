@@ -35,17 +35,13 @@
    - [Architecture](#architecture-mvc)
 4. [Réalisation](#r%C3%A9alisation)
    - [Présentation de l'application : "Discoverability"](#pr%C3%A9sentation-de-lapplication)
-      - Antoine
    - [Les 3 parties de l'application](#les-3-parties-de-lapplication)
    - [Responsive Design](#responsive-design)
    - [Support des différents navigateurs](#support-des-diff%C3%A9rents-navigateurs)
    - [Filtrage des parcours](#filtrage-des-parcours)
    - [Choix des couleurs](#choix-des-couleurs)
-   - [Représentation des marqueurs](#TODO: icone+pictos+drapeau)
-      - Antoine
+   - [Représentation des marqueurs](#representation-des-marqueurs)
    - [Graphique du profil altimétrique](#graphique-du-profil-altim%C3%A9trique)
-      - TODO : Saut de 60 : réduit lag + lissage du profil
-      - Seb
    - [Graphique des prévisions météos](#graphique-des-pr%C3%A9visions-m%C3%A9t%C3%A9o)
 5. [Critiques](#critiques)
 6. [Conclusion](#conclusion)
